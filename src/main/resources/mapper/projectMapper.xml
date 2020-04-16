@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.ProjectDao">
+
+	<insert id="insertProject" parameterType="Project" keyProperty="id" useGeneratedKeys="true">
+		insert into project values(null, #{name}, #{client}, #{slope}, #{standard}, #{operator}, #{state}, #{date}, #{user.id})
+	</insert>
+
+	<update id="updateProject" parameterType="Project">
+		update project set name = #{name}, 
+			client = #{client},
+			slope = #{slope},
+			standard = #{standard}, 
+			operator = #{operator}, 
+			state = #{state}, 
+			date = #{date}, 
+			userid=#{user.id}
+		where id = #{id}
+	</update>
+
+	<delete id="deleteProject" parameterType="Project">
+		delete from project where id = #{id}
+	</delete>
+
+	<update id="removeProject" parameterType="Map">
+		delete p from project p left join users u on u.id = p.userid where p.id in
+		<foreach item="item" collection="list" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="company != null">
+        	and u.companyid = #{company.id}
+        </if>
+	</update>
+
+	<select id="findInfoProject" parameterType="Map" resultMap="ProjectMap">
+		select p.*, u.name u_name, u.companyid u_companyid from project p join users u on p.userid = u.id
+		<where>
+			<if test="id != null">
+				and p.id=#{id}
+			</if>
+			<if test="user != null">
+				and u.id = #{user.id}
+			</if>
+			<if test="company != null">
+				and u.companyid = #{company.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListProject" parameterType="Map" resultMap="ProjectMap">
+		select p.*, u.name u_name, u.companyid u_companyid from project p join users u on p.userid = u.id
+		<where>
+			<if test="name != null">
+				and p.name like #{name}
+			</if>
+			<if test="state != null">
+				and p.state = #{state}
+			</if>
+			<if test="user != null">
+				and u.id = #{user.id}
+			</if>
+			<if test="company != null">
+				and u.companyid = #{company.id}
+			</if>
+		</where>
+		order by p.id desc
+	</select>
+	
+	<resultMap id="ProjectMap" type="Project">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="client" column="client"/>
+		<result property="slope" column="slope"/>
+		<result property="standard" column="standard"/>
+		<result property="operator" column="operator"/>
+		<result property="state" column="state"/>
+		<result property="date" column="date"/>
+	 	<association property="user" javaType="User">
+	 		<id property="id" column="userid"/>
+	 		<result property="name" column="u_name"/>
+	 		<result property="company.id" column="u_compnayid"/>
+	 	</association>
+	</resultMap>
+	
+</mapper>
+ 

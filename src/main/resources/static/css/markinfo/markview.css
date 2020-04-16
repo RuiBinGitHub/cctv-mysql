@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+#show {
+	top: 20px;
+	left: 20px;
+	width: 270px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	position: absolute;
+	display: none;
+}
+
+#show table {
+	width: 100%;
+	font-size: 14px;
+	background-color: #dadada;
+	float: left;
+}
+
+#show table thead tr {
+	height: 24px;
+	font-size: 18px;
+	font-family: 宋体;
+}
+
+#show table tbody tr {
+	height: 26px;
+	font-size: 16px;
+	font-family: 仿宋;
+	text-align: center;
+	background-color: #ffffff;
+}
+
+#show table tbody tr input {
+	width: 40px;
+	height: 20px;
+	color: #ffffff;
+	font-size: 14px;
+	font-family: 宋体;
+	background-color: #5CB95E;
+	cursor: pointer;
+	border: none;
+}
+
+#show table tbody tr input:hover {
+	color: #F37B1D;
+}
+
+#show span {
+	height: 22px;
+	color: #888;
+	margin: 2px 8px;
+	font-size: 15px;
+	font-family: 仿宋;
+	line-height: 22px;
+	float: left;
+}

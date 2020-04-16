@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>操作成功</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/userview/success.css">
+	<script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+    		$("input").click(function(){
+    			  window.location.href="about:blank";
+    			  window.close();
+    		});
+    		$("#link").click(function() {
+    			window.history.back();
+    		});
+    	});
+    </script>
+  </head>
+  <body>
+    <div style="width:100%;height:80px;background-color:#fff;float:left;">
+      <div id="logo"><a href="/cctv/userview/loginview"><img src="/cctv/img/msdi.png"/></a></div>
+    </div>
+	<div id="main">
+	  <div id="mainTop" th:text="#{user.success.title}"></div>
+      <div id="mainCenter">
+        <table style="margin:80px auto;">
+	    <tr align="center" height="80px"><td><img src="/cctv/img/complete.png"></td></tr>
+	    <tr align="center" height="55px"><td th:text="#{user.success.label1}"></td></tr>
+	    <tr align="center" height="55px"><td th:text="#{user.success.label2}"></td></tr>
+	    <tr align="center" height="60px"><td><input type="button" th:value="#{user.success.button}"/></td></tr>
+	    <tr align="center" height="20px"><td><a id="link" th:text="#{user.success.link}"></a></td></tr>
+	  </table>
+      </div>
+	</div>
+	<div style="width:100%;margin-top:20px;float:left;color:#999;text-align:center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

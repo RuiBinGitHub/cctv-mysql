@@ -1,0 +1,104 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+  <head>
+    <title>信息中心</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/common/itemlist.css"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/message/showlist.css"/>
+    <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js" ></script>
+    <script type="text/javascript" src="/cctv/js/message/showlist.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="main">
+      <div id="mainMenu">
+        <div id="menuTitle" th:text="#{menu.title.text}"></div>
+        <div class="menu2"><a href="/cctv/project/showlist" th:text="#{menu.div.text1}"></a></div>
+        <shiro:hasRole name="role2">
+          <div class="menu2"><a href="/cctv/project/findlist" th:text="#{menu.div.text2}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role3,vrole">
+          <div class="menu2"><a href="/cctv/markinfo/markview" th:text="#{menu.div.text3}"></a></div>
+          <div class="menu2"><a href="/cctv/markinfo/marklist" th:text="#{menu.div.text4}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role2,vrole">
+          <div class="menu2"><a href="/cctv/markinfo/findlist" th:text="#{menu.div.text5}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="role2">
+          <div class="menu2"><a href="/cctv/operator/showlist" th:text="#{menu.div.text6}"></a></div>
+          <div class="menu2"><a href="/cctv/userinfo/showlist" th:text="#{menu.div.text7}"></a></div>
+        </shiro:hasRole>
+        <shiro:hasRole name="vrole">
+          <div class="menu1"><a href="/cctv/message/showlist" th:text="#{menu.div.text8}"></a></div>
+        </shiro:hasRole>
+        <div class="menu2"><a href="/cctv/userinfo/center" th:text="#{menu.div.text9}"></a></div>
+      </div>
+      
+      <div id="mainInfo">
+        <input type="hidden" id="choice" th:value="${param.state}"/>
+        <div id="infoTop" th:text="#{message.showlist.title}"></div>
+        <table id="title1">
+          <tr>
+            <td width="110px;"><span th:text="#{message.showlist.title.label1}"></span></td>
+            <td width="110px;"><span th:text="#{message.showlist.title.label2}+'('+${count1}+')'"></span></td>
+            <td width="110px;"><span th:text="#{message.showlist.title.label3}+'('+${count2}+')'"></span></td>
+          </tr>
+        </table>
+        <table id="title2">
+          <tr height="40px" style="background-color:#51596b">
+            <th width="48%" th:text="#{message.showlist.list.title1}"></th>
+            <th width="15%" th:text="#{message.showlist.list.title2}"></th>
+            <th width="15%" th:text="#{message.showlist.list.title3}"></th>
+            <th width="10%" th:text="#{message.showlist.list.title4}"></th>
+            <th width="12%" th:text="#{message.showlist.list.title5}"></th>
+          </tr>
+        </table>
+        <table id="mtab1">
+          <tr th:each="message:${messages}" align="center" th:id="${message.id}">
+            <td width="48%" align="left"><a th:text="${message.title}"></a></td>
+            <td width="15%">系统管理员</td>
+            <td width="15%" th:text="${message.date}"></td>
+            <td width="10%" th:text="${message.state}" style="font-weight:600;"></td>
+            <td width="12%"><input type="button" th:value="#{message.showlist.list.button}"/></td>
+          </tr>
+        </table>
+        <img th:if="${#lists.isEmpty(messages)}" src="/cctv/img/null.png" style="margin:145px 400px;float:left;">
+        <table id="tab2" th:if="${!#lists.isEmpty(messages)}">
+          <tr height="65px">
+            <td width="45%" align="right"><input type="button" th:value="#{showlit.page.button1}" class="pagebtn"/></td>
+            <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${count}"></a></td>
+            <td width="45%" align="left"><input type="button" th:value="#{showlit.page.button2}" class="pagebtn"/></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    
+    <div id="page">
+      <div id="webform">
+	    <span class="title">信息詳情</span>
+	    <span class="colse">X</span>
+	    <table id="info1">
+	      <tr><td><span style="font-weight:600">您有项目被评分</span></td></tr>
+	      <tr><td><a>發件人：</a><span></span></td></tr>
+	      <tr><td><a>收件人：</a><span></span></td></tr>
+	      <tr><td><a>日&nbsp;期：</a><span></span></td></tr>
+	    </table>
+	    <div id="info2">
+	      <p><a id="text1"></a>，您好！</p>
+	      <p>您所提交的项目：<a id="text2"></a>被浏览且进行分数评定。</p>
+	      <p>查看评分详情及评定结果请点击<a id="text3">这里</a>跳转。</p>
+	      <p>【深圳麦斯迪埃高科技有限责任公司】</p>
+	      <p style="width:540px;"></p>
+	      <p style="color:#999;">提示：此邮件为系统提示邮件请勿回复。</p>
+	    </div>
+	  </div>
+	</div>
+	
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

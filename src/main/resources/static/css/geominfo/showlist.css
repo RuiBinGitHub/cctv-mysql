@@ -1,0 +1,95 @@
+#main {
+	width: 100%;
+	height: 100%;
+}
+
+#textbox {
+	top: 50px;
+	left: 50px;
+	width: 238px;
+	height: 32px;
+	text-indent: 10px;
+	border: 1px solid #ccc;
+	position: fixed;
+	outline: none;
+	z-index: 10;
+}
+
+#btn1 {
+	top: 50px;
+	left: 290px;
+	width: 36px;
+	height: 36px;
+	color: #67C23A;
+	font-size: 24px;
+	font-family: 宋体;
+	font-weight: 600;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-left: none;
+	position: fixed;
+	outline: none;
+	z-index: 10;
+}
+
+#btn1:hover {
+	color: #87d064;
+	cursor: pointer;
+}
+
+#showdata {
+	top: 96px;
+	left: 50px;
+	width: 274px;
+	height: 480px;
+	font-size: 16px;
+	font-family: 宋体;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	overflow-y: scroll;
+	position: fixed;
+	outline: none;
+	// display: none;
+	z-index: 10;
+}
+#showdata div {
+	width: 100%;
+	height: auto;
+	border-bottom: 1px dashed #ccc;
+	cursor: pointer;
+	float: left;
+}
+#showdata div:hover {
+	background-color: #fafafa;
+}
+
+#showdata div img {
+	width: 24px;
+	height: 24px;
+	margin: 2px 4px 20px 2px;
+	float: left;
+}
+#showdata div span {
+	width: 225px;
+	height: 26px;
+	color: #096bff;
+	line-height: 26px;
+	float: left;
+	
+}
+
+#showdata div a {
+	width: 225px;
+	height: 20px;
+	font-size: 14px;
+	// font-family: 微软雅黑;
+}
+
+#shownate {
+	left: 50px;
+	bottom: 20px;
+	font-size: 16px;
+	font-family: 宋体;
+	position: fixed;
+	z-index: 10;
+}

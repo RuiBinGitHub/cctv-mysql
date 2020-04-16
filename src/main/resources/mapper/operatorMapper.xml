@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.OperatorDao">
+
+	<insert id="insertOperator" parameterType="Operator" useGeneratedKeys="true" keyProperty="id">
+		insert into operator values(null, #{title},	#{name}, #{firstname}, #{lastname}, #{chianame}, #{nickname}, #{membergrades}, #{membernumber}, #{company.id})
+	</insert>
+
+	<update id="updateOperator" parameterType="Operator">
+		update operator set	title = #{title}, 
+			name = #{name}, 
+			firstname = #{firstname}, 
+			lastname = #{lastname},	
+			chianame = #{chianame}, 
+			nickname = #{nickname}, 
+			membergrades = #{membergrades}, 
+			membernumber = #{membernumber},	
+			companyid = #{company.id} 
+		where id=#{id}
+	</update>
+
+	<delete id="deleteOperator" parameterType="Operator">
+		delete from operator where id = #{id}
+	</delete>
+
+	<select id="findInfoOperator" parameterType="Map" resultMap="OperatorMap">
+		select * from operator
+		<where>
+			<if test="id != null">
+				and id = #{id}
+			</if>
+			<if test="name != null">
+				and name = #{name}
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListOperator" parameterType="Map" resultMap="OperatorMap">
+		select * from operator
+		<where>
+			<if test="name != null">
+				and name like #{name}
+			</if>
+			<if test="company != null">
+				and companyid = #{company.id}
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<select id="findListName" parameterType="Company" resultType="String">
+		select name from operator where companyid = #{id}
+	</select>
+	
+	<resultMap id="OperatorMap" type="Operator">
+		<id property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="name" column="name"/>
+		<result property="firstname" column="firstname"/>
+		<result property="lastname" column="lastname"/>
+		<result property="chianame" column="chianame"/>
+		<result property="nickname" column="nickname"/>
+		<result property="membergrades" column="membergrades"/>
+		<result property="membernumber" column="membernumber"/>
+		<result property="company.id" column="companyid"/>
+	</resultMap>
+</mapper>
+ 

@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+#combin, #commap {
+	width: 64px;
+	height: 30px;
+	color: #ffffff;
+	margin: 5px 0px 5px 10px;
+	border: none;
+	float: left;
+}
+
+#combin {
+	background-color: #3CB44B;
+}
+
+#combin:hover {
+	background-color: #50c55f;
+	cursor: pointer;
+}
+
+#commap {
+	background-color: #2CACF1;
+}
+
+#commap:hover {
+	background-color: #40b4f2;
+	cursor: pointer;
+}

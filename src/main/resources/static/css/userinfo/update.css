@@ -1,0 +1,85 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #f1f1f1;
+}
+
+#main {
+	width: 1000px;
+	margin: 0px auto;
+}
+
+#mainInfo {
+	width: 100%;
+	height: 680px;
+	margin-top: 15px;
+	background-color: #fff;
+	float: left;
+}
+
+#infoTop {
+	width: 100%;
+	height: 48px;
+	font-size: 24px;
+	font-family: 宋体;
+	font-weight: 600;
+	text-indent: 20px;
+	line-height: 48px;
+	border-bottom: 2px solid #5EA500;
+	float: left;
+}
+
+#tab1 {
+	width: 500px;
+	margin-top: 50px;
+	margin-left: 270px;
+	float: left;
+}
+
+#tab1 tr {
+	height: 75px;
+	font-size: 18px;
+	font-family: 宋体;
+	font-weight: 600;
+}
+
+#tab1 tr td a {
+	color: #f00;
+}
+
+input[type=text] {
+	width: 270px;
+	height: 28px;
+	font-size: 18px;
+	font-family: simsun;
+	text-indent: 10px;
+	border: 1px solid #999;
+	border-radius: 3px;
+}
+
+select {
+	width: 272px;
+	height: 32px;
+	font-size: 18px;
+	font-family: simsun;
+	text-indent: 5px;
+	border: 1px solid #999;
+	border-radius: 3px;
+}
+
+.combtn {
+	width: 272px;
+	height: 32px;
+	color: #ffffff;
+	font-size: 18px;
+	font-family: simsun;
+	background-color: #5EA500;
+	border-radius: 3px;
+	border: none;
+	float: left;
+}
+
+.combtn:hover {
+	background-color: #7BD700;
+	cursor: pointer;
+}

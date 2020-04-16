@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.MarkItemDao">
+	
+	<insert id="insertMarkItem" parameterType="MarkItem" keyProperty="id" useGeneratedKeys="true">
+		insert into markItem values(null, #{date}, #{project.id}, #{user.id})
+	</insert>
+	
+	<delete id="deleteMarkItem" parameterType="MarkItem">
+		delete from markItem where id = #{id}
+	</delete>
+	
+	<select id="findInfoMarkItem" parameterType="Map" resultMap="MarkItemMap">
+		select m.id m_id, m.date m_date, m.userid m_userid, p.*, u.name u_name, t.name t_name, avg(i.score1) as score1, avg(i.score2) as score2 from markitem m 
+			left join markpipe i on i.markid = m.id
+			left join project p on p.id = m.projectid
+			left join users u on u.id = m.userid	
+			left join users t on t.id = p.userid
+		<where>
+			<if test="id != null">
+				and m.id = #{id}
+			</if>
+			<if test="project != null">
+				and m.projectid = #{project.id}
+			</if>
+			<if test="company != null">
+				and u.companyid = #{company.id}
+			</if>
+			<if test="user != null">
+				and u.id = #{user.id}
+			</if>
+			<if test="temp != null">
+				and t.id = #{temp.id}
+			</if>
+		</where>
+		group by m.id order by m.id desc
+	</select>
+	
+	<select id="findListMarkItem" parameterType="Map" resultMap="MarkItemMap">
+		select m.id m_id, m.date m_date, m.userid m_userid, p.*, u.name u_name, t.name t_name, avg(i.score1) as score1, avg(i.score2) as score2 from markitem m 
+			left join markpipe i on i.markid = m.id
+			left join project p on p.id = m.projectid
+			left join users u on u.id = m.userid	
+			left join users t on t.id = p.userid
+		<where>
+			<if test="name != null">
+				and p.name like #{name}
+			</if>
+			<if test="project != null">
+				and m.projectid = #{project.id}
+			</if>
+			<if test="company != null">
+				and u.companyid = #{company.id}
+			</if>
+			<if test="user != null">
+				and u.id = #{user.id}
+			</if>
+			<if test="temp != null">
+				and t.id = #{temp.id}
+			</if>
+		</where>
+		group by m.id order by m.id desc
+	</select>
+	
+	<select id="findViewMarkItem" parameterType="Map" resultMap="MarkViewMap">
+		select p.*,u.name u_name, count(m.id) count from project p 
+  			left join markitem m on m.projectid = p.id and m.userid = #{user.id} 
+			left join users u on u.id = p.userid
+		<where>
+			<if test="name != null">
+				and p.name like #{name}
+			</if>
+			<if test="state != null">
+				and p.state = #{state}
+			</if>
+			<if test="project != null">
+				and m.projectid = #{project.id}
+			</if>
+			<if test="company != null">
+				and u.companyid = #{company.id}
+			</if>
+		</where>
+		group by p.id order by p.id desc
+	</select>
+	
+	<resultMap id="MarkItemMap" type="MarkItem">
+		<id property="id" column="m_id"/>
+		<result property="score1" column="score1"/>
+		<result property="score2" column="score2"/>
+		<result property="date" column="m_date"/>
+		<association property="user" javaType="User">
+			<id property="id" column="m_userid"/>
+			<result property="name" column="u_name"/>
+		</association>
+		<association property="project" javaType="Project">
+			<id property="id" column="id"/>
+			<result property="name" column="name"/>
+			<result property="client" column="client"/>
+			<result property="slope" column="slope"/>
+			<result property="standard" column="standard"/>
+			<result property="operator" column="operator"/>
+			<result property="state" column="state"/>
+			<result property="date" column="date"/>
+		 	<association property="user" javaType="User">
+		 		<id property="id" column="userid"/>
+		 		<result property="name" column="t_name"/>
+		 	</association>
+		 </association>
+	</resultMap>
+	
+	<resultMap id="MarkViewMap" type="Project">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+    	<result property="client" column="client"/>
+    	<result property="slope" column="slope"/>
+    	<result property="standard" column="standard"/>
+    	<result property="operator" column="operator"/>
+    	<result property="state" column="state"/>
+		<result property="date" column="date"/>
+		<result property="count" column="count"/>
+		<association property="user" javaType="User">
+			<id property="id" column="userid"/>
+			<id property="name" column="u_name"/>
+		</association>
+	</resultMap>
+</mapper>
+ 

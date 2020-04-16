@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+  	<title>项目合并</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/cctv/css/project/combine.css"/>
+    <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/cctv/js/project/combine.js"></script>
+  </head>
+  <body>
+    <div th:replace="navigation::navigation"></div>
+    <div id="Tip"></div>
+    <div id="main">
+      <div id="mainInfo">
+        <div id="infoTop" th:text="#{project.combine.title}"></div>
+        <div id="Menu">
+          <span th:text="#{project.combine.menu1}"></span>
+          <input id="menuBtn1" type="button" value="←"/>
+          <input id="menuText" th:value="${param.name}"/>
+          <input id="menuBtn2" type="button" th:value="#{project.combine.menu2}"/>
+        </div>
+        <div id="title">
+          <div style="width:50px;"></div>
+          <div style="width:30px;">No</div>
+          <div style="width:200px;" th:text="#{project.combine.table.title1}"></div>
+          <div style="width:230px;" th:text="#{project.combine.table.title2}"></div>
+          <div style="width:100px;" th:text="#{project.combine.table.title3}"></div>
+          <div style="width:120px;" th:text="#{project.combine.table.title4}"></div>
+          <div style="width:115px;" th:text="#{project.combine.table.title5}"></div>
+          <div style="width:120px;" th:text="#{project.combine.table.title6}"></div>
+        </div>
+        <div id="showlist"><table id="tab1"></table></div>
+        <fieldset id="fieldset">
+          <legend><span th:text="#{project.combine.label}"></span></legend>
+        </fieldset>
+        <form id="form" action="combine" method="post">
+          <input type="hidden" name="list" value=""/>
+        </form>
+        <input type="button" class="combtn" th:value="#{project.combine.button}"/>
+        <div style="width:820px;margin:9px 12px;color:#666;font-size:18px;font-family:宋体;float:left;">
+	  	  註：註意項目選擇順序，合並後管道將重新排序且原項目將被刪除。(每次最多選擇20個項目)
+	  	</div>
+        
+      </div>
+    </div>
+    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+      <p>香港麦斯迪埃高科技有限责任公司</p>
+      <p>Copyright © 2017 All Rights Reserved</p>	
+    </div>
+  </body>
+</html>

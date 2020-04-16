@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.PipeDao">
+
+	<insert id="insertPipe" parameterType="Pipe" keyProperty="id" useGeneratedKeys="true">
+		insert into pipe values(null,
+			#{no},
+			#{operator},
+			#{workorder},
+			#{reference},
+			#{purposes},
+			#{slope},
+			#{sloperef},
+			#{yearlaid},
+			#{date},
+			#{time},
+			#{district1},
+			#{district2},
+			#{district3},
+			#{roadname},
+			#{housenum},
+			#{building},
+			#{division},
+			#{areacode},
+			#{smanholeno},
+			#{fmanholeno},
+			#{uses},
+			#{dire},
+			#{hsize},
+			#{wsize},
+			#{shape},
+			#{mater},
+			#{lining},
+			#{pipelength},
+			#{testlength},
+			#{sdepth},
+			#{scoverlevel},
+			#{sinvertlevel},
+			#{fdepth},
+			#{fcoverlevel},
+			#{finvertlevel},
+			#{category},
+			#{cleaned},
+			#{weather},
+			#{videono},
+			#{comment},
+			#{project.id}
+		)
+	</insert>
+
+	<update id="updatePipe" parameterType="Pipe">
+		update pipe set no = #{no},
+			operator = #{operator},
+			workorder = #{workorder},
+			reference = #{reference},
+			purposes = #{purposes},
+			slope = #{slope},
+			sloperef = #{sloperef},
+			yearlaid = #{yearlaid},
+			date = #{date},
+			time = #{time},
+			district1 = #{district1},
+			district2 = #{district2},
+			district3 = #{district3},
+			roadname = #{roadname},
+			housenum = #{housenum},
+			building = #{building},
+			division = #{division},
+			areacode = #{areacode},
+			smanholeno = #{smanholeno},
+			fmanholeno = #{fmanholeno},
+			uses = #{uses},
+			dire = #{dire},
+			hsize = #{hsize},
+			wsize = #{wsize},
+			shape = #{shape},
+			mater = #{mater},
+			lining = #{lining},
+			pipelength = #{pipelength},
+			testlength = #{testlength},
+			sdepth = #{sdepth},
+			scoverlevel = #{scoverlevel},
+			sinvertlevel = #{sinvertlevel},
+			fdepth = #{fdepth},
+			fcoverlevel = #{fcoverlevel},
+			finvertlevel = #{finvertlevel},
+			category = #{category},
+			cleaned = #{cleaned},
+			weather = #{weather},
+			videono = #{videono},
+			comment = #{comment},
+			projectid = #{project.id}
+		where id = #{id}
+	</update>
+
+	<update id="combinPipe" parameterType="Map">
+		update pipe set projectid = #{id} where projectid in
+		<foreach item="item" collection="list" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+	</update>
+
+	<delete id="deletePipe" parameterType="Pipe">
+		delete from pipe where id = #{id}
+	</delete>
+
+	<select id="findInfoPipe" parameterType="Map" resultMap="PipeMap">
+		select a.*, b.id b_id, b.name b_name, b.client b_client, b.slope b_slope, b.standard b_standard, b.operator b_operator, b.state b_state, b.date b_date, b.userid b_userid
+			from pipe a join project b on a.projectid = b.id
+		<where>
+			<if test="id != null">
+				and a.id = #{id}
+			</if>
+			<if test="user != null">
+				and b.userid = #{user.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListPipe" parameterType="Map" resultMap="PipeMap">
+		select a.*, b.id b_id, b.name b_name, b.client b_client, b.slope b_slope, b.standard b_standard, b.operator b_operator, b.state b_state, b.date b_date, b.userid b_userid
+			from pipe a join project b on a.projectid = b.id
+		<where>
+			<if test="project != null">
+				b.id = #{project.id}
+			</if>
+		</where>
+		order by a.no asc
+	</select>
+	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from pipe a left join project b on a.projectid = b.id
+		<where>
+			<if test = "project != null">
+				and b.id = #{project.id}
+			</if>
+			<if test = "user != null">
+				and b.userid = #{user.id}
+			</if>
+		</where>
+	</select>
+	
+	<resultMap id="PipeMap" type="pipe">
+		<id property="id" column="id"/>
+		<result property="no" column="no"/>
+		<result property="operator" column="operator"/>
+		<result property="workorder" column="workorder"/>
+		<result property="reference" column="reference"/>
+		<result property="purposes" column="purposes"/>
+		<result property="slope" column="slope"/>
+		<result property="sloperef" column="sloperef"/>
+		<result property="yearlaid" column="yearlaid"/>
+		<result property="date" column="date"/>
+		<result property="time" column="time"/>
+		
+		<result property="district1" column="district1"/>
+		<result property="district2" column="district2"/>
+		<result property="district3" column="district3"/>
+		<result property="roadname" column="roadname"/>
+		<result property="housenum" column="housenum"/>
+		<result property="building" column="building"/>
+		<result property="division" column="division"/>
+		<result property="areacode" column="areacode"/>
+		
+		<result property="smanholeno" column="smanholeno"/>
+		<result property="fmanholeno" column="fmanholeno"/>
+		<result property="uses" column="uses"/>
+		<result property="dire" column="dire"/>
+		<result property="hsize" column="hsize"/>
+		<result property="wsize" column="wsize"/>
+		<result property="shape" column="shape"/>
+		<result property="mater" column="mater"/>
+		<result property="lining" column="lining"/>
+		<result property="pipelength" column="pipelength"/>
+		<result property="testlength" column="testlength"/>
+		
+		<result property="sdepth" column="sdepth"/>
+		<result property="scoverlevel" column="scoverlevel"/>
+		<result property="sinvertlevel" column="sinvertlevel"/>
+		<result property="fdepth" column="fdepth"/>
+		<result property="fcoverlevel" column="fcoverlevel"/>
+		<result property="finvertlevel" column="finvertlevel"/>
+		<result property="category" column="category"/>
+		<result property="cleaned" column="cleaned"/>
+		<result property="weather" column="weather"/>
+		<result property="videono" column="videono"/>
+		<result property="comment" column="comment"/>
+		
+	 	<association property="project" javaType="Project">
+	 		<id property="id" column="b_id"/>
+	 		<result property="name" column="name"/>
+			<result property="client" column="client"/>
+			<result property="slope" column="slope"/>
+			<result property="standard" column="standard"/>
+			<result property="operator" column="operator"/>
+			<result property="state" column="state"/>
+			<result property="date" column="date"/>
+			<result property="user.id" column="b_userid"/>
+	 	</association>
+	</resultMap>
+	
+</mapper>
+ 

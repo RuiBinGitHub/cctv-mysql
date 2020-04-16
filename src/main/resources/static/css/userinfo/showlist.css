@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+#tab1 tbody tr td {
+	font-size: 18px;
+	font-family: fangsong;
+	font-weight: 600;
+}
+
+#tab1 tbody tr td input {
+	width: 60px;
+	height: 24px;
+	background-color: #3CB44B;
+	border: none;
+	color: #fff;
+}
+
+#tab1 tbody tr td input:hover {
+	cursor: pointer;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro" th:fragment="navigation">
+  <head>
+  	<link rel="stylesheet" type="text/css" href="/cctv/css/navigation.css"/>
+  	<script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+  	<script type="text/javascript">
+  		$(document).ready(function(){
+  			var text = $(".naviItem:eq(1) a").text();
+  			if ($(".naviItem:eq(1) a").attr("href") != undefined) {
+  				var data = Ajax("/cctv/message/getcount", {state:"未读"});
+				if (data.length > 10)
+					$(".naviItem:eq(1) a").text(text + "(0)");
+				else
+					$(".naviItem:eq(1) a").text(text + "(" + data + ")");
+  			} else
+  				$(".naviItem:eq(1) a").text(text + "(0)");
+  			$("#navilogo").click(function(){
+  				window.location.href="/cctv/project/showlist";
+  			});
+  			$("#link").click(function(){
+  				var name = $(this).attr("class");
+  				Ajax("/cctv/userview/change", {lang: name});
+  				window.location.reload();
+  			});
+  			/** 执行AJAX操作 */
+  		    function Ajax(url, data) {
+  		        var result = null;
+  		        $.ajax({
+  		            url: url,
+  		            data: data,
+  		            type: "post",
+  		            async: false,
+  		            datatype: "json",
+  		            success: function(data) {
+  		                result = data;
+  		            }
+  		        });
+  		        return result;
+  		    }
+  		});
+  	</script>
+  </head>
+  <body>
+    <div id="naviMain">
+      <div id="navi">
+        <div style="width:755px;height:100%;float:left;">
+          <img id="navilogo" src="/cctv/img/msdi.png" title="首页">
+        </div>
+        <div class="naviItem" style="width:120px">
+          <img src="/cctv/img/navi1.png"/>
+          <shiro:authenticated> 
+            <a href="/cctv/userinfo/center"><shiro:principal property="name"/></a>
+          </shiro:authenticated>
+        </div>
+        <shiro:hasRole name="vrole">
+        <div class="naviItem">
+          <img src="/cctv/img/navi2.png"/>
+          <a href="/cctv/message/showlist" th:text="#{navigation.item.text2}"></a>
+        </div>
+        </shiro:hasRole>
+        <shiro:lacksRole name="vrole">
+        <div class="naviItem">
+          <img src="/cctv/img/navi2.png"/>
+          <a th:text="#{navigation.item.text2}"></a>
+        </div>
+        </shiro:lacksRole>
+        <div th:if="${session.i18n == 'zh_CN'}" class="naviItem">
+          <img src="/cctv/img/navi3.png"/>
+          <a id="link" class="en_US" th:text="#{navigation.item.text3}"></a>
+        </div>
+        <div th:if="${session.i18n != 'zh_CN'}" class="naviItem">
+          <img src="/cctv/img/navi4.png"/>
+          <a id="link" class="zh_CN" th:text="#{navigation.item.text3}"></a>
+        </div>
+        <div class="naviItem">
+          <img src="/cctv/img/navi5.png"/>
+          <a href="/cctv/userview/leave" th:text="#{navigation.item.text4}"></a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

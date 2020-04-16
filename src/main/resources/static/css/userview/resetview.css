@@ -1,0 +1,128 @@
+@CHARSET "UTF-8";
+
+#main {
+	width: 1200px;
+	margin: 125px auto;
+	background-color: #fff;
+}
+
+#logo {
+	width: 800px;
+	height: 300px;
+	margin-top: 120px;
+	float: left;
+}
+
+#mainInfo {
+	width: 400px;
+	height: 600px;
+	background-color: #fff;
+	float: left;
+}
+
+#icon {
+	width: 106px;
+	height: 50px;
+	margin: 50px 24px 15px 30px;
+	float: left;
+}
+
+#title {
+	width: 200px;
+	height: 50px;
+	color: #00953E;
+	font-size: 20px;
+	font-family: simsun;
+	font-weight: 600;
+	text-align: right;
+	line-height: 50px;
+	margin: 50px 30px 15px 0px;
+	float: left;
+}
+
+#tips {
+	width: 350px;
+	height: 25px;
+	color: #f00;
+	font-size: 18px;
+	font-family: simsun;
+	font-weight: 600;
+	line-height: 25px;
+	margin: 0px 20px 0px 30px;
+	float: left;
+}
+
+#tab1 {
+	width: 360px;
+	margin-left: 30px;
+	float: left;
+}
+
+#tab1 span {
+	color: #f00;
+}
+
+#tab1 .row1 {
+	height: 30px;
+	color: #00953E;
+	font-size: 18px;
+	font-family: simsun;
+	font-weight: 600;
+}
+
+#tab1 .row2 {
+	height: 35px;
+}
+
+.textbox {
+	width: 328px;
+	height: 28px;
+	font-size: 18px;
+	font-family: simsun;
+	text-indent: 5px;
+	border: none;
+	border-bottom: 2px solid #00953E;
+	outline: 0px;
+	float: left;
+}
+
+#btn1 {
+	width: 100px;
+	height: 30px;
+	color: #00953E;
+	margin-left: 12px;
+	font-size: 16px;
+	font-family: simsun;
+	font-weight: 600;
+	background-color: #fff;
+	border: 2px solid #00953E;
+	border-radius: 3px;
+	cursor: pointer;
+	outline: none;
+	float: left;
+}
+
+#btn2 {
+	width: 150px;
+	height: 30px;
+	color: #ffffff;
+	font-size: 18px;
+	font-family: simsun;
+	font-weight: 600;
+	background-color: #00953E;
+	border-radius: 30px;
+	outline: none;
+	border: none;
+	float: left;
+}
+
+#btn2:hover {
+	background-color: #00bd50;
+	cursor: pointer;
+}
+
+// 删除输入框小三角
+input::-webkit-calendar-picker-indicator {
+	-webkit-appearance: none;
+	display: none;
+}

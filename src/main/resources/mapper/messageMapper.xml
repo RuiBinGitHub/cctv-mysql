@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.MessageDao">
+
+	<insert id="insertMessage" parameterType="Message" keyProperty="id" useGeneratedKeys="true">
+		insert into message values(null, #{title}, #{state}, #{date}, #{user.id}, #{project.id}, #{markItem.id})
+	</insert>
+
+	<update id="updateMessage" parameterType="Message">
+		update message set state = #{state} where id = #{id}
+	</update>
+
+	<delete id="deleteMessage" parameterType="Message">
+		delete from message where id = #{id}
+	</delete>
+
+	<select id="findInfoMessage" parameterType="Map" resultMap="MessageMap">
+		select m.*, u.name u_name, p.name p_name from message m left join users u on u.id = m.userid left join project p on p.id = m.itemid
+		<where>
+			<if test="id != null">
+				and m.id = #{id}
+			</if>
+			<if test="user != null">
+				and u.id = #{user.id}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findListMessage" parameterType="Map" resultMap="MessageMap">
+		select m.*, u.name u_name, p.name p_name from message m left join users u on u.id = m.userid left join project p on p.id = m.itemid
+		<where>
+			<if test="state != null">
+				and m.state = #{state}
+			</if>
+			<if test="user != null">
+				and u.id = #{user.id}
+			</if>
+		</where>
+		order by id desc
+	</select>
+	
+	<select id="getCount" parameterType="Map" resultType="int">
+		select count(*) from message
+		<where>
+			<if test="state != null">
+				and state = #{state}
+			</if>
+			<if test="user != null">
+				and userid = #{user.id}
+			</if>
+		</where>
+	</select>
+	
+	<resultMap id="MessageMap" type="Message">
+		<id property="id" column="id"/>
+		<result property="title" column="title"/>
+		<result property="state" column="state"/>
+		<result property="date" column="date"/>
+		<result property="markItem.id" column="markid"/>
+		<association property="user" javaType="User">
+			<id property="id" column="userid"/>
+			<result property="name" column="u_name"/>
+		</association>
+		<association property="project" javaType="Project">
+			<id property="id" column="itemid"/>
+			<result property="name" column="p_name"/>
+		</association>
+	</resultMap>
+</mapper>
+ 

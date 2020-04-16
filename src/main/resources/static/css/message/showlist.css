@@ -1,0 +1,174 @@
+@CHARSET "UTF-8";
+
+body {
+	background-color: #E8E8E8;
+}
+
+#title1 {
+	width: 330px;
+	text-align: center;
+	margin: 15px 10px 10px 10px;
+	float: left;
+}
+#title1 span {
+	font-size:18px;
+	font-weight:600;
+	font-family:仿宋;
+}
+#title1 span:hover {
+	border-bottom: 2px solid #000000;
+	cursor: pointer;
+}
+
+#choice {
+	border-bottom: 2px solid #5AABE1;
+	color: #5AABE1;
+}
+
+#title2 {
+	width: 980px;
+	margin: 0px 10px 0px 10px;
+	font-family: 'Times New Roman';
+	float: left;
+}
+
+#title2 tr {
+	color: #fff;
+	font-size: 20px;
+	text-align: center;
+	background-color: #39B549;
+}
+
+#mtab1 {
+	width: 980px;
+	margin: 0px 10px;
+	font-size: 18px;
+	font-family: 宋体;
+	background-color: #FFFFFF;
+	border-collapse: collapse;
+}
+
+#mtab1 tr {
+	height: 40px;
+	background-color: #fafafa;
+}
+
+#mtab1 tr:nth-child(even) {
+	background-color: #eeeeee;
+}
+
+#mtab1 tr td a {
+	color: #00f;
+	font-family: 宋体;
+	margin-left: 30px;
+}
+
+#mtab1 tr td a:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#mtab1 tr td input {
+	width: 60px;
+	height: 24px;
+	font-size: 16px;
+	font-family: 仿宋;
+	background-color: #ff662d;
+	border: none;
+	color: #fff;
+}
+
+#mtab1 tr td input:hover {
+	background-color: #ff804f;
+	cursor: pointer;
+}
+/******************************************************************/
+#page {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(60, 60, 60, 0.2);
+	display: none;
+	z-index: 2;
+}
+
+#webform {
+	top: 50%;
+	left: 50%;
+	width: 640px;
+	height: 480px;
+	position: absolute;
+	margin: -240px -320px;
+	background-color: #FFF;
+}
+
+.title {
+	width: 520px;
+	height: 24px;
+	font-size: 18px;
+	font-weight: 600;
+	margin: 15px 25px;
+	text-indent: 10px;
+	line-height: 24px;
+	border-left: 5px solid #39B549;
+	float: left;
+}
+
+.colse {
+	width: 24px;
+	height: 24px;
+	font-size: 18px;
+	font-weight: 600;
+	margin: 15px 20px;
+	text-align: center;
+	line-height: 24px;
+	float: left;
+}
+
+.colse:hover {
+	cursor: pointer;
+	color: #f00;
+}
+
+#info1 {
+	width: 592px;
+	font-size: 18px;
+	font-family: "宋体";
+	text-indent: 10px;
+	margin: 20px 25px 10px 25px;;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+#info1 tr {
+	height: 30px;
+}
+
+#info1 a {
+	color: #999;
+	font-size: 18px;
+	font-family: "宋体";
+}
+
+#info2 {
+	width: 590px;
+	height: 240px;
+	font-size: 18px;
+	font-family: "宋体";
+	word-break: break-all;
+	margin: 0px 25px 0px 25px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+#info2 p {
+	width: 540px;
+	height: 40px;
+	margin: 0px 15px;
+	line-height: 40px;
+	float: left;
+}

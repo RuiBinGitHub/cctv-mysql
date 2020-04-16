@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.springboot.dao.GeomPipeDao">
+
+	<!-- 插入数据 -->
+	<insert id="insertGeomPipe" parameterType="GeomPipe" useGeneratedKeys="true" keyProperty="id">
+		insert into geompipe values(null, #{smhx}, #{smhy}, #{smhh}, #{fmhx}, #{fmhy}, #{fmhh}, #{smhGradeA}, #{smhGradeB}, #{fmhGradeA}, #{fmhGradeB}, #{pipe.id}, #{geomItem.id})
+	</insert>
+
+	<!-- 更新数据 -->
+	<update id="updateGeomPipe" parameterType="GeomPipe">
+		update geompipe set smhx = #{smhx}, 
+			smhy = #{smhy},
+			smhh = #{smhh},
+			fmhx = #{fmhx},
+			fmhy = #{fmhy},
+			fmhh = #{fmhh},
+			smhGradeA = #{smhGradeA},
+			smhGradeB = #{smhGradeB},
+			fmhGradeA = #{fmhGradeA},
+			fmhGradeB = #{fmhGradeB}
+		where id = #{id}
+	</update>
+	
+	<!-- 删除数据 -->
+	<delete id="deleteGeomPipe" parameterType="GeomPipe">
+		delete from geompipe where id = #{id}
+	</delete>
+	
+	<select id="findInfoGeomPipe" parameterType="Map" resultMap="GeomPipeMap">
+		select g.*, c.*, d.name u_name, e.*, avg(a.smhx) x1, avg(a.smhy) y1, avg(b.fmhx) x2, avg(b.fmhy) y2 from geompipe g
+			left join pipe e on e.id = g.pipeid
+			left join geompipe a on a.smhGradeA=g.smhGradeA
+			left join geompipe b on b.fmhGradeA=g.fmhGradeA
+			left join project c on c.id = e.projectid
+			left join users d on d.id = c.userid
+		<where>
+			<if test="id != null">
+				and g.id = #{id}
+			</if>
+			<if test="user != null">
+				and d.id = #{user.id}
+			</if>
+		</where>
+		group by g.id
+	</select>
+	
+	<select id="findListGeomPipe" parameterType="Map" resultMap="GeomPipeMap">
+		select g.*, c.*, d.name u_name, e.*, avg(a.smhx) x1, avg(a.smhy) y1, avg(b.fmhx) x2, avg(b.fmhy) y2 from geompipe g
+			left join pipe e on e.id = g.pipeid
+			left join geompipe a on a.smhGradeA=g.smhGradeA
+			left join geompipe b on b.fmhGradeA=g.fmhGradeA
+			left join project c on c.id = e.projectid
+			left join users d on d.id = c.userid
+		<where>
+			<if test="smhGradeA != null">
+				and g.smhGradeA = #{smhGradeA}
+			</if>
+			<if test="fmhGradeA != null">
+				and g.fmhGradeA = #{fmhGradeA}
+			</if>
+			<if test="geomItem != null">
+				and g.geomid = #{geomItem.id}
+			</if>
+			<if test="user != null">
+				and d.id = #{user.id}
+			</if>
+			<if test="company != null">
+				and d.companyid = #{company.id}
+			</if>
+		</where>
+		group by g.id order by c.id desc, e.no
+	</select>
+	
+	<resultMap id="GeomPipeMap" type="GeomPipe">
+		<id property="id" column="id"/>
+		<result property="x1" column="x1"/>
+		<result property="y1" column="y1"/>
+		<result property="x2" column="x2"/>
+		<result property="y2" column="y2"/>
+		<result property="smhx" column="smhx"/>
+		<result property="smhy" column="smhy"/>
+		<result property="smhh" column="smhh"/>
+		<result property="fmhx" column="fmhx"/>
+		<result property="fmhy" column="fmhy"/>
+		<result property="fmhh" column="fmhh"/>
+		<result property="smhGradeA" column="smhGradeA"/>
+		<result property="smhGradeB" column="smhGradeB"/>
+		<result property="fmhGradeA" column="fmhGradeA"/>
+		<result property="fmhGradeB" column="fmhGradeB"/>
+		<result property="geomItem.id" column="geomid"/>
+		<association property="pipe" javaType="Pipe">
+	 		<result property="id" column="pipeid"/>
+	 		<result property="no" column="no"/>
+	 		<result property="smanholeno" column="smanholeno"/>
+	 		<result property="fmanholeno" column="fmanholeno"/>
+	 		<result property="uses" column="uses"/>
+	 		<result property="dire" column="dire"/>
+	 		<result property="mater" column="mater"/>
+	 		<result property="shape" column="shape"/>
+	 		<result property="hsize" column="hsize"/>
+	 		<result property="wsize" column="wsize"/>
+	 		<result property="testlength" column="testlength"/>
+	 		<association property="project" javaType="Project">
+		 		<result property="id" column="projectid"/>
+		 		<result property="name" column="name"/>
+				<result property="client" column="client"/>
+				<result property="slope" column="slope"/>
+				<result property="standard" column="standard"/>
+				<result property="operator" column="operator"/>
+				<result property="state" column="state"/>
+				<result property="date" column="date"/>
+				<result property="user.name" column="u_name"/>
+	 		</association>
+	 	</association>
+	</resultMap>
+	
+</mapper>
+ 
