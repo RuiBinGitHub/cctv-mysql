@@ -300,14 +300,13 @@ public class HelperPDF extends PdfPageEventHelper {
 						itemlentg = location + 10 * list.size();
 						String type = item.getType3();
 						if (item.getGrade() >= 4) {
-							graphics.setFont(new java.awt.Font("TimesRoman", 1, 9));
+							graphics.setFont(new java.awt.Font("Helvetica", 1, 9));
 							if ("Service".equals(type))
 								graphics.setColor(new Color(139, 69, 19));
 							else
 								graphics.setColor(new Color(255, 60, 60));
 						} else {
 							// graphics.setFont(new java.awt.Font("TimesRoman", 0, 9));
-							// graphics.setFont(new java.awt.Font("Helvetica", 0, 9));
 							graphics.setFont(new java.awt.Font("Helvetica", 0, 9));
 							if ("Miscel-laneous".equals(type))
 								graphics.setColor(new Color(0, 0, 0));
@@ -1069,6 +1068,16 @@ public class HelperPDF extends PdfPageEventHelper {
 			buffer.append(text.charAt(i));
 			int length = fontMetrics.stringWidth(buffer.toString());
 			if (length >= 280 || i == text.length() -1) {
+				if (i != text.length() - 1 && text.charAt(i + 1) == ',')
+					buffer.append(text.charAt(++i));
+				else if (i != text.length() - 1 && text.charAt(i + 1) == '.')
+					buffer.append(text.charAt(++i));
+				else if (i != text.length() - 1 && text.charAt(i + 1) == ':')
+					buffer.append(text.charAt(++i));
+				else if (i != text.length() - 1 && text.charAt(i + 1) == ' ')
+					buffer.append(text.charAt(++i));
+				else if (i != text.length() - 1 && text.charAt(i + 1) != ' ')
+					buffer.append('-');
 				list.add(buffer.toString());
 				buffer = new StringBuffer("");
 			}
