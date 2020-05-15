@@ -58,7 +58,7 @@ public class HelperMDB {
 				str2.append("?, ");
 
 			for (Pipe pipe : project.getPipes()) {
-				pstat = conn.prepareStatement("insert into table1 values(" + str1 + "?)");
+				pstat = conn.prepareStatement("insert into table1 values(" + str1.toString() + "?)");
 				pstat.setInt(1, pipeNo++);
 				pstat.setString(2, pipe.getNo() + "");
 				pstat.setDouble(3, pipe.getTestlength());
@@ -71,7 +71,7 @@ public class HelperMDB {
 				pstat.setString(10, getString(pipe.getBuilding()));
 				pstat.setString(11, getString(pipe.getSmanholeno()));
 				pstat.setString(12, getString(pipe.getFmanholeno()));
-				pstat.setString(13, pipe.getWsize());
+				pstat.setString(13, getString(pipe.getWsize()));
 
 				pstat.setString(14, CameHelper.getCameText(pipe.getShape(), "sha"));
 				pstat.setString(15, CameHelper.getCameText(pipe.getMater(), "mat"));
@@ -98,8 +98,8 @@ public class HelperMDB {
 				pstat.setString(36, getString(pipe.getAreacode()));
 				pstat.setString(37, getString(pipe.getDate()));
 				pstat.setString(38, "");
-				pstat.setString(39, pipe.getHsize());
-				pstat.setString(40, getString("Z"));
+				pstat.setString(39, getString(pipe.getHsize()));
+				pstat.setString(40, "Z");
 				pstat.setString(41, getString(pipe.getCleaned()));
 				if (AppHelper.getInt(pipe.getYearlaid()) < 30)
 					pstat.setString(42, "<30");
@@ -108,9 +108,9 @@ public class HelperMDB {
 				else if (AppHelper.getInt(pipe.getYearlaid()) > 50)
 					pstat.setString(42, ">50");
 				if ("Y".equals(pipe.getSlope()))
-					pstat.setString(43, getString("YES"));
+					pstat.setString(43, "YES");
 				else
-					pstat.setString(43, getString("NO"));
+					pstat.setString(43, "NO");
 				pstat.setString(44, getString(pipe.getSloperef()));
 				pstat.setString(45, getString(pipe.getDistrict2()));
 				pstat.setString(46, getString(pipe.getDistrict3()));
@@ -118,16 +118,16 @@ public class HelperMDB {
 				pstat.executeUpdate(); // 插入管道数据
 
 				for (Item item : pipe.getItems()) {
-					pstat = conn.prepareStatement("insert into table2 values(" + str2 + "?)");
+					pstat = conn.prepareStatement("insert into table2 values(" + str2.toString() + "?)");
 					if (item.getCode().length() > 2 && item.getCode().indexOf("-") != -1)
 						item.setCode(item.getCode().substring(0, item.getCode().length() - 2));
 					pstat.setInt(1, itemNo++);
 					pstat.setDouble(2, 0);
 					pstat.setString(3, getString(item.getCode()));
-					pstat.setString(4, item.getDepict() + "");
-					pstat.setString(5, item.getPhoto() + "");
+					pstat.setString(4, getString(item.getDepict()));
+					pstat.setString(5, getString(item.getPhoto()));
 					pstat.setInt(6, (int) item.getGrade());
-					pstat.setString(7, item.getPipe().getNo() + "");
+					pstat.setString(7, pipe.getNo() + "");
 					pstat.setString(8, getString(item.getVideo()));
 					pstat.setDouble(9, AppHelper.getDoule(item.getDist()));
 					pstat.setString(10, getString(item.getCont()));
@@ -137,14 +137,14 @@ public class HelperMDB {
 					pstat.setString(14, getString(item.getPercent()));
 					pstat.setString(15, getString(item.getLengths()));
 					pstat.setString(16, getString(item.getRemarks()));
-					pstat.setString(17, getString(item.getPipe().getSmanholeno()));
-					pstat.setString(18, getString(item.getPipe().getFmanholeno()));
-					String name = myfile + "ItemImage/" + item.getPicture() + ".png";
-					if (item.getPicture() == null || (stream = getStream(name)) == null)
+					pstat.setString(17, getString(pipe.getSmanholeno()));
+					pstat.setString(18, getString(pipe.getFmanholeno()));
+					String filePath = myfile + "ItemImage/" + item.getPicture() + ".png";
+					if (item.getPicture() == null || (stream = getStream(filePath)) == null)
 						pstat.setNull(19, Types.BIT);
 					else {
 						pstat.setBinaryStream(19, stream, stream.available());
-						File Image = new File(name);
+						File Image = new File(filePath);
 						File itemp = new File(path + "/" + ImageName + ".png");
 						FileUtils.copyFile(Image, itemp);
 						ImageName++;

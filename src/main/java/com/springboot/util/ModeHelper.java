@@ -106,7 +106,7 @@ public class ModeHelper {
 				pipe.setSmanholeno(result2.getString(11));
 				pipe.setFmanholeno(result2.getString(12));
 				pipe.setUses(result2.getString(28).substring(0, 1));
-				pipe.setDire(result2.getString(33).substring(0, 1));
+				pipe.setDire(result2.getString(32).substring(0, 1));
 				pipe.setHsize(result2.getString(39));
 				pipe.setWsize(result2.getString(13));
 
@@ -156,7 +156,6 @@ public class ModeHelper {
 					item.setPicture(name);
 				}
 				item.setPipe(pipes.get(result3.getInt(7)));
-				// 添加记录至map中
 				items.put(result3.getInt(20), item);
 			}
 			// 设置项目的操作人员和日期

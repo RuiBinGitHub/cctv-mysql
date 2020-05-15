@@ -49,14 +49,14 @@ public class Computes {
 					int lengths = (int) (Double.valueOf(item.getDist()) - Double.valueOf(clist[index]));
 					if (lengths > 1)
 						item.setScore(item.getScore() * lengths);
-				} 
+				}
 				if (slist[index] != null) {
 					int lengths = (int) (Double.valueOf(item.getDist()) - Double.valueOf(slist[index]));
 					if (lengths > 1)
 						item.setScore(item.getScore() * lengths);
 				}
 			}
-			
+
 			double peakscore = item.getScore(); // 记录管道分数
 			if ("SCG".equals(item.getType1())) {
 				pipe.getScore()[2] += item.getScore(); // 计算SCG总分
@@ -138,6 +138,7 @@ public class Computes {
 		pipe.getScore()[6] = pipe.getScore()[3];
 		pipe.getScore()[7] = pipe.getScore()[4];
 		pipe.getScore()[8] = pipe.getScore()[5];
+
 		/** 计算管道等级 */
 		if (pipe.getScore()[0] < 1) // 计算SCG最大值
 			pipe.getGrade()[0] = 1;
@@ -160,17 +161,6 @@ public class Computes {
 			pipe.getGrade()[1] = 4;
 		else if (pipe.getScore()[1] >= 5)
 			pipe.getGrade()[1] = 5;
-
-		// if (pipe.getScore()[2] < 10) // 计算SCG总值
-		// pipe.getGrade()[2] = 1;
-		// else if (pipe.getScore()[2] >= 10 && pipe.getScore()[2] < 40)
-		// pipe.getGrade()[2] = 2;
-		// else if (pipe.getScore()[2] >= 40 && pipe.getScore()[2] < 80)
-		// pipe.getGrade()[2] = 3;
-		// else if (pipe.getScore()[2] >= 80 && pipe.getScore()[2] < 165)
-		// pipe.getGrade()[2] = 4;
-		// else if (pipe.getScore()[2] >= 165)
-		// pipe.getGrade()[2] = 5;
 
 		if (pipe.getScore()[2] < 1) // 计算SCG总值
 			pipe.getGrade()[2] = 1;
@@ -224,14 +214,14 @@ public class Computes {
 		}
 		return pipe;
 	}
-	
+
 	public Item computeItem(Item item, String type) {
 		if (type.indexOf("H") != -1)
 			map = AppHelper.getMap("hkccec", item.getCode());
 		if (type.indexOf("M") != -1)
 			map = AppHelper.getMap("mscc", item.getCode());
 		Code code = codeBiz.findInfoCode(map);
-		
+
 		int percent = AppHelper.getInt(item.getPercent());
 		int lengths = AppHelper.getInt(item.getLengths());
 		setItemValue(item, code.getScore(), code.getGrade());
@@ -317,18 +307,15 @@ public class Computes {
 	}
 
 	private int getValue(String slope, String year) {
-		int value = 0;
 		int itemp = AppHelper.getInt(year);
-		if ("N".equals(slope)) {
-			if (itemp < 30)
-				value = 0;
-			else if (itemp >= 30 && itemp <= 50)
-				value = 1;
-			else if (itemp > 50)
-				value = 2;
-		}
-		if ("Y".equals(slope))
-			value = itemp < 30 ? 1 : 2;
-		return value;
+		if ("N".equals(slope) && itemp < 30)
+			return 0;
+		else if ("N".equals(slope) && itemp >= 30 && itemp <= 50)
+			return 1;
+		else if ("N".equals(slope) && itemp > 50)
+			return 2;
+		else if ("Y".equals(slope))
+			return itemp < 30 ? 1 : 2;
+		return 0;
 	}
 }
