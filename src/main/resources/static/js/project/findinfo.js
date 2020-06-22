@@ -33,7 +33,7 @@ $(document).ready(function() {
     index = index >= $("#tab1 tr").length ? $ ("#tab1 tr").length - 1 : index;
     $("#tab1 tr").eq(index).find("td:eq(0)").css("background-color", "#FFD58D");
     $("#tab1 tr").eq(index).find("td:eq(0)").text("▶");
-    $("#tab1").parents("div").scrollTop(index*24);
+    $("#tab1").parents("div").scrollTop(index * 24);
     // 表格1初始化事件
     $("#tab1 tr").each(function(no) {
         $(this).mouseenter(function() {
@@ -44,13 +44,13 @@ $(document).ready(function() {
         });
         $(this).find("input").css("background-color", "#ff8000");
         $(this).find("input").click(function() {
-            var id = $("#main2 input:eq(0)").val();
             location.href = "findinfo?id=" + id + "&no=" + no;
         });
     });
     /** *************************************************************** */
     $("#video").click(function() {
-        if ($("#video").attr("src") != undefined && $("#video").attr("src") != "")
+    	var src = $("#video").attr("src");
+        if (src != undefined && src != "")
             video.paused ? video.play() : video.pause();
     });
     $("#video").dblclick(function() {
@@ -85,7 +85,7 @@ $(document).ready(function() {
     });
     $("#tab2 tbody tr").on("click", function() {
     	var value = $(this).find("td:last").text();
-        if (value!= null && value.length > 0)
+        if (value != null && value.length > 0)
             $("#image").attr("src", path + value + ".png");
         else
             $("#image").attr("src", "/cctv/img/blank.png");
@@ -110,12 +110,12 @@ $(document).ready(function() {
         var distlist = new Array();
         var joinlist = new Array();
         $("#tab2 tbody tr").each(function() {
-            if (Number($(this).find("td:eq(3)").text()) > tl)
-                tl = $(this).find("td:eq(3)").text();
             if ($(this).find("td:eq(5)").text() == "MH")
                 distlist.push($(this).find("td:eq(3)").text());
             if ($(this).find("td:eq(5)").text() == "JN")
                 joinlist.push($(this).find("td:eq(3)").text());
+            if (Number($(this).find("td:eq(3)").text()) > tl)
+                tl = $(this).find("td:eq(3)").text();
         });
         tl = tl <= 0.0 ? 1 : tl;
         var use = $("#value3 input:eq(2)").val();
@@ -145,7 +145,7 @@ $(document).ready(function() {
             if ($(this).find("td:eq(3)").text().length != 0) {
                 var dist = $(this).find("td:eq(3)").text();
                 var code = $(this).find("td:eq(5)").text();
-                var note = new Note(dist,code);
+                var note = new Note(dist, code);
                 list.push(note);
             }
         });
@@ -173,6 +173,7 @@ $(document).ready(function() {
     $("#toTop1").click(function() {
         $("body,html").animate({scrollTop: 0}, 100);
     });
+    
     /** 格式化显示信息 */
     function initList() {
         var value = $("#value3 input:eq(2)").val();

@@ -3,6 +3,10 @@
 body {
 	background-color: #f1f1f1;
 }
+input {
+	padding: 0px;
+}
+
 
 #main {
 	width: 1000px;

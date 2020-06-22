@@ -12,8 +12,9 @@
       <div id="page">
         <div id="h1"><h3 th:text="#{user.failure.label1}"></h3></div>
         <div id="h2"><a style="color:#999" th:text="#{user.failure.label2}"></a></div>
-        <div id="h3" th:if="${session.user.role == 'role1'}">点击链接<a href="/cctv/company/showlist" th:text="#{user.failure.label3}"></a></div>
-      	<div id="h3" th:if="${session.user.role != 'role1'}">点击链接<a href="/cctv/project/showlist" th:text="#{user.failure.label3}"></a></div>
+        <div id="h3" th:if="${session.user == null}">点击链接<a href="/cctv/project/showlist" th:text="#{user.failure.label3}"></a></div>
+        <div id="h3" th:if="${session.user != null && session.user.role == 'role1'}">点击链接<a href="/cctv/company/showlist" th:text="#{user.failure.label3}"></a></div>
+      	<div id="h3" th:if="${session.user != null && session.user.role != 'role1'}">点击链接<a href="/cctv/project/showlist" th:text="#{user.failure.label3}"></a></div>
       </div>
     </div>
   </body>

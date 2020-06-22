@@ -3,6 +3,9 @@
 body {
 	background-color: #F5F5F5;
 }
+input {
+	padding: 0px;
+}
 
 #Tip {
 	top: 40%;

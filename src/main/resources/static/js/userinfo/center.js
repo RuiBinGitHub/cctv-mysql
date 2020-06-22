@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var code = null;
     var language = $("#infoTop").text() == "個人中心" ? "zh" : "en";
-    var tipsText1 = language == "zh" ? "用户名称格式不正确！" : "The Nick Name format is incorrect!";
+    var tipsText1 = language == "zh" ? "用户名称格式不正确！" : "Please check the input Nick Name!";
     var tipsText2 = language == "zh" ? "用户名称修改成功！" : "Operating successfully!";
     var tipsText3 = language == "zh" ? "*密碼格式不正確，請重新輸入！" : "*Please check the input password!";
     var tipsText4 = language == "zh" ? "*兩次密碼不壹致，請重新輸入！" : "*Two inconsistent password input!";

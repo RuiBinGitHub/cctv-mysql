@@ -15,6 +15,7 @@
 			#{yearlaid},
 			#{date},
 			#{time},
+			
 			#{district1},
 			#{district2},
 			#{district3},
@@ -23,6 +24,7 @@
 			#{building},
 			#{division},
 			#{areacode},
+			
 			#{smanholeno},
 			#{fmanholeno},
 			#{uses},
@@ -34,6 +36,7 @@
 			#{lining},
 			#{pipelength},
 			#{testlength},
+			
 			#{sdepth},
 			#{scoverlevel},
 			#{sinvertlevel},
@@ -60,6 +63,7 @@
 			yearlaid = #{yearlaid},
 			date = #{date},
 			time = #{time},
+			
 			district1 = #{district1},
 			district2 = #{district2},
 			district3 = #{district3},
@@ -68,6 +72,7 @@
 			building = #{building},
 			division = #{division},
 			areacode = #{areacode},
+			
 			smanholeno = #{smanholeno},
 			fmanholeno = #{fmanholeno},
 			uses = #{uses},
@@ -79,6 +84,7 @@
 			lining = #{lining},
 			pipelength = #{pipelength},
 			testlength = #{testlength},
+			
 			sdepth = #{sdepth},
 			scoverlevel = #{scoverlevel},
 			sinvertlevel = #{sinvertlevel},

@@ -43,8 +43,8 @@
         <div id="infoMenu">
           <span th:text="#{project.showlist.menu1}"></span>
           <input id="menuBtn1" type="button" value="←"/>
-          <input id="menuText" th:value="${param.name}"/>
-          <input id="menuBtn2"  type="button" th:value="#{project.showlist.menu2}"/>
+          <input id="menuText" type="text" th:value="${param.name}"/>
+          <input id="menuBtn2" type="button" th:value="#{project.showlist.menu2}"/>
           <div style="height:100%;float:left;"></div>
           <input type="button" id="append" th:value="#{project.showlist.button1}"/>
           <input type="button" id="import" th:value="#{project.showlist.button2}"/>
@@ -93,7 +93,8 @@
     <form id="form" action="importitems" enctype="multipart/form-data" method="post">
 	  <input id="file" type="file" name="file" accept=".mdb" style="display:none">
 	</form>
-    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+	
+    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	
     </div>

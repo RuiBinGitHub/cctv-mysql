@@ -86,7 +86,7 @@ $(document).ready(function() {
 	});
 	/** 显示提示信息 */
 	function showTips(contex) {
-		$("#Tip").show().delay(1800).hide(200);
-		$("#Tip").text(contex);
+		$("#tips").show().delay(1800).hide(200);
+		$("#tips").text(contex);
 	}
 });

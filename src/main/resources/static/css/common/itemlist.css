@@ -4,6 +4,10 @@ body {
 	background-color: #f1f1f1;
 }
 
+input {
+	padding: 0px;
+}
+
 #Tip {
 	top: 40%;
 	left: 45%;
@@ -151,7 +155,7 @@ body {
 
 #menuText {
 	width: 180px;
-	height: 26px;
+	height: 28px;
 	margin-top: 5px;
 	font-size: 14px;
 	text-indent: 8px;

@@ -1,9 +1,6 @@
 $(document).ready(function() {
     // 获取当前语言
     var language = $(".title:eq(0) span").text().length == 4 ? "zh" : "en";
-//    var tipsTest1 = language == "zh" ? "数据上传中..." : "Data uploading...";
-//    var tipsTest2 = language == "zh" ? "數據導入成功！" : "Operating successfully!";
-//    var tipsTest3 = language == "zh" ? "數據上傳異常！" : "Operating exceptioning!";
     var tipsTest1 = language == "zh" ? "请输入正确的项目范围！" : "Please check the input data!";
     var tipsTest2 = language == "zh" ? "数据保存成功！" : "Operating successfully!";
     var tipsTest3 = language == "zh" ? "请输入正确的管道坐标！" : "Please check the input data!";

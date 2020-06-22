@@ -38,10 +38,10 @@ public class OperatorBizImpl implements OperatorBiz {
 	}
 
 	public PageInfo<Operator> findListOperator(Map<String, Object> map) {
-		if (!StringUtils.isEmpty(map.get("page")))
-			PageHelper.startPage((int) map.get("page"), 15);
 		if (!StringUtils.isEmpty(map.get("name")))
 			map.put("name", "%" + map.get("name") + "%");
+		if (!StringUtils.isEmpty(map.get("page")))
+			PageHelper.startPage((int) map.get("page"), 15);
 		List<Operator> operators = operatorDao.findListOperator(map);
 		PageInfo<Operator> info = new PageInfo<Operator>(operators);
 		return info;

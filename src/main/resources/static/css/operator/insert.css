@@ -3,6 +3,9 @@
 body {
 	background-color: #f1f1f1;
 }
+input {
+	padding: 0px;
+}
 
 #Tip {
 	top: 40%;
@@ -64,7 +67,7 @@ body {
 }
 
 .select {
-	width: 332px;
+	width: 312px;
 	height: 28px;
 	font-size: 18px;
 	font-family: simsun;
@@ -75,7 +78,7 @@ body {
 }
 
 .textbox {
-	width: 330px;
+	width: 310px;
 	height: 28px;
 	font-size: 18px;
 	font-family: simsun;
@@ -86,7 +89,7 @@ body {
 }
 
 .combtn {
-	width: 332px;
+	width: 312px;
 	height: 32px;
 	color: #fff;
 	font-size: 18px;

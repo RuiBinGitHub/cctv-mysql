@@ -29,15 +29,12 @@ $(document).ready(function() {
     	$("#list").html(context);
     });
     /** 提交表单 */
-    $("#btn2").click(function() {
-        if (!checkUserName() || !checkPassWord())
-            return false;
-        if (!checkMail() || !checkCode())
-            return false;
-        $(this).css("background-color", "#999");
-        $(this).attr("disabled", true);
-        $("#form1").submit();
-    });
+    if (!checkUserName())
+        return false;
+    if (!checkMail() || !checkCode())
+        return false;
+    if (!checkPassWord())
+    	return false;
     /********************************************************************/
     /** 检测账号 */
     function checkUserName() {

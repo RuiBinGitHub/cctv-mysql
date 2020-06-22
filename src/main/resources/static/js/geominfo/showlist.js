@@ -48,11 +48,13 @@ $(document).ready(function() {
     });
     $("#showdata").html($("#list1").html());
     /** 设置输入框修改事件 */
+    var space = new RegExp(" ", "g");
     $("#textbox").on("input", function() {
     	var value = $(this).val();
     	if (value == "")
     		$("#showdata").html($("#list1").html());
     	else {
+    		value = $(this).val().replace(space, "\\ ");
     		var span = $("#list1 div span[id*=" + value + "]").parent().clone();
     		$("#showdata").html(span);
     	}
@@ -100,21 +102,23 @@ $(document).ready(function() {
         var x2 = $(this).find("a:eq(3)").text();
         var y2 = $(this).find("a:eq(4)").text();
         var grade = $(this).find("a:eq(5)").text();
+        var smanhole = $(this).find("a:eq(6)").text();
+        var fmanhole = $(this).find("a:eq(7)").text();
         if (x1 == 0.0 || y1 == 0.0 || x2 == 0.0 || y2 == 0.0)
         	return true;
         var center1 = ol.proj.transform([x1, y1], "EPSG:2326", "EPSG:4326");
         var center2 = ol.proj.transform([x2, y2], "EPSG:2326", "EPSG:4326");
         // 绘画管道
         drawPipe(id, "", [center1[0], center1[1], 0, center2[0], center2[1], 0], 0.1, grade);
-        if (manholes.indexOf(center1) == -1)
-        	manholes.push(center1);
-        if (manholes.indexOf(center2) == -1)
-        	manholes.push(center2);
+        if (manholes.indexOf(x1 + ":" + y1) == -1) {
+        	drawManhole("s" + i, smanhole, center1[0], center1[1], -0.5);
+        	manholes.push(x1 + ":" + y1);
+        }
+        if (manholes.indexOf(x2 + ":" + y2) == -1) {
+        	drawManhole("f" + i, fmanhole, center2[0], center2[1], -0.5);
+        	manholes.push(x2 + ":" + y2);
+        }
     });
-    // 绘画沙井
-    for (var i = 0; i < manholes.length; i++) {
-        drawManhole("m" + i, "", manholes[i][0], manholes[i][1], -0.5);
-    }
     /** ************************************************************************ */
     //鼠标左键单击事件
     var handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
@@ -196,7 +200,7 @@ $(document).ready(function() {
 	            context += "  </tr>";
 			}
             context += "</table>";
-            context += "<div style='margin:3px;float:eft;'>";
+            context += "<div style='margin:3px;float:left;'>";
             context += "  <a target='_blank' href='compare?id=" + geomPipe.id + "'>数据对比</a>";
             context += "</div>";
             context += "<img id='img'/>";
@@ -217,22 +221,25 @@ $(document).ready(function() {
     }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
     
     /** 画井函数 */
-    function drawManhole(id, description, lon, lat, heght) {
+    function drawManhole(id, description, lon, lat, height) {
+    	var uri = "/cctv/model/F(1).glb";
+    	if (description.indexOf("S") != -1)
+    		uri = "/cctv/model/S(1).glb";
     	// 确定元素的经纬度和在高度（m）
-        var degree = Cesium.Cartesian3.fromDegrees(lon, lat, heght);
+        var degree = Cesium.Cartesian3.fromDegrees(lon, lat, height);
         var color = Cesium.Color.LIME;
         var model = viewer.entities.add({
             id: id,
             name: "沙井",
             position: degree,
             model: {
-                uri: "/cctv/model/F(1).glb",
+                uri: uri,
                 minimumPixelSize: 1,
                 maximumSize: 1,
                 maximumScale: 1,
                 silhouetteColor: Cesium.Color.WHITE,
-                debugWireframe: false,
                 debugShowBoundingVolume: false,
+                debugWireframe: false,
                 runAnimations: true,
                 scale: 10
             }
@@ -271,7 +278,7 @@ $(document).ready(function() {
         }
         return positions;
     }
-    
+    /** ********************************************************** */
     function Ajax(url, data) {
         var result = null;
         $.ajax({

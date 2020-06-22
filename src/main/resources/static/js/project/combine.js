@@ -61,7 +61,8 @@ $(document).ready(function() {
     $("#tab1").on("click", "tr", function() {
     	$(this).find("input").click();
     });
-    $("#tab1").on("click", "input", function() {
+    $("#tab1").on("click", "input", function(e) {
+    	e.stopPropagation();
         var id = $(this).val();
         if ($(this).is(":checked") && $("#fieldset div").length < 20) {
             var name = $(this).parents("tr").find("td:eq(2)").text();

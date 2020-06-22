@@ -53,10 +53,10 @@ public class CompanyBizImpl implements CompanyBiz {
 	}
 
 	public PageInfo<Company> findListCompany(Map<String, Object> map) {
-		if (!StringUtils.isEmpty(map.get("page")))
-			PageHelper.startPage((int) map.get("page"), 15);
 		if (!StringUtils.isEmpty(map.get("name")))
 			map.put("name", "%" + map.get("name") + "%");
+		if (!StringUtils.isEmpty(map.get("page")))
+			PageHelper.startPage((int) map.get("page"), 15);
 		List<Company> companies = companyDao.findListCompany(map);
 		PageInfo<Company> info = new PageInfo<Company>(companies);
 		return info;

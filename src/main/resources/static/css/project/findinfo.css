@@ -4,6 +4,10 @@ body {
 	background-color: #F5F5F5;
 }
 
+input {
+	padding: 0px;
+}
+
 #TitleMemu {
 	top: 0px;
 	left: 0px;

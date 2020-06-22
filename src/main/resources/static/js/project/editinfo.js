@@ -634,6 +634,7 @@
     $("#link2").click(function() {
         $("input[name=xfile]").click();
     });
+    $("input[name=xfile]").attr("title", "导入沙井深度");
     $("input[name=xfile]").change(function() {
         if (this.files.length == 0)
             return false;
@@ -827,6 +828,8 @@
             $("input[name=finvertlevel]").val("--");
         }
     });
+    $("input[name=sinvertlevel],input[name=finvertlevel]").attr("readonly", true);
+    $("input[name=sinvertlevel],input[name=finvertlevel]").attr("tabIndex", -1);
     /** ******************************************************************** */
     function checkPipe() {
         var result = true;
@@ -925,11 +928,12 @@
         return result;
     }
     /** ******************************************************************** */
-    /** ************************* 管道数据输入检测完成 ********************* */
+    /** *********************** 管道数据输入检测完成 *********************** */
     /** ******************************************************************** */
     // 视频播放器点击事件
     $("#video").click(function() {
-        if ($(this).attr("src") != undefined && $(this).attr("src") != "")
+    	var src = $(this).attr("src");
+        if (src != undefined && src != "")
             this.paused ? this.play() : this.pause();
         $(this).focus();
     });
@@ -1207,7 +1211,7 @@
     	$(this).parents("tr").click();
         $(this).select();
     });
-    
+    // 单元格键盘按下事件
     $("#tab2").on("keydown", "tr td", function(event) {
     	if (event.keyCode == 9) {
             $(this).focus();
@@ -1234,6 +1238,7 @@
          if (event.altKey && event.which == 83)
          	keydownAlt_S();
     });
+    // 输入框键盘按下事件
     $("#tab2").on("keydown", "tr td input", function(event) {
     	event.stopPropagation();
         if (event.keyCode == 9) {
@@ -1260,7 +1265,7 @@
         if (event.altKey && event.which == 83)
         	keydownAlt_S();
     });
-    // 第三个单元格
+    // 第三个单元格Photo No
     $("#tab2").on("mouseenter", "tr td:nth-child(3)", function(event) {
     	var value = $(this).find("input").val();
         if (value == "" || value == "#已移除#") {
@@ -1291,7 +1296,7 @@
     $("#tab2").on("mouseleave", "tr td:nth-child(3)", function(event) {
     	$(this).find("img").hide();
     });
-    // 第四个单元格
+    // 第四个单元格Distance
     $("#tab2").on("input", "tr td:nth-child(4) input", function(event) {
     	if ($(this).val() == "" || isNaN($(this).val())) {
             $(this).css("background-color", "#f00");
@@ -1313,30 +1318,32 @@
             	$(this).find("td:eq(5) input").css("background-color", "#fff");
         });
     });
-    // 第五个单元格
+    // 第五个单元格Cont Def
     $("#tab2").on("input", "tr td:nth-child(5) input", function(event) {
     	if ($(this).val() != "" && contlist.indexOf($(this).val()) == -1)
             $(this).css("background-color", "#f00");
         else
             $(this).css("background-color", "#fff");
     });
-    // 第六个单元格
+    // 第六个单元格Code
+    var space = new RegExp(" ", "g");
     $("#tab2").on("input", "tr td:nth-child(6) input", function(event) {
     	$(this).val($(this).val().toUpperCase());
     	if ($(this).val() == "")
     		$(this).attr("list", "codes");
     	else {
-    		$("#icode").html($("#codes option[value^=" + $(this).val() + "]").clone());
+    		var value = $(this).val().replace(space, "\\ ");
+    		$("#icode").html($("#codes option[value^=" + value + "]").clone());
     		$(this).attr("list", "icode");
     	}
-        if (codelist.indexOf($(this).val()) == -1) {
+    	$(this).parents("tr").find("td:eq(11) input").attr("list", null);
+        $(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFFFF");
+        $(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFFFF");
+        $(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFFFF");
+        $(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFFFF");
+        if (codelist.indexOf($(this).val()) == -1)
             $(this).css("background-color", "#FF0000");
-            $(this).parents("tr").find("td:eq(11) input").attr("list", null);
-            $(this).parents("tr").find("td:eq(8) input").css("background-color", "#FFFFFF");
-            $(this).parents("tr").find("td:eq(9) input").css("background-color", "#FFFFFF");
-            $(this).parents("tr").find("td:eq(10) input").css("background-color", "#FFFFFF");
-            $(this).parents("tr").find("td:eq(11) input").css("background-color", "#FFFFFF");
-        } else {
+        else {
             $(this).css("background-color", "#FFFFFF");
             $(this).parents("tr").find("td:eq(11) input").attr("list", $(this).val());
             var dist = $(this).parents("tr").find("td:eq(3) input").val();

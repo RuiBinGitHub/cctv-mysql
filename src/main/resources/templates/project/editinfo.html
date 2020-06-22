@@ -15,8 +15,8 @@
     <div id="TitleMemu">
       <div style="width:1200px;height:100%;margin:0 auto;">
         <a href="/cctv/project/showlist" title="首页"><img src="/cctv/img/msdi.png"></a>
-        <input type="button" th:value="#{project.editinmfo.menu.button1}" style="background-color:#00A3FE"/>
-	    <input type="button" th:value="#{project.editinmfo.menu.button2}" style="background-color:#51C83D"/>
+        <input type="button" th:value="#{project.editinmfo.menu.button1}" style="background-color:#51C83D"/>
+	    <input type="button" th:value="#{project.editinmfo.menu.button2}" style="background-color:#00A3FE"/>
       </div>
     </div>
     <!-- *************************************************************** -->
@@ -32,8 +32,8 @@
 	  <div id="main1">
 	    <div id="memu1">
 	      <span th:text="#{project.editinmfo.pipe.title}"></span>
-	      <input type="button" th:value="#{project.editinmfo.menu.button1}" style="background-color:#2AB673"/>
-	      <input type="button" th:value="#{project.editinmfo.menu.button2}" style="background-color:#1398E2"/>
+	      <input type="button" th:value="#{project.editinmfo.menu.button1}" style="background-color:#51C83D"/>
+	      <input type="button" th:value="#{project.editinmfo.menu.button2}" style="background-color:#00A3FE"/>
 	    </div>
 	    <div id="head1">
 	      <div style="width:24px"></div>
@@ -70,8 +70,7 @@
             </td>
           </tr>
 	    </table>
-	    </div>
-	    <!-- 输出管道列表结束 -->
+	    </div>  <!-- 输出管道列表结束 -->
 	  </div>
 	  
 	  <!-- main2开始 -->
@@ -237,10 +236,10 @@
           <div id="value4" style="height:30px;">
             <input type="text" name="sdepth" th:value="${pipe.sdepth}" style="width:100px">
 		    <input type="text" name="scoverlevel" th:value="${pipe.scoverlevel}" style="width:100px">
-		    <input type="text" name="sinvertlevel" th:value="${pipe.sinvertlevel}" style="width:100px;background-color:#EBEBE4;" tabIndex="-1" readonly="readonly">
+		    <input type="text" name="sinvertlevel" th:value="${pipe.sinvertlevel}" style="width:100px;background-color:#EBEBE4;">
 		    <input type="text" name="fdepth" th:value="${pipe.fdepth}" style="width:100px">
 		    <input type="text" name="fcoverlevel" th:value="${pipe.fcoverlevel}" style="width:100px">
-		    <input type="text" name="finvertlevel" th:value="${pipe.finvertlevel}" style="width:100px;background-color:#EBEBE4;" tabIndex="-1" readonly="readonly">
+		    <input type="text" name="finvertlevel" th:value="${pipe.finvertlevel}" style="width:100px;background-color:#EBEBE4;">
             <input type="text" name="category" th:value="${pipe.category}" style="width:108px;">
             <select name="cleaned" th:field="${pipe.cleaned}" style="width:110px;">
               <option value="Y">Y</option>
@@ -367,7 +366,7 @@
       <option>Video error: Survey finished</option>
     </datalist>
     
-	<div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+	<div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	
     </div>

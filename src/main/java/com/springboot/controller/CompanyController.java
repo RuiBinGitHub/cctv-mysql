@@ -36,7 +36,7 @@ public class CompanyController {
 	private Map<String, Object> map = null;
 
 	@RequestMapping(value = "/showlist")
-	public ModelAndView showlist(String name, @RequestParam(defaultValue = "1") int page) {
+	public ModelAndView showList(String name, @RequestParam(defaultValue = "1") int page) {
 		ModelAndView view = new ModelAndView("company/showlist");
 		map = AppHelper.getMap("name", name, "page", page);
 		PageInfo<Company> info = companyBiz.findListCompany(map);

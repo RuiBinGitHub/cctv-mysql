@@ -38,29 +38,31 @@ $(document).ready(function() {
 		var score2 = $(this).find("td:eq(5)").text();
 		$(this).find("td:eq(4)").text(Number(score1).toFixed(2));
 		$(this).find("td:eq(5)").text(Number(score2).toFixed(2));
-		if (score1 < 95)
+		if (score1 != "" && score1 < 95)
 			$(this).find("td:eq(4)").css("color", "#FF1000");
 		else
 			$(this).find("td:eq(4)").css("color", "#479911");
-		if (score2 < 85)
+		if (score2 != "" && score2 < 85)
 			$(this).find("td:eq(5)").css("color", "#FF1000");
 		else
 			$(this).find("td:eq(5)").css("color", "#479911");
-		var socre1 = $(this).find("td:eq(6)").text();
-		var socre2 = $(this).find("td:eq(7)").text();
-		$(this).find("td:eq(6)").html(getImg(socre1));
-		$(this).find("td:eq(7)").html(getImg(socre2));
+		var grade1 = $(this).find("td:eq(6)").text();
+		var grade2 = $(this).find("td:eq(7)").text();
+		$(this).find("td:eq(6)").html(getImg(grade1));
+		$(this).find("td:eq(7)").html(getImg(grade2));
+		// 设置按钮点击事件
+		$(this).find("input").click(function() {
+			location.href = "findinfo?id=" + id + "&no=" + i;
+		});
 		$(this).mouseenter(function() {
 			$(this).find("input").show();
 		});
 		$(this).mouseleave(function() {
 			$(this).find("input").hide();
 		});
-		$(this).find("input").click(function() {
-			location.href = "findinfo?id=" + id + "&no=" + i;
-		});
 	});
 	$("#showpipe").scrollTop(30 * index);
+	
 	function getImg(count) {
 		var hrml = "";
 		for (var i = 0; i < count; i++)
@@ -85,15 +87,15 @@ $(document).ready(function() {
         var text = $(this).find("td:eq(11)").text();
         $(this).find("td:eq(11)").attr("title", text);
         setCode($(this).find("td:eq(5)"), $(this).find("td:eq(5)").text());
-    });
-    $("#tab2 tbody tr").on("click", function() {
-    	var value = $(this).find("td:last").text();
-        if (value!= null && value.length > 0)
-            $("#image").attr("src", path + value + ".png");
-        else
-            $("#image").attr("src", "/cctv/img/blank.png");
-    	$("#tab2 tbody tr").find("td:eq(0)").text("");
-    	$(this).find("td:eq(0)").text("▶");
+	    $(this).click(function() {
+	    	var value = $(this).find("td:last").text();
+	        if (value!= null && value.length > 0)
+	            $("#image").attr("src", path + value + ".png");
+	        else
+	            $("#image").attr("src", "/cctv/img/blank.png");
+	    	$("#tab2 tbody tr").find("td:eq(0)").text("");
+	    	$(this).find("td:eq(0)").text("▶");
+	    });
     });
 	/** ***************************************************************** */
 	$("#bvalue input").attr("readonly", true);

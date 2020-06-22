@@ -56,6 +56,10 @@ body {
 	color: #F7C93D;
 }
 /************************************************************************/
+input[type=text] {
+	padding: 0px;
+}
+/************************************************************************/
 #main {
 	width: 1240px;
 	margin: 20px auto;
@@ -98,7 +102,6 @@ body {
 	color: #F7C93D;
 }
 /************************************************************************/
-
 #main1 {
 	width: 1240px;
 	background-color: #fff;
@@ -170,7 +173,7 @@ body {
 	margin-left: 20px;
 	margin-bottom: 20px;
 	border: 1px solid #f0f0f0;
-	overflow-y:scroll;
+	overflow-y: scroll;
 	float: left;
 }
 

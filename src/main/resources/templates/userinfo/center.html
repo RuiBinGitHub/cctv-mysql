@@ -68,8 +68,8 @@
         
         <table class="table2">
           <tr> <!-- 登录密码 -->
-            <td width="82%" align="left"><img src="/cctv/img/center7.png"><h4 th:text="#{userinfo.center.table2.title1}"></h4></td>
-            <td width="18%" align="center">
+            <td width="80%" align="left"><img src="/cctv/img/center7.png"><h4 th:text="#{userinfo.center.table2.title1}"></h4></td>
+            <td width="20%" align="center">
               <img style="margin-top:2px;float:left;" src="/cctv/img/ioc1.png">
               <span style="color:#44B333;font-weight:600;" th:text="#{userinfo.center.list.link1}"></span> | 
               <a id="link1" class="link1" th:text="#{userinfo.center.list.link3}"></a>
@@ -88,7 +88,7 @@
             </td>
             <!-- 未绑定邮箱 -->
             <td th:if="${session.user.email == '--' || session.user.email == null}" align="center">
-              <img style="margin-top:0px;float:left;" src="/cctv/img/ioc2.png">
+              <img style="margin-top:2px;float:left;" src="/cctv/img/ioc2.png">
               <span style="color:#FF9900;font-weight:600;" th:text="#{userinfo.center.list.link2}"></span> | 
               <a id="link2" class="link1" th:text="#{userinfo.center.list.link4}"></a>
             </td>
@@ -119,8 +119,8 @@
 	        <td colspan="2" align="center"><a style="color:#f00"></a></td>
 	      </tr>
 	      <tr height="55px">
-	        <td width="35%" align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform1.font1}"></a></td>
-	        <td width="65%"><input class="textbox" type="password"/></td>
+	        <td width="36%" align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform1.font1}"></a></td>
+	        <td width="64%"><input class="textbox" type="password"/></td>
 	      </tr>
 	      <tr height="55px">
 	        <td align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform1.font2}"></a></td>
@@ -173,7 +173,8 @@
 	    </table>
 	  </div>
     </div>
-    <div style="width:100%;margin-top:20px;float:left;color:#ccc;text-align: center;font-size:14px;">
+    
+    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	
     </div>
