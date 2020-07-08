@@ -7,7 +7,7 @@ body {
 #naviMain {
 	width: 100%;
 	height: 80px;
-	background-color: #fff;
+	background-color: #3A3F4A;
 }
 
 #navi {
@@ -24,9 +24,10 @@ body {
 }
 
 .naviItem {
-	width: 100px;
+	width: 120px;
 	height: 100%;
-	font-size: 15px;
+	font-size: 18px;
+	font-family: simsun;
 	text-align: center;
 	line-height: 80px;
 	float: left;
@@ -58,7 +59,7 @@ body {
 
 #mainInfo {
 	width: 100%;
-	height: 650px;
+	height: 700px;
 	margin-top: 10px;
 	background-color: #fff;
 	float: left;
@@ -68,7 +69,7 @@ body {
 	width: 100%;
 	height: 48px;
 	font-size: 20px;
-	font-family: 宋体;
+	font-family: simsun;
 	font-weight: 700;
 	text-indent: 20px;
 	line-height: 48px;
@@ -87,7 +88,7 @@ body {
 #table1 tr {
 	height: 45px;
 	font-size: 18px;
-	font-family: "宋体";
+	font-family: simsun;
 	font-weight: 600;
 }
 
@@ -97,7 +98,7 @@ body {
 	font-size: 20px;
 	font-weight: 600;
 	line-height: 40px;
-	margin: 10px 105px 5px 105px;
+	margin: 30px 105px 5px 105px;
 	border-bottom: 2px solid #999;
 	float: left;
 }
@@ -106,7 +107,7 @@ body {
 	width: 785px;
 	max-height: 320px;
 	font-size: 16px;
-	font-family: "仿宋";
+	font-family: 仿宋;
 	font-weight: 600;
 	margin: 0px 105px 20px 105px;
 	border: 1px solid #ccc;

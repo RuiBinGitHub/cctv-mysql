@@ -37,8 +37,6 @@ public class UserBizImpl implements UserBiz {
 	}
 
 	public User findInfoUser(Map<String, Object> map) {
-		if (!StringUtils.isEmpty(map.get("name")))
-			map.put("name", "%" + map.get("name") + "%");
 		return userDao.findInfoUser(map);
 	}
 

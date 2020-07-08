@@ -1,18 +1,15 @@
 $(document).ready(function() {
 
-    if ($("#menuText").val() == "") {
+	if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);
-        $("#menuBtn1").css("background-color", "#CCC");
     }
     $("#menuText").keydown(function() {
-        if (event.keyCode == "13")
+        if (event.keyCode == 13)
             $("#menuBtn2").click();
     });
-    /** 返回查询 */
     $("#menuBtn1").click(function() {
         window.location.href = "showlist";
     });
-    /** 名称查询 */
     $("#menuBtn2").click(function() {
         var name = $("#menuText").val();
         if (name.trim() != "")

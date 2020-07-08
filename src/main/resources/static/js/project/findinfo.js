@@ -88,7 +88,7 @@ $(document).ready(function() {
         if (value != null && value.length > 0)
             $("#image").attr("src", path + value + ".png");
         else
-            $("#image").attr("src", "/cctv/img/blank.png");
+            $("#image").attr("src", "/cctv/img/blank-plus.png");
     	$("#tab2 tbody tr").find("td:eq(0)").text("");
     	$(this).find("td:eq(0)").text("▶");
     });

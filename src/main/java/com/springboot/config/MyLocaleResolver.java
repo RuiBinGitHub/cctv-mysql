@@ -5,11 +5,13 @@ import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.springboot.util.AppHelper;
 
+@Component(value = "localeResolver")
 public class MyLocaleResolver implements LocaleResolver {
 
 	public Locale resolveLocale(HttpServletRequest request) {

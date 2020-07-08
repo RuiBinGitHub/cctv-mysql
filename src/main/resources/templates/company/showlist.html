@@ -4,6 +4,7 @@
 	<title>公司管理</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+	<link rel="stylesheet" type="text/css" href="/cctv/css/common/itemlist.css"/>
 	<link rel="stylesheet" type="text/css" href="/cctv/css/company/showlist.css"/>
 	<script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
 	<script type="text/javascript" src="/cctv/js/company/showlist.js"></script>
@@ -13,13 +14,20 @@
     <div id="naviMain">
       <div id="navi">
         <div style="width:1080px;float:left;"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></div>
-        <div class="naviItem"><img src="/cctv/img/leave.png"/><a href="/cctv/userview/leave">退出登录</a></div>
+        <div class="naviItem"><img src="/cctv/img/navi5.png"/><a href="/cctv/userview/leave">退出登录</a></div>
       </div>
     </div>
+    
     <div id="main">
       <div id="mainMenu">
       	<div id="menuTitle">管理菜单</div>
         <div class="menu1"><a href="showlist">公司管理</a></div>
+        <div class="menu2" style="background-color:#3A3F4A"></div>
+        <div class="menu2" style="background-color:#3A3F4A"></div>
+        <div class="menu2" style="background-color:#3A3F4A"></div>
+        <div class="menu2" style="background-color:#3A3F4A"></div>
+        <div class="menu2" style="background-color:#3A3F4A"></div>
+        <div class="menu2" style="background-color:#3A3F4A"></div>
       </div>
       <div id="mainInfo">
         <div id="infoTop">公司列表</div>
@@ -28,12 +36,13 @@
           <input id="menuBtn1" type="button" value="←"/>
           <input id="menuText" th:value="${param.name}"/>
           <input id="menuBtn2"  type="button" value="立即查詢"/>
-          <div style="width:500px;height:100%;float:left;"></div>
+          <div style="width:478px;height:100%;float:left;"></div>
           <input type="button" id="append" value="新建"/>
         </div>
+        
         <table id="tab1">
 	      <thead>
-	        <tr height="40px" style="background-color:#F0F0F0">
+	        <tr height="40px" style="background-color:#51596b;">
 	          <th width="4%">NO</th>
 	          <th width="24%">公司名稱</th>
 	          <th width="12%">人數(人)</th>
@@ -54,15 +63,15 @@
 	          <td></td>
 	          <td th:text="${company.level}"></td>
 	          <td>
-	            <input type="button" class="tablebtn1" value="編輯"/>
-	            <input type="button" class="tablebtn2" value="刪除"/>
+	            <input type="button" value="編輯" style="background-color:#2CACF1;"/>
+	            <input type="button" value="刪除" style="background-color:#F34D4D;"/>
 	          </td>
 	        </tr>
 	      </tbody>
 	    </table>
 	    <img th:if="${#lists.isEmpty(companies)}" src="/cctv/img/null.png" style="margin:145px 400px;float:left;">
         <table id="tab2" th:if="${!#lists.isEmpty(companies)}">
-          <tr height="36px" style="font-size:18px;font-family:simsun;">
+          <tr height="65px">
             <td width="45%" align="right"><input type="button" value="<<上壹頁" class="pagebtn"/></td>
             <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${count}"></a></td>
             <td width="45%" align="left"><input type="button" value="下壹頁>>" class="pagebtn"/></td>
@@ -70,6 +79,7 @@
         </table>
       </div>
     </div>
+    
     <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	

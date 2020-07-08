@@ -12,25 +12,25 @@ import com.springboot.entity.User;
 
 public interface ItemBiz {
 
-	public void insertItem(Item item);
+	void insertItem(Item item);
 
-	public void updateItem(Item item);
+	void updateItem(Item item);
 
-	public void deleteItem(Item item);
+	void deleteItem(Item item);
 
-	public Item findInfoItem(int id, User user);
+	Item findInfoItem(int id, User user);
 
-	public Item findInfoItem(Map<String, Object> map);
+	Item findInfoItem(Map<String, Object> map);
 
-	public List<Item> findListItem(Map<String, Object> map);
+	List<Item> findListItem(Map<String, Object> map);
 
-	public List<Item> findListItem(Project project);
+	List<Item> findListItem(Project project);
 
-	public List<Item> findListItem(Pipe pipe);
+	List<Item> findListItem(Pipe pipe);
 
-	public boolean importImage(Project project, MultipartFile[] files);
+	boolean importImage(Project project, MultipartFile[] files);
 
-	public boolean removeImage(Project project);
+	boolean removeImage(Project project);
 
-	public void sortItemImg(Project project);
+	void sortItemImg(Project project);
 }

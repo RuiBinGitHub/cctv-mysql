@@ -7,21 +7,21 @@ import com.springboot.entity.Company;
 
 public interface CompanyBiz {
 
-	public void insertCompany(Company company);
+	void insertCompany(Company company);
 
-	public void updateCompany(Company company);
+	void updateCompany(Company company);
 
-	public void deleteCompany(Company company);
+	void deleteCompany(Company company);
 
-	public Company findInfoCompany(int id);
+	Company findInfoCompany(int id);
 	
-	public Company findInfoCompany(Map<String, Object> map);
+	Company findInfoCompany(Map<String, Object> map);
 
-	public PageInfo<Company> findListCompany(Map<String, Object> map);
+	PageInfo<Company> findListCompany(Map<String, Object> map);
 	
-	public int appendCompany(Company company);
+	int appendCompany(Company company);
 
-	public int repeatCompany(Company company);
+	int repeatCompany(Company company);
 	
 
 }

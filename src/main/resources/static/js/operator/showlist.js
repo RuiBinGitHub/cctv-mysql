@@ -4,9 +4,8 @@ $(document).ready(function() {
     var tipsText1 = language == "zh" ? "確定要刪除該數據嗎？" : "Are you sure you want to delete this data?";
     var tipsText2 = language == "zh" ? "數據刪除成功！" : "Operating successfully!";
     /** *************************************************************** */
-    var width = $("#infoMenu span:eq(0)").css("width");
-    var length = width.substring(0, width.length - 2);
-    $("#infoMenu div:eq(0)").css("width", 592 - length);
+    var width = $("#infoMenu span:eq(0)").width();
+    $("#infoMenu div:eq(0)").css("width", 595 - width);
     /** *************************************************************** */
     if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);
@@ -47,7 +46,7 @@ $(document).ready(function() {
         $(this).find("input[type=button]:eq(1)").click(function() {
             if (!confirm(tipsText1)) 
             	return false;
-            $(this).css("background-color", "#CCC");
+            $(this).css("background-color", "#ccc");
             $(this).attr("disabled", true);
             if (Ajax("delete", {id: id}))
                 showTips(tipsText2);
@@ -86,8 +85,8 @@ $(document).ready(function() {
     }
     /********************************************************************/
     function showTips(text) {
-        $("#Tip").show().delay(1800).hide(200);
-        $("#Tip").text(text);
+        $("#tips").show().delay(1800).hide(200);
+        $("#tips").text(text);
     }
     function Ajax(url, data) {
         var result = null;

@@ -7,16 +7,16 @@ import com.springboot.entity.Message;
 
 public interface MessageDao {
 
-	public void insertMessage(Message message);
+	void insertMessage(Message message);
 
-	public void updateMessage(Message message);
+	void updateMessage(Message message);
 
-	public void deleteMessage(Message message);
+	void deleteMessage(Message message);
 
-	public Message findInfoMessage(Map<String, Object> map);
+	Message findInfoMessage(Map<String, Object> map);
 
-	public List<Message> findListMessage(Map<String, Object> map);
+	List<Message> findListMessage(Map<String, Object> map);
 
-	public int getCount(Map<String, Object> map);	
+	int getCount(Map<String, Object> map);	
 	
 }

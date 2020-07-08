@@ -7,14 +7,14 @@ import com.springboot.entity.Company;
 
 public interface CompanyDao {
 
-	public void insertCompany(Company company);
+	void insertCompany(Company company);
 
-	public void updateCompany(Company company);
+	void updateCompany(Company company);
 
-	public void deleteCompany(Company company);
+	void deleteCompany(Company company);
 
-	public Company findInfoCompany(Map<String, Object> map);
+	Company findInfoCompany(Map<String, Object> map);
 
-	public List<Company> findListCompany(Map<String, Object> map);
+	List<Company> findListCompany(Map<String, Object> map);
 	
 }

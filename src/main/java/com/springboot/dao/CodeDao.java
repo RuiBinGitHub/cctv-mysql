@@ -7,7 +7,7 @@ import com.springboot.entity.Code;
 
 public interface CodeDao {
 
-	public Code findInfoCode(Map<String, Object> map);
+	Code findInfoCode(Map<String, Object> map);
 
-	public List<Code> findListCode(Map<String, Object> map);
+	List<Code> findListCode(Map<String, Object> map);
 }

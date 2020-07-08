@@ -2,6 +2,7 @@ $(document).ready(function() {
 
 	$("#tab1 input[type=text]").attr("readonly", true);
 	$("#tab1 input[type=text]").css("background-color", "#f0f0f0");
+	
 	var username = $("input[type=text]:eq(1)").val();
 	if (username.indexOf("0001") != -1) {
 		$("select[name=role]").attr("disabled", true);

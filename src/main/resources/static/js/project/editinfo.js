@@ -588,7 +588,7 @@
             $(this).find("td:eq(11) input").attr("name", "items[" + i + "].remarks");
             $(this).find("td:eq(12) input").attr("name", "items[" + i + "].picture");
         });
-        $("#memu1 input:eq(1),#TitleMemu input:eq(1)").css("background-color", "#CCC");
+        $("#memu1 input:eq(1),#TitleMemu input:eq(1)").css("background-color", "#ccc");
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").attr("disabled", true);
         if (Ajax("/cctv/pipe/update", $("#form1").serialize()))
             showTips(tipsText1);
@@ -643,7 +643,7 @@
     });
     /** ******************************************************************** */
     var reg = /^[+]{0,1}(\d+)$/; // 正整数正则表达式
-    var timeReg = /^(([0-1][0-9])|2[0-3]):([0-5][0-9])$/;
+    var timeReg = /^(([0-1][0-9])|2[0-3]):([0-5][0-9])$/; // 时间正则表达式
     $("#value1 input:eq(2)").css("background-color", "#EBEBE4");
     /** 數據第壹行第四行必須輸入 */
     $("#value1 input, #value4 input").on("input", function() {
@@ -689,8 +689,9 @@
     	$(this).css("background-color", "#fff");
         laydate();
     });
+    
     // 限制時間輸入格式
-    $("input[name=time]").on("input", function() {
+    $("input[name=time]").on("input", function(event) {
         if ($(this).val().length == 2)
             $(this).val($(this).val() + ":");
         if (timeReg.test($(this).val()))

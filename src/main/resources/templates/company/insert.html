@@ -12,10 +12,11 @@
     <div id="tips" th:text="${tips}"></div>
     <div id="naviMain">
       <div id="navi">
-        <div style="width:900px;float:left;"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></div>
-        <div class="naviItem"><img src="/cctv/img/leave.png"/><a href="/cctv/userview/leave">退出登录</a></div>
+        <div style="width:880px;float:left;"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></div>
+        <div class="naviItem"><img src="/cctv/img/navi5.png"/><a href="/cctv/userview/leave">退出登录</a></div>
       </div>
     </div>
+    
     <div id="main">
       <div id="mainInfo">
         <div id="mainTop">新建公司</div>
@@ -34,7 +35,7 @@
 	       	  <td align="left"><a>只能由字母和数字组成，2-12位。</a></td>
 	       	</tr>
 	    	<tr>
-	    	  <td align="right"><span style="color:#f00">*</span><span class="label">公司规模：</span></td>
+	    	  <td align="right"><span style="color:#f00">*</span><span class="label">使用人数：</span></td>
 	    	  <td align="left">
 	    	    <input type="button" class="btn1" value="-"/>
 	    	    <input type="text" name="cont" th:value="${company?.cont}" class="textbox2"/>
@@ -73,13 +74,14 @@
   	  	<div style="width:720px;margin-left:135px;color:#666;font-size:15px;font-family:仿宋;font-weight:700;float:left;">
   	  	  注：新建公司完成后公司名称无法进行修改，选择不同的使用版本可以使用不同的业务服务。</div>
   	  	<div style="width:720px;margin-left:167px;color:#666;font-size:15px;font-family:仿宋;font-weight:700;float:left;">
-  	  	  账号前缀为系统分配公司的账号前缀，如输入MSDI，公司规模20人，则系统自动为该公司分配账号为：
+  	  	  账号前缀为系统分配公司的账号前缀，如输入MSDI，使用人数20人，则系统自动为该公司分配账号为：
   	  	</div>
   	  	<div style="width:720px;margin-left:167px;color:#666;font-size:15px;font-family:仿宋;font-weight:700;float:left;">
   	  	  MSDI0001～MSDI0020，账号分配初始密码为系统自动生成，用户可以在个人中心处修改登录密码。
   	  	</div>
       </div>
     </div>
+    
     <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
       <p>香港麦斯迪埃高科技有限责任公司</p>
       <p>Copyright © 2017 All Rights Reserved</p>	

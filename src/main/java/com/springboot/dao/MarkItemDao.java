@@ -8,15 +8,15 @@ import com.springboot.entity.Project;
 
 public interface MarkItemDao {
 
-	public void insertMarkItem(MarkItem markItem);
+	void insertMarkItem(MarkItem markItem);
 
-	public void deleteMarkItem(MarkItem markItem);
+	void deleteMarkItem(MarkItem markItem);
 
-	public MarkItem findInfoMarkItem(Map<String, Object> map);
+	MarkItem findInfoMarkItem(Map<String, Object> map);
 
-	public List<Project> findViewMarkItem(Map<String, Object> map);
+	List<Project> findViewMarkItem(Map<String, Object> map);
 
-	public List<MarkItem> findListMarkItem(Map<String, Object> map);
+	List<MarkItem> findListMarkItem(Map<String, Object> map);
 
-	public int getCount(Map<String, Object> map);
+	int getCount(Map<String, Object> map);
 }

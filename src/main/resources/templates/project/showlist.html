@@ -11,7 +11,7 @@
   </head>
   <body>
     <div th:replace="navigation::navigation"></div>
-    <div id="Tip"></div>
+    <div id="tips"></div>
     <div id="main">
       <div id="mainMenu">
         <div id="menuTitle" th:text="#{menu.title.text}"></div>
@@ -72,9 +72,9 @@
           	  <td th:text="${project.operator}"></td>
           	  <td th:text="${project.date}"></td>
 		      <td>
-		        <input type="button" th:value="#{project.showlist.table.button1}" style="background-color:#3CB44B;">
-		        <input type="button" th:value="#{project.showlist.table.button2}" style="background-color:#2CACF1;">
-		        <input type="button" th:value="#{project.showlist.table.button3}" style="background-color:#F34D4D;">
+		        <input type="button" th:value="#{project.showlist.table.button1}" style="background-color:#3CB44B;"/>
+		        <input type="button" th:value="#{project.showlist.table.button2}" style="background-color:#2CACF1;"/>
+		        <input type="button" th:value="#{project.showlist.table.button3}" style="background-color:#F34D4D;"/>
 		      </td>
           	</tr>
           </tbody>

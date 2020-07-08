@@ -93,8 +93,8 @@ $(document).ready(function() {
     }
     /********************************************************************/
     function showTips(text) {
-        $("#Tip").show().delay(1800).hide(200);
-        $("#Tip").text(text);
+        $("#tips").show().delay(1800).hide(200);
+        $("#tips").text(text);
     }
     /** 执行AJAX操作 */
     function Ajax(url, data) {

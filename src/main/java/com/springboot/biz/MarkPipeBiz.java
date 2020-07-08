@@ -9,16 +9,16 @@ import com.springboot.entity.User;
 
 public interface MarkPipeBiz {
 
-	public void insertMarkPipe(MarkPipe markPipe);
+	void insertMarkPipe(MarkPipe markPipe);
 
-	public void updateMarkPipe(MarkPipe markPipe);
+	void updateMarkPipe(MarkPipe markPipe);
 
-	public void deleteMarkPipe(MarkPipe markPipe);
+	void deleteMarkPipe(MarkPipe markPipe);
 
-	public MarkPipe findInfoMarkPipe(int id, User user);
+	MarkPipe findInfoMarkPipe(int id, User user);
 
-	public MarkPipe findInfoMarkPipe(Map<String, Object> map);
+	MarkPipe findInfoMarkPipe(Map<String, Object> map);
 
-	public List<MarkPipe> findListMarkPipe(MarkItem markItem);
+	List<MarkPipe> findListMarkPipe(MarkItem markItem);
 
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.springboot.biz.ItemBiz;
 import com.springboot.biz.PipeBiz;
@@ -17,6 +18,7 @@ import com.springboot.entity.User;
 import com.springboot.util.AppHelper;
 
 @Service
+@Transactional
 public class PipeBizImpl implements PipeBiz {
 
 	@Resource

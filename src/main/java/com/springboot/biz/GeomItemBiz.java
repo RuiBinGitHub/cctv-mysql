@@ -7,16 +7,16 @@ import com.springboot.entity.GeomItem;
 
 public interface GeomItemBiz {
 
-	public void insertGeomItem(GeomItem geomItem);
+	void insertGeomItem(GeomItem geomItem);
 
-	public void updateGeomItem(GeomItem geomItem);
+	void updateGeomItem(GeomItem geomItem);
 
-	public void deleteGeomItem(GeomItem geomItem);
+	void deleteGeomItem(GeomItem geomItem);
 
-	public GeomItem findInfoGeomItem(Map<String, Object> map);
+	GeomItem findInfoGeomItem(Map<String, Object> map);
 	
-	public List<GeomItem> showListGeomItem(Map<String, Object> map);
+	List<GeomItem> showListGeomItem(Map<String, Object> map);
 	
-	public void appendGeomItem(GeomItem geomItem);
+	void appendGeomItem(GeomItem geomItem);
 
 }

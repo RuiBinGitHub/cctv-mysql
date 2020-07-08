@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.web.util.SavedRequest;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.util.StringUtils;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.springboot.bean.ApplicationContext;
 import com.springboot.bean.MailBean;
 import com.springboot.biz.UserBiz;
 import com.springboot.entity.Company;
@@ -34,6 +36,8 @@ public class UserViewController {
 	private MailBean mailBean;
 	@Resource
 	private UserBiz userBiz;
+	@Resource
+	private ApplicationContext applicationContext;
 
 	private Map<String, Object> map = null;
 	private UsernamePasswordToken token = null;
@@ -70,6 +74,9 @@ public class UserViewController {
 		}
 		// 设置session过期时间为无限
 		SecurityUtils.getSubject().getSession().setTimeout(-2000);
+		Session session = SecurityUtils.getSubject().getSession();
+		applicationContext.pushMap(username, session);
+
 		SavedRequest location = WebUtils.getSavedRequest(AppHelper.getRequest());
 		if (!StringUtils.isEmpty(location)) {
 			String path = location.getRequestUrl();
@@ -158,5 +165,5 @@ public class UserViewController {
 		mailBean.sendMail(mail, code);
 		return code;
 	}
-	
+
 }

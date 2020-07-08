@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.springboot.bean.Coordinate;
@@ -23,6 +24,7 @@ import com.springboot.entity.User;
 import com.springboot.util.AppHelper;
 
 @Service
+@Transactional
 public class GeomPipeBizImpl implements GeomPipeBiz {
 
 	@Resource
@@ -46,13 +48,13 @@ public class GeomPipeBizImpl implements GeomPipeBiz {
 		return geomPipeDao.findInfoGeomPipe(map);
 	}
 
-	public List<GeomPipe> findListGeomPipe(Map<String, Object> map) {
-		return geomPipeDao.findListGeomPipe(map);
-	}
-
 	public GeomPipe findInfoGeomPipe(int id, User user) {
 		map = AppHelper.getMap("id", id, "user", user);
 		return geomPipeDao.findInfoGeomPipe(map);
+	}
+
+	public List<GeomPipe> findListGeomPipe(Map<String, Object> map) {
+		return geomPipeDao.findListGeomPipe(map);
 	}
 
 	public List<GeomPipe> findListGeomPipe(GeomItem geomItem) {

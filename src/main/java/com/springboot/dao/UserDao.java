@@ -7,14 +7,14 @@ import com.springboot.entity.User;
 
 public interface UserDao {
 
-	public void insertUser(User user);
+	void insertUser(User user);
 
-	public void updateUser(User user);
+	void updateUser(User user);
 
-	public void deleteUser(User user);
+	void deleteUser(User user);
 
-	public User findInfoUser(Map<String, Object> map);
+	User findInfoUser(Map<String, Object> map);
 
-	public List<User> findListUser(Map<String, Object> map);
+	List<User> findListUser(Map<String, Object> map);
 
 }

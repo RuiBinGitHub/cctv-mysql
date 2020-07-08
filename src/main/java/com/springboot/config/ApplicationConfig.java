@@ -10,7 +10,6 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -104,14 +103,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
 	}
 
 	@Bean
-	public ShiroDialect shiroDialect() {
+	public ShiroDialect getShiroDialect() {
 		ShiroDialect dialect = new ShiroDialect();
 		return dialect;
 	}
 
-	@Bean
-	public LocaleResolver localeResolver() {
-		LocaleResolver resolver = new MyLocaleResolver();
-		return resolver;
-	}
 }

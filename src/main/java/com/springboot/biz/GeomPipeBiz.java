@@ -12,26 +12,26 @@ import com.springboot.entity.User;
 
 public interface GeomPipeBiz {
 
-	public void insertGeomPipe(GeomPipe geomPipe);
+	void insertGeomPipe(GeomPipe geomPipe);
 
-	public void updateGeomPipe(GeomPipe geomPipe);
+	void updateGeomPipe(GeomPipe geomPipe);
 
-	public void deleteGeomPipe(GeomPipe geomPipe);
+	void deleteGeomPipe(GeomPipe geomPipe);
 
-	public GeomPipe findInfoGeomPipe(Map<String, Object> map);
+	GeomPipe findInfoGeomPipe(Map<String, Object> map);
 
-	public List<GeomPipe> findListGeomPipe(Map<String, Object> map);
+	GeomPipe findInfoGeomPipe(int id, User user);
 
-	public GeomPipe findInfoGeomPipe(int id, User user);
+	List<GeomPipe> findListGeomPipe(Map<String, Object> map);
 
-	public List<GeomPipe> findListGeomPipe(GeomItem geomItem);
+	List<GeomPipe> findListGeomPipe(GeomItem geomItem);
 
-	public Map<String, Double> findSMHGradeA(String smhGradeA, Company company);
+	Map<String, Double> findSMHGradeA(String smhGradeA, Company company);
 
-	public Map<String, Double> findFMHGradeA(String fmhGradeA, Company company);
+	Map<String, Double> findFMHGradeA(String fmhGradeA, Company company);
 
-	public boolean importValue(GeomItem geomItem, MultipartFile file);
-	
-	public boolean replacePipegeom(GeomPipe geomPipe);
+	boolean importValue(GeomItem geomItem, MultipartFile file);
+
+	boolean replacePipegeom(GeomPipe geomPipe);
 
 }

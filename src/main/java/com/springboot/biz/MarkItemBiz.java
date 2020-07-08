@@ -9,18 +9,18 @@ import com.springboot.entity.User;
 
 public interface MarkItemBiz {
 
-	public void insertMarkItem(MarkItem markItem);
+	void insertMarkItem(MarkItem markItem);
 
-	public void deleteMarkItem(MarkItem markItem);
+	void deleteMarkItem(MarkItem markItem);
 
-	public MarkItem findInfoMarkItem(int id, User user);
+	MarkItem findInfoMarkItem(int id, User user);
 
-	public MarkItem findInfoMarkItem(Map<String, Object> map);
+	MarkItem findInfoMarkItem(Map<String, Object> map);
 
-	public PageInfo<Project> findViewMarkItem(Map<String, Object> map);
+	PageInfo<Project> findViewMarkItem(Map<String, Object> map);
 
-	public PageInfo<MarkItem> findListMarkItem(Map<String, Object> map);
+	PageInfo<MarkItem> findListMarkItem(Map<String, Object> map);
 
-	public int appendMarkItem(MarkItem MarkItem);
+	int appendMarkItem(MarkItem MarkItem);
 
 }
