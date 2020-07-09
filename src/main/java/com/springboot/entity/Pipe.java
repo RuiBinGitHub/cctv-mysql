@@ -3,6 +3,12 @@ package com.springboot.entity;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "Pipe")
 public class Pipe implements Serializable {
 
 	private static final long serialVersionUID = 1L;

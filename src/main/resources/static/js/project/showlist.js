@@ -9,6 +9,8 @@ $(document).ready(function() {
     /** *************************************************************** */
     var width = $("#infoMenu span:eq(0)").width();
     $("#infoMenu div:eq(0)").css("width", 535 - width);
+    $("input[name=files]").attr("webkitdirectory", true);
+    $("#form2").attr("target", "_blank");
     /** *************************************************************** */
     if ($("#menuText").val().trim() == "") {
         $("#menuBtn1").attr("disabled", true);
@@ -31,16 +33,39 @@ $(document).ready(function() {
         window.open("insertview");
     });
     /** 导入按钮 */
-    $("#import").click(function() {
-        $("#file").click();
+    $("#import, #ipopup").mouseenter(function() {
+        $("#ipopup").show();
     });
-    $("#file").change(function() {
+    $("#import, #ipopup").mouseleave(function() {
+        $("#ipopup").hide();
+    });
+    $(".con div:eq(0)").click(function() {
+    	$("#file1").click();
+    });
+    $(".con div:eq(1)").click(function() {
+    	$("#file2").click();
+    });
+    $("#file1").change(function() {
         if (this.files.length == 0)
             return false;
-        $("#Tip").text(itipsText);
-        $("#form").submit();
+        $("#tips").text(itipsText);
+        $("#form1").submit();
         $("#page").show();
-        $("#Tip").show();
+        $("#tips").show();
+    });
+    $("#file2").change(function() {
+        if (this.files.length == 0)
+            return false;
+        for (var i = 0; i < this.files.length; i++) {
+            var name = this.files[i].name;
+            var loca = name.lastIndexOf(".");
+            var type = name.substr(loca).toLowerCase();
+            if (type == null || type != ".xml")
+            	continue;
+            $("#form2").submit();
+            return true;
+        }
+        showTips("请选择正确的文件夹！");
     });
     /** *************************************************************** */
     /** 初始化表格 */

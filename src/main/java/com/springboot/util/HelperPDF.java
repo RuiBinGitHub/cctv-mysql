@@ -59,12 +59,11 @@ public class HelperPDF extends PdfPageEventHelper {
 	private Paragraph wrap = new Paragraph("\n"); // 换行符
 	private Map<String, Object> map = null;
 
-	public void initPDF(Project project, String path) {
+	public void initPDF(Project project, String FileName) {
 		try {
 			document = new Document(PageSize.A4);
 			document.setMargins(20, 20, 15, 10); // 左右上下间距
-			String FileName = path + "/" + project.getDate() + "_" + project.getName();
-			OutputStream output = new FileOutputStream(FileName + "_CCTV.pdf");
+			OutputStream output = new FileOutputStream(FileName);
 			PdfWriter writer = PdfWriter.getInstance(document, output);
 			writer.setPageEvent(this);
 			document.open(); // 打开文档
@@ -641,11 +640,9 @@ public class HelperPDF extends PdfPageEventHelper {
 		Company company = project.getUser().getCompany();
 		map = AppHelper.getMap("name", pipe.getOperator(), "company", company);
 		Operator operator = operatorBiz.findInfoOperator(map);
-		String operator1 = "", operator2 = "";
-		if (!StringUtils.isEmpty(operator)) {
-			operator1 = operator.getName();
-			operator2 = operator.getMembernumber();
-		}
+		String member = ""; // 会员编号
+		if (!StringUtils.isEmpty(operator))
+			member = operator.getMembernumber();
 		String use = "F".equals(pipe.getUses()) ? "Foul" : "Surface water";
 		int height = 14;
 		Font font1 = getFont(10, 0, null); // 正常字体
@@ -664,14 +661,14 @@ public class HelperPDF extends PdfPageEventHelper {
 		table.addCell(getCell(pipe.getSloperef(), font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 1, 1, 0, 0, 0));
 		table.addCell(getCell("Operator", font1, 1, 1, 0, 0, 0));
-		table.addCell(getCell(operator1, font2, 1, 1, 1, 0, 0));
+		table.addCell(getCell(pipe.getOperator(), font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 5, 1, 0, 4, 0)); // 插入空白行
 
 		table.addCell(getCell("Company", font1, 1, 1, 0, height, 0));
 		table.addCell(getCell(project.getClient(), font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 1, 1, 0, 0, 0));
 		table.addCell(getCell("Operator No", font1, 1, 1, 0, 0, 0));
-		table.addCell(getCell(operator2, font2, 1, 1, 1, 0, 0));
+		table.addCell(getCell(member, font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 5, 1, 0, 4, 0)); // 插入空白行
 
 		table.addCell(getCell("Drain/Sewer Use", font1, 1, 1, 0, height, 0));
@@ -1064,10 +1061,10 @@ public class HelperPDF extends PdfPageEventHelper {
 		List<String> list = new ArrayList<String>();
 		FontMetrics fontMetrics = graphics.getFontMetrics();
 		StringBuffer buffer = new StringBuffer("");
-		for (int i = 0; i< text.length(); i++) {
+		for (int i = 0; i < text.length(); i++) {
 			buffer.append(text.charAt(i));
 			int length = fontMetrics.stringWidth(buffer.toString());
-			if (length >= 280 || i == text.length() -1) {
+			if (length >= 280 || i == text.length() - 1) {
 				if (i != text.length() - 1 && text.charAt(i + 1) == ',')
 					buffer.append(text.charAt(++i));
 				else if (i != text.length() - 1 && text.charAt(i + 1) == '.')

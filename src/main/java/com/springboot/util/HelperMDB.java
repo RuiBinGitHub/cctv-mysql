@@ -9,7 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
-
+import java.text.DecimalFormat;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,7 +30,7 @@ public class HelperMDB {
 
 	public void initMDB(Project project, String path) {
 		try {
-			String FileName = path + "/" + project.getDate() + "_" + project.getName();
+			String FileName = path + project.getDate() + "_" + project.getName();
 			File file1 = new File(myfile + "temp.mdb"); // 模版位置
 			File file2 = new File(FileName + "_CCTV.mdb");
 			FileUtils.copyFile(file1, file2);
@@ -52,6 +52,7 @@ public class HelperMDB {
 			InputStream stream = null;
 			StringBuffer str1 = new StringBuffer();
 			StringBuffer str2 = new StringBuffer();
+			DecimalFormat foramt = new DecimalFormat("#000");
 			for (int i = 0; i < 46; i++)
 				str1.append("?, ");
 			for (int i = 0; i < 19; i++)
@@ -145,7 +146,7 @@ public class HelperMDB {
 					else {
 						pstat.setBinaryStream(19, stream, stream.available());
 						File Image = new File(filePath);
-						File itemp = new File(path + "/" + ImageName + ".png");
+						File itemp = new File(path + "/data/" + foramt.format(ImageName) + ".png");
 						FileUtils.copyFile(Image, itemp);
 						ImageName++;
 					}

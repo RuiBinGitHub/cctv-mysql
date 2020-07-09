@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -26,6 +27,7 @@ import com.springboot.entity.Project;
 import com.springboot.entity.User;
 import com.springboot.util.AppHelper;
 import com.springboot.util.ModeHelper;
+import com.springboot.util.ModePreview;
 
 @RestController
 @RequestMapping(value = "/project")
@@ -35,7 +37,9 @@ public class ProjectController {
 	private String path;
 
 	@Resource
-	private ModeHelper helperMode;
+	private ModeHelper modeHelper;
+	@Resource
+	private ModePreview modePreview;
 	@Resource
 	private OperatorBiz operatorBiz;
 	@Resource
@@ -247,13 +251,27 @@ public class ProjectController {
 	}
 
 	/** 导入项目 */
-	@RequestMapping(value = "/importitems", method = RequestMethod.POST)
+	@RequestMapping(value = "/import", method = RequestMethod.POST)
 	public ModelAndView inportItems(MultipartFile file) {
 		ModelAndView view = new ModelAndView();
 		User user = (User) AppHelper.findMap("user");
 		view.setViewName("redirect:showlist");
 		if (!StringUtils.isEmpty(file))
-			helperMode.ItemMode(file, user);
+			modeHelper.ItemMode(file, user);
+		return view;
+	}
+
+	/** 预览文件 */
+	@RequestMapping(value = "/preview", method = RequestMethod.POST)
+	public ModelAndView previewItem(MultipartFile[] files) {
+		ModelAndView view = new ModelAndView("userview/failure");
+		HttpServletRequest request = AppHelper.getRequest();
+		String name = modePreview.ItemMode(files);
+		if (StringUtils.isEmpty(name))
+			return view;
+		String addr = request.getLocalAddr();
+		String path = "redirect:http://" + addr + ":8080";
+		view.setViewName(path + "/TempFile/" + name + ".pdf");
 		return view;
 	}
 
@@ -269,4 +287,5 @@ public class ProjectController {
 		projectBiz.importProject(project, xfile);
 		return view;
 	}
+
 }

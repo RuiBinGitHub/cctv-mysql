@@ -1,9 +1,12 @@
 package com.springboot;
 
+import java.io.FileWriter;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,13 +39,23 @@ public class MainApplicationTests {
 	public Map<String, Object> map = null;
 
 	@Test
-	public void contextLoads() {
-		Project project = projectBiz.findInfoProject(61, null);
+	public void contextLoads() throws Exception {
+		Project project = projectBiz.findInfoProject(35, null);
 		List<Pipe> pipes = pipeBiz.findListPipe(project);
 		for (Pipe pipe : pipes) // 计算管道分数
-			computes.computePipe(pipe, project.getStandard());
+			pipe.setItems(itemBiz.findListItem(pipe));
 		project.setPipes(pipes);
-		// helperPDF.initPDF(project, "d:/");
+		writr(project, "d:/project.xml");
+		
+	}
+	
+	public static void writr(Project project, String path) throws Exception {
+		JAXBContext context = JAXBContext.newInstance(project.getClass());
+		Marshaller marshaller = context.createMarshaller();
+		marshaller.setProperty("jaxb.formatted.output", true);
+		FileWriter writer = new FileWriter(path);
+		marshaller.marshal(project, writer);
+		System.out.println("--");
 	}
 
 }

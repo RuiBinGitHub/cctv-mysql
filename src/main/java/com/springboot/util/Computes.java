@@ -25,7 +25,7 @@ public class Computes {
 	public Pipe computePipe(Pipe pipe, String type) {
 		int surve[] = new int[20];
 		int v = getValue(pipe.getSlope(), pipe.getYearlaid());
-		List<Item> items = itemBiz.findListItem(pipe);
+		List<Item> items = pipe.getItems();
 		for (int i = 0; items != null && i < items.size(); i++)
 			computeItem(items.get(i), type); // 计算分数和等级
 		String[] slist = new String[10];

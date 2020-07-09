@@ -2,6 +2,7 @@ package com.springboot.util;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,6 +18,9 @@ import java.util.Base64.Decoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -24,6 +28,8 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.springboot.entity.Project;
 
 public class AppHelper {
 
@@ -123,6 +129,31 @@ public class AppHelper {
 			file.transferTo(dest);
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+	/** 对象转换为xml文件 */
+	public static void convert(Project project, String path) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(project.getClass());
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setProperty("jaxb.formatted.output", true);
+			FileWriter writer = new FileWriter(path);
+			marshaller.marshal(project, writer);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/** xml文件转换为对象 */
+	public static Project convert(Class<?> iclass, File file) {
+		try {
+			JAXBContext context = JAXBContext.newInstance(iclass);
+			Unmarshaller unmarshaller = context.createUnmarshaller();
+			Project project = (Project) unmarshaller.unmarshal(file);
+			return project;
+		} catch (Exception e) {
+			return null;
 		}
 	}
 

@@ -59,6 +59,7 @@ public class GeomInfoController {
 		geomPipes = geomPipeBiz.findListGeomPipe(map);
 		for (int i = 0; geomPipes != null && i < geomPipes.size(); i++) {
 			Pipe pipe = geomPipes.get(i).getPipe();
+			pipe.setItems(itemBiz.findListItem(pipe));
 			computes.computePipe(pipe, "HKCCEC 2009");
 			double value1 = pipe.getGrade()[0], value2 = pipe.getGrade()[3];
 			geomPipes.get(i).setGrade(value1 > value2 ? value1 : value2);

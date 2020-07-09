@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
 
+#infoMenu {
+	position: relative;
+}
+
 #append, #import {
 	width: 64px;
 	height: 30px;
@@ -24,6 +28,49 @@
 
 #import:hover {
 	background-color: #40b4f2;
+	cursor: pointer;
+}
+
+#ipopup {
+	top: 36px;
+	right: 2px;
+	width: 100px;
+	height: 68px;
+	position: absolute;
+	display: none;
+}
+
+.con-ret {
+	top: -6px;
+	left: 60px;
+	border: 7px solid transparent;
+	border-bottom-color: #FF5D23;
+	position: absolute;
+}
+
+.con {
+	top: 7px;
+	width: 98px;
+	height: auto;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	border-top: 3px solid #FF5D23;
+	border-radius: 0px 0px 3px 3px;
+	position: absolute;
+}
+
+.con div {
+	width: 100%;
+	height: 28px;
+	font-size: 16px;
+	font-family: 等线;
+	text-align: center;
+	line-height: 28px;
+}
+
+.con div:hover {
+	color: #FF5D23;
+	background-color: #eaeaea;
 	cursor: pointer;
 }
 

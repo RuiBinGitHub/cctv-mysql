@@ -79,7 +79,9 @@
 	 	<association property="user" javaType="User">
 	 		<id property="id" column="userid"/>
 	 		<result property="name" column="u_name"/>
-	 		<result property="company.id" column="u_compnayid"/>
+	 		<association property="company" javaType="Company">
+	 			<id property="id" column="u_companyid"/>
+	 		</association>
 	 	</association>
 	</resultMap>
 	
