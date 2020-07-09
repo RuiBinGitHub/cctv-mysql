@@ -380,7 +380,7 @@ public class HelperPDF extends PdfPageEventHelper {
 					pdfPCell.setBorderWidthBottom(0);
 					tableFormD.addCell(pdfPCell);
 					// 添加说明
-					pdfPCell = new PdfPCell(getItemFormD(item));
+					pdfPCell = new PdfPCell(getItemFormD(pipe, item));
 					pdfPCell.setUseAscender(true);
 					pdfPCell.setFixedHeight(36);
 					pdfPCell.setHorizontalAlignment(1);
@@ -958,7 +958,7 @@ public class HelperPDF extends PdfPageEventHelper {
 		return table;
 	}
 
-	private PdfPTable getItemFormD(Item item) {
+	private PdfPTable getItemFormD(Pipe pipe, Item item) {
 		BaseColor color = null;
 		String type = item.getType3();
 		Font font1 = getFont(8, 0, null);
@@ -980,14 +980,14 @@ public class HelperPDF extends PdfPageEventHelper {
 				color = new BaseColor(255, 60, 60);
 			font2 = getFont(8, 0, color);
 		}
-		String name = project.getName() + "/" + item.getPipe().getWorkorder() + "/" + item.getPipe().getNo();
+		String name = project.getName() + "/" + pipe.getWorkorder() + "/" + pipe.getNo();
 		int[] widths = new int[] { 80, 240, 80, 160 };
 		PdfPTable table = getTable(4, 360, widths);
 
 		int[] border = new int[] { 1, 0, 0, 1 };
 		TableValue(table, "Video No:", font1, 10, 1, border, 2);
 		border = new int[] { 1, 0, 0, 0 };
-		TableValue(table, item.getPipe().getVideono(), font1, 10, 1, border, 0);
+		TableValue(table, pipe.getVideono(), font1, 10, 1, border, 0);
 		TableValue(table, "Chainage:", font1, 10, 1, border, 2);
 		border = new int[] { 1, 1, 0, 0 };
 		TableValue(table, item.getDist() + " m", font1, 10, 1, border, 0);

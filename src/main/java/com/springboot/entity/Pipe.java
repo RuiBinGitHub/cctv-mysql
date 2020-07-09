@@ -57,12 +57,12 @@ public class Pipe implements Serializable {
 	private String weather;
 	private String videono;
 	private String comment;
-	private Project project;
+	private transient Project project;
 
 	private List<Item> items;
-	private int surve[] = new int[20];
-	private double score[] = new double[9];
-	private double grade[] = new double[9];
+	private transient int surve[] = new int[20];
+	private transient double score[] = new double[9];
+	private transient double grade[] = new double[9];
 
 	public int getId() {
 		return id;

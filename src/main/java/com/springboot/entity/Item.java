@@ -25,16 +25,16 @@ public class Item implements Serializable {
 	private String percent;
 	private String lengths;
 	private String remarks;
-	private String picture;
-	private Pipe pipe;
+	private transient String picture;
+	private transient Pipe pipe;
 
-	private String type1;
-	private String type2;
-	private String type3;
-	private double grade;
-	private double score;
-	private String define;
-	private String depict;
+	private transient String type1;
+	private transient String type2;
+	private transient String type3;
+	private transient double grade;
+	private transient double score;
+	private transient String define;
+	private transient String depict;
 
 	public int getId() {
 		return id;

@@ -21,7 +21,6 @@ import com.springboot.biz.CompanyBiz;
 import com.springboot.biz.ItemBiz;
 import com.springboot.biz.PipeBiz;
 import com.springboot.biz.ProjectBiz;
-import com.springboot.entity.Item;
 import com.springboot.entity.Pipe;
 import com.springboot.entity.Project;
 import com.springboot.util.AppHelper;
@@ -76,30 +75,12 @@ public class FileInfoController {
 			computes.computePipe(pipe, project.getStandard());
 		}
 		project.setPipes(pipes);
+		
 		String file = srcPath + name + "/" + project.getDate() + "_" + project.getName();
+		AppHelper.convert(project, data.getPath() + "/" + project.getName() + ".xml");
 		helperMDB.initMDB(project, srcPath + name + "/");
 		helperDOC.initDOC(project, srcPath + name + "/");
 		helperPDF.initPDF(project, file + "_CCTV.pdf");
-
-		for (int i = 0; pipes != null && i < pipes.size(); i++) { // 计算管道分数
-			Pipe pipe = pipes.get(i);
-			pipe.setProject(null);
-			pipe.setSurve(null);
-			pipe.setScore(null);
-			pipe.setGrade(null);
-			List<Item> items = pipe.getItems();
-			for (int j = 0; items != null && j < items.size(); j++) {
-				Item item = items.get(j);
-				item.setPipe(null);
-				item.setType1(null);
-				item.setType2(null);
-				item.setType3(null);
-				item.setPicture(null);
-				item.setDefine(null);
-				item.setDepict(null);
-			}
-		}
-		AppHelper.convert(project, data.getPath() + "/" + project.getName() + ".xml");
 
 		HttpServletResponse response = AppHelper.getResponse();
 		String fileName = project.getDate() + "_" + project.getName();
