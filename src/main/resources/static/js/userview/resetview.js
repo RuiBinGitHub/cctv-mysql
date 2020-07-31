@@ -29,12 +29,18 @@ $(document).ready(function() {
     	$("#list").html(context);
     });
     /** 提交表单 */
-    if (!checkUserName())
-        return false;
-    if (!checkMail() || !checkCode())
-        return false;
-    if (!checkPassWord())
-    	return false;
+    $("#btn2").bind("click", function () {
+        if (!checkUserName())
+            return false;
+        if (!checkMail() || !checkCode())
+            return false;
+        if (!checkPassWord())
+            return false;
+        $(this).css("background-color", "#ccc");
+        $(this).attr("disable", true);
+        $(this).val("Confirm...");
+        $("#form1").submit();
+    });
     /********************************************************************/
     /** 检测账号 */
     function checkUserName() {

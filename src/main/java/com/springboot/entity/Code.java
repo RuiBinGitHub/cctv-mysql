@@ -92,5 +92,5 @@ public class Code {
 	public void setType3(String type3) {
 		this.type3 = type3;
 	}
-	
+
 }

@@ -78,9 +78,9 @@ public class FileInfoController {
 		
 		String file = srcPath + name + "/" + project.getDate() + "_" + project.getName();
 		AppHelper.convert(project, data.getPath() + "/" + project.getName() + ".xml");
-		helperMDB.initMDB(project, srcPath + name + "/");
-		helperDOC.initDOC(project, srcPath + name + "/");
 		helperPDF.initPDF(project, file + "_CCTV.pdf");
+		helperDOC.initDOC(project, srcPath + name + "/");
+		// helperMDB.initMDB(project, srcPath + name + "/");
 
 		HttpServletResponse response = AppHelper.getResponse();
 		String fileName = project.getDate() + "_" + project.getName();

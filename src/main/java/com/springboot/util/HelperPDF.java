@@ -664,18 +664,18 @@ public class HelperPDF extends PdfPageEventHelper {
 		table.addCell(getCell(pipe.getOperator(), font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 5, 1, 0, 4, 0)); // 插入空白行
 
-		table.addCell(getCell("Company", font1, 1, 1, 0, height, 0));
-		table.addCell(getCell(project.getClient(), font2, 1, 1, 1, 0, 0));
+		table.addCell(getCell("Drain/Sewer Use", font1, 1, 1, 0, height, 0));
+		table.addCell(getCell(use, font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 1, 1, 0, 0, 0));
 		table.addCell(getCell("Operator No", font1, 1, 1, 0, 0, 0));
 		table.addCell(getCell(member, font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 5, 1, 0, 4, 0)); // 插入空白行
 
-		table.addCell(getCell("Drain/Sewer Use", font1, 1, 1, 0, height, 0));
-		table.addCell(getCell(use, font2, 1, 1, 1, 0, 0));
-		table.addCell(getCell("", font2, 1, 1, 0, 0, 0));
-		table.addCell(getCell("Date", font1, 1, 1, 0, height, 0));
-		table.addCell(getCell(pipe.getDate(), font2, 1, 1, 1, 0, 0));
+		table.addCell(getCell("Company", font1, 1, 1, 0, height, 0));
+		table.addCell(getCell(project.getClient(), font2, 4, 1, 1, 0, 0));
+//		table.addCell(getCell("", font2, 1, 1, 0, 0, 0));
+//		table.addCell(getCell("Date", font1, 1, 1, 0, height, 0));
+//		table.addCell(getCell(pipe.getDate(), font2, 1, 1, 1, 0, 0));
 		table.addCell(getCell("", font1, 5, 1, 0, 4, 0)); // 插入空白行
 
 		table.addCell(getCell("Road Name", font1, 1, 1, 0, height, 0));

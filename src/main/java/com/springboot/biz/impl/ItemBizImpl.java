@@ -79,7 +79,6 @@ public class ItemBizImpl implements ItemBiz {
 	public boolean importImage(Project project, MultipartFile[] files) {
 		List<Item> items = project.getItems();
 		String path = myfile + "/ItemImage/";
-		
 		for (int i = 0; i < items.size(); i++) {
 			Item item = items.get(i);
 			String name = AppHelper.UUIDCode();

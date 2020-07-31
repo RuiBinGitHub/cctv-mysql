@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
@@ -263,16 +262,15 @@ public class ProjectController {
 
 	/** 预览文件 */
 	@RequestMapping(value = "/preview", method = RequestMethod.POST)
-	public ModelAndView previewItem(MultipartFile[] files) {
+	public ModelAndView previewItem(MultipartFile file) {
 		ModelAndView view = new ModelAndView("userview/failure");
-		HttpServletRequest request = AppHelper.getRequest();
-		String name = modePreview.ItemMode(files);
+		String name = modePreview.ItemMode(file);
 		if (StringUtils.isEmpty(name))
 			return view;
-		String addr = request.getLocalAddr();
-		String path = "redirect:http://" + addr + ":8080";
-		view.setViewName(path + "/TempFile/" + name + ".pdf");
+		String local = path.replace("ItemImage", "TempFile");
+		view.setViewName("redirect:" + local + name + ".pdf");
 		return view;
+
 	}
 
 	/** 导入深度 */

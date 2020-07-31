@@ -25,7 +25,7 @@ public class Item implements Serializable {
 	private String percent;
 	private String lengths;
 	private String remarks;
-	private transient String picture;
+	private String picture;
 	private transient Pipe pipe;
 
 	private transient String type1;

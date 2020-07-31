@@ -9,7 +9,6 @@ $(document).ready(function() {
     /** *************************************************************** */
     var width = $("#infoMenu span:eq(0)").width();
     $("#infoMenu div:eq(0)").css("width", 535 - width);
-    $("input[name=files]").attr("webkitdirectory", true);
     $("#form2").attr("target", "_blank");
     /** *************************************************************** */
     if ($("#menuText").val().trim() == "") {
@@ -56,16 +55,8 @@ $(document).ready(function() {
     $("#file2").change(function() {
         if (this.files.length == 0)
             return false;
-        for (var i = 0; i < this.files.length; i++) {
-            var name = this.files[i].name;
-            var loca = name.lastIndexOf(".");
-            var type = name.substr(loca).toLowerCase();
-            if (type == null || type != ".xml")
-            	continue;
-            $("#form2").submit();
-            return true;
-        }
-        showTips("请选择正确的文件夹！");
+        $("#tips").text(itipsText);
+        $("#form2").submit();
     });
     /** *************************************************************** */
     /** 初始化表格 */

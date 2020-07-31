@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.springboot.entity.Item;
+import com.springboot.entity.Project;
 
 public interface ItemDao {
 
@@ -17,4 +18,5 @@ public interface ItemDao {
 
 	List<Item> findListItem(Map<String, Object> map);
 	
+	void sortItemImg(Project project);
 }

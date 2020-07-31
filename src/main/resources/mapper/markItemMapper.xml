@@ -64,7 +64,7 @@
 	</select>
 	
 	<select id="findViewMarkItem" parameterType="Map" resultMap="MarkViewMap">
-		select p.*,u.name u_name, count(m.id) count from project p 
+		select p.*, u.name u_name, count(m.id) count from project p 
   			left join markitem m on m.projectid = p.id and m.userid = #{user.id} 
 			left join users u on u.id = p.userid
 		<where>

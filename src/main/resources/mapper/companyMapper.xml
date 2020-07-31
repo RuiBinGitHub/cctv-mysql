@@ -33,7 +33,7 @@
 	
 	<select id="findListCompany" parameterType="Map" resultType="Company">
 		select * from company where id != 0
-		<if test="name != null">
+		<if test="name != null and name != ''">
 			and name like #{name}
 		</if>
 		order by id desc

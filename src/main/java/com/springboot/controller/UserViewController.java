@@ -148,8 +148,7 @@ public class UserViewController {
 		map = AppHelper.getMap("email", mail);
 		if (userBiz.findInfoUser(map) == null)
 			return false;
-		else
-			return true;
+		return true;
 	}
 
 	/** 发送电子邮件 */

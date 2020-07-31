@@ -82,6 +82,7 @@ public class AppHelper {
 		return response;
 	}
 
+	
 	/** 获取session */
 	public static HttpSession getSession() {
 		HttpServletRequest request = getRequest();
