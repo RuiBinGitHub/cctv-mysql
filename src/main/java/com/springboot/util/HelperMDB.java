@@ -164,10 +164,9 @@ public class HelperMDB {
 	/** 获取链接 */
 	private static Connection getConnection(String path) {
 		try {
-			Connection conn = null;
 			Class.forName("com.hxtt.sql.access.AccessDriver");
 			String url = "jdbc:Access:///" + path;
-			conn = DriverManager.getConnection(url, "", "");
+			Connection conn = DriverManager.getConnection(url, "", "");
 			conn.setAutoCommit(true);
 			return conn;
 		} catch (ClassNotFoundException | SQLException e) {

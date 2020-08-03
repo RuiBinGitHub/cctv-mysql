@@ -230,58 +230,57 @@ public class Computes {
 		item.setType2(code.getType2());
 		item.setType3(code.getType3());
 
-		if ("HKCCEC 2009".equals(type)) {
-			String value = code.getHkccec();
-			if ("DAF".equals(value) || "DAG".equals(value) || "DEC".equals(value) || "DES".equals(value)) {
-				if (percent > 5 && percent <= 25)
-					setItemValue(item, "1.0", "2");
-				else if (percent > 25 && percent <= 50)
-					setItemValue(item, "4.0", "3");
-				else if (percent > 50 && percent <= 75)
-					setItemValue(item, "8.0", "4");
-				else if (percent > 75)
-					setItemValue(item, "10.0", "5");
-			} else if ("DER".equals(value) || "DEZ".equals(value)) {
-				if (percent > 5 && percent <= 25)
-					setItemValue(item, "2.0", "2");
-				else if (percent > 25 && percent <= 50)
-					setItemValue(item, "5.0", "3");
-				else if (percent > 50 && percent <= 75)
-					setItemValue(item, "8.0", "4");
-				else if (percent > 75)
-					setItemValue(item, "10.0", "5");
-			} else if ("RM".equals(value)) {
-				if (percent > 5 && percent <= 25)
-					setItemValue(item, "5.0", "4");
-				else if (percent > 25 && percent <= 50)
-					setItemValue(item, "10.0", "5");
-				else if (percent > 50 && percent <= 75)
-					setItemValue(item, "15.0", "5");
-				else if (percent > 75)
-					setItemValue(item, "20.0", "5");
-			} else if ("DZ".equals(value) || "DH".equals(value) || "DV".equals(value)) {
-				if (percent > 5 && percent <= 25)
-					setItemValue(item, "80.0", "4");
-				else if (percent > 25 && percent <= 50)
-					setItemValue(item, "165.0", "5");
-			} else if ("DB".equals(value)) {
-				if (percent == 0)
-					setItemValue(item, "40.0", "3");
-				else if (percent > 0 && percent < 50)
-					setItemValue(item, "80.0", "4");
-				else
-					setItemValue(item, "165.0", "5");
-			} else if ("MB".equals(value)) {
-				if (percent != 0) {
-					item.setDepict("Missing Bricks #1");
-					if (percent < 50)
-						setItemValue(item, "120.0", "4");
-					else if (percent > 50)
-						setItemValue(item, "165.0", "5");
-				}
-			} else if ("CXI".equals(value) && percent > 75)
+		String list1 = "DAF, DE F, DAG, DAZ, DE Z, DE G, DEC, DE C, DES, DE S";
+		String list2 = "DER, DE R, DEZ, DE X";
+		String list3 = "DZ, DH, D H, DV, D V";
+		if (list1.contains(item.getCode())) {
+			if (percent > 5 && percent <= 25)
+				setItemValue(item, "1.0", "2");
+			else if (percent > 25 && percent <= 50)
+				setItemValue(item, "4.0", "3");
+			else if (percent > 50 && percent <= 75)
+				setItemValue(item, "8.0", "4");
+			else if (percent > 75)
+				setItemValue(item, "10.0", "5");
+		} else if (list2.contains(item.getCode())) {
+			if (percent > 5 && percent <= 25)
+				setItemValue(item, "2.0", "2");
+			else if (percent > 25 && percent <= 50)
+				setItemValue(item, "5.0", "3");
+			else if (percent > 50 && percent <= 75)
+				setItemValue(item, "8.0", "4");
+			else if (percent > 75)
+				setItemValue(item, "10.0", "5");
+		} else if ("RM".equals(item.getCode()) || "R M".equals(item.getCode())) {
+			if (percent > 5 && percent <= 25)
+				setItemValue(item, "5.0", "4");
+			else if (percent > 25 && percent <= 50)
+				setItemValue(item, "10.0", "5");
+			else if (percent > 50 && percent <= 75)
+				setItemValue(item, "15.0", "5");
+			else if (percent > 75)
+				setItemValue(item, "20.0", "5");
+		} else if (list3.contains(item.getCode())) {
+			if (percent > 5 && percent < 25)
+				setItemValue(item, "80.0", "4");
+			else if (percent >= 25)
 				setItemValue(item, "165.0", "5");
-		}
+		} else if ("DB".equals(item.getCode())) {
+			if (percent != 0)
+				item.setDepict("Displaced Bricks #1");
+			if (percent > 0 && percent < 50)
+				setItemValue(item, "80.0", "4");
+			else
+				setItemValue(item, "165.0", "5");
+		} else if ("MB".equals(item.getCode())) {
+			if (percent != 0)
+				item.setDepict("Missing Bricks #1");
+			if (percent < 50)
+				setItemValue(item, "120.0", "4");
+			else
+				setItemValue(item, "165.0", "5");
+		} else if ("CXI".equals(item.getCode()) || "CX I".equals(item.getCode()) && percent > 75)
+			setItemValue(item, "165.0", "5");
 
 		item.setDepict(item.getDepict().replace("#1", percent + "%"));
 		item.setDepict(item.getDepict().replace("#2", lengths + "mm"));
