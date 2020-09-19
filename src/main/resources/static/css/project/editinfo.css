@@ -1,462 +1,429 @@
 @CHARSET "UTF-8";
 
 body {
-	background-color: #F5F5F5;
+    background-color: #F5F5F5;
 }
 
-#Tip {
-	top: 40%;
-	left: 45%;
-	padding: 10px 20px;
-	position: fixed;
-	color: #ffffff;
-	font-size: 18px;
-	font-family: 宋体;
-	text-align: center;
-	line-height: 80px;
-	background-color: rgba(60, 60, 60, 0.8);
-	border-radius: 6px;
-	display: none;
-	z-index: 9;
+#tips {
+    top: 40%;
+    left: 45%;
+    color: #ffffff;
+    font: 18px simsun;
+    text-align: center;
+    line-height: 80px;
+    background-color: #444;
+    border-radius: 6px;
+    padding: 10px 20px;
+    position: fixed;
+    display: none;
+    z-index: 9;
 }
 
 #TitleMemu {
-	top: 0px;
-	left: 0px;
-	width: 100%;
-	height: 80px;
-	background-color: rgba(102, 102, 102, 0.8);
-	position: fixed;
-	display: none;
-	z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: rgba(108, 108, 108, 0.8);
+    position: fixed;
+    display: none;
+    z-index: 10;
 }
 
 #TitleMemu div img {
-	width: 106px;
-	height: 50px;
-	margin: 15px 900px 15px 10px;
-	float: left;
+    width: 106px;
+    height: 50px;
+    margin: 15px 900px 15px 10px;
+    float: left;
 }
 
 #TitleMemu div input {
-	width: 80px;
-	height: 32px;
-	color: #ffffff;
-	font-size: 15px;
-	font-family: 宋体;
-	font-weight: 600;
-	margin: 24px 0px 24px 10px;
-	border-radius: 1px;
-	border: none;
-	float: left;
+    width: 80px;
+    height: 32px;
+    color: #ffffff;
+    font: 15px simsun;
+    font-weight: 600;
+    margin: 24px 0 24px 10px;
+    border-radius: 1px;
+    cursor: pointer;
+    border: none;
+    float: left;
 }
 
 #TitleMemu div input:hover {
-	cursor: pointer;
-	color: #F7C93D;
+    color: #F7C93D;
 }
+
 /************************************************************************/
 input[type=text] {
-	padding: 0px;
+    padding: 0;
 }
+
 /************************************************************************/
 #main {
-	width: 1240px;
-	margin: 20px auto;
+    width: 1240px;
+    margin: 20px auto;
 }
 
 #mainTitle {
-	width: 1240px;
-	height: 50px;
-	background-color: #fff;
-	border-bottom: 2px solid #ccc;
-	float: left;
+    width: 1240px;
+    height: 50px;
+    background-color: #fff;
+    border-bottom: 2px solid #ccc;
+    float: left;
 }
 
 #mainTitle span {
-	width: 1030px;
-	height: 50px;
-	font-size: 18px;
-	font-family: 宋体;
-	font-weight: 600;
-	text-indent: 20px;
-	line-height: 50px;
-	float: left;
+    width: 1030px;
+    height: 50px;
+    font: 18px simsun;
+    font-weight: 600;
+    text-indent: 20px;
+    line-height: 50px;
+    float: left;
 }
 
 #mainTitle input {
-	width: 85px;
-	height: 25px;
-	margin: 12px 5px;
-	color: #ffffff;
-	font-size: 15px;
-	font-family: 宋体;
-	font-weight: 600;
-	border-radius: 1px;
-	border: none;
-	float: left;
+    width: 85px;
+    height: 25px;
+    margin: 12px 5px;
+    color: #ffffff;
+    font: 700 15px simsun;
+    border-radius: 1px;
+    cursor: pointer;
+    border: none;
+    float: left;
 }
 
 #mainTitle input:hover {
-	cursor: pointer;
-	color: #F7C93D;
+    color: #F7C93D;
 }
+
 /************************************************************************/
 #main1 {
-	width: 1240px;
-	background-color: #fff;
-	float: left;
+    width: 1240px;
+    background-color: #fff;
+    float: left;
 }
 
 #memu1 {
-	width: 1200px;
-	height: 40px;
-	margin-left: 20px;
-	font-family: 宋体;
-	font-weight: 600;
-	border-bottom: 1px dashed #ccc;
-	float: left;
+    width: 1200px;
+    height: 40px;
+    margin-left: 20px;
+    border-bottom: 1px dashed #ccc;
+    float: left;
 }
 
 #memu1 span {
-	width: 1025px;
-	height: 40px;
-	font-size: 24px;
-	font-weight: 600;
-	line-height: 40px;
-	text-indent: 20px;
-	float: left;
+    width: 1025px;
+    height: 40px;
+    font: 700 24px simsun;
+    line-height: 40px;
+    text-indent: 20px;
+    float: left;
 }
 
 #memu1 input {
-	width: 70px;
-	height: 25px;
-	margin: 7px 5px;
-	color: #ffffff;
-	font-size: 15px;
-	font-family: 宋体;
-	font-weight: 600;
-	border-radius: 1px;
-	border: none;
-	float: left;
+    width: 70px;
+    height: 25px;
+    margin: 7px 5px;
+    color: #ffffff;
+    font: 600 15px simsun;
+    border-radius: 1px;
+    cursor: pointer;
+    border: none;
+    float: left;
 }
 
 #memu1 input:hover {
-	cursor: pointer;
-	color: #F7C93D;
+    color: #F7C93D;
 }
 
 #head1 {
-	width: 1200px;
-	height: 35px;
-	color: #ffffff;
-	font-size: 18px;
-	font-family: 宋体;
-	font-weight: 600;
-	text-align: center;
-	line-height: 35px;
-	margin-top: 10px;
-	margin-left: 20px;
-	background-color: #505984;
-	float: left;
+    width: 1200px;
+    height: 35px;
+    margin-top: 10px;
+    margin-left: 20px;
+    color: #ffffff;
+    font: 600 18px simsun;
+    text-align: center;
+    line-height: 35px;
+    background-color: #505984;
+    float: left;
 }
 
 #head1 div {
-	height: 100%;
-	border: none;
-	float: left;
+    height: 100%;
+    border: none;
+    float: left;
 }
 
 #showpipe {
-	width: 1200px;
-	max-height: 240px;
-	margin-left: 20px;
-	margin-bottom: 20px;
-	border: 1px solid #f0f0f0;
-	overflow-y: scroll;
-	float: left;
+    width: 1198px;
+    max-height: 240px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #f0f0f0;
+    overflow-y: scroll;
+    float: left;
 }
 
 #tab1 {
-	width: 100%;
-	border-collapse: collapse;
-	table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
 
 #tab1 tr {
-	height: 24px;
-	font-size: 16px;
-	font-family: 宋体;
-	text-align: center;
-	background-color: #ffffff;
+    height: 24px;
+    font: 16px simsun;
+    text-align: center;
+    background-color: #ffffff;
 }
 
 #tab1 tr:nth-child(even) {
-	background-color: #f0f0f0;
+    background-color: #f0f0f0;
 }
 
 #tab1 tr:hover {
-	background-color: #FFD58D;
+    background-color: #FFD58D;
 }
 
 #tab1 tr td {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #tab1 tr td input {
-	width: 40px;
-	height: 20px;
-	color: #ffffff;
-	font-size: 14px;
-	font-family: 宋体;
-	font-weight: 600;
-	border-radius: 1px;
-	display: none;
-	border: none;
+    width: 40px;
+    height: 20px;
+    color: #ffffff;
+    font: 600 14px simsun;
+    border-radius: 1px;
+    cursor: pointer;
+    display: none;
+    border: none;
 }
 
 #tab1 tr td input:hover {
-	cursor: pointer;
-	color: #F7C93D;
+    color: #F7C93D;
 }
 
 #main2 {
-	width: 1240px;
-	height: 278px;
-	margin: 10px 0px;
-	background-color: #fff;
-	float: left;
+    width: 1240px;
+    height: 278px;
+    margin: 10px 0;
+    background-color: #fff;
+    float: left;
 }
 
 #main2 div {
-	width: 1215px;
-	margin-left: 20px;
-	font-size: 13px;
-	float: left;
+    width: 1215px;
+    margin-left: 20px;
+    font-size: 13px;
+    float: left;
 }
 
 #main2 div span {
-	margin-right: 5px;
-	font-size: 14px;
-	font-family: simsun;
-	text-indent: 2px;
-	line-height: 30px;
-	float: left;
+    height: 30px;
+    margin-right: 5px;
+    font: 14px simsun;
+    text-indent: 2px;
+    line-height: 30px;
+    float: left;
 }
 
 #main2 div input {
-	height: 20px;
-	margin-right: 5px;
-	font-size: 14px;
-	font-family: simsun;
-	text-indent: 5px;
-	border: 1px solid #ccc;
-	float: left;
+    height: 20px;
+    margin-right: 5px;
+    font: 14px simsun;
+    text-indent: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+    float: left;
 }
 
 #main2 div select {
-	height: 22px;
-	font-size: 16px;
-	font-family: simsun;
-	text-indent: 2px;
-	margin-right: 5px;
-	border: 1px solid #ccc;
-	float: left;
+    height: 22px;
+    margin-right: 5px;
+    font: 16px simsun;
+    text-indent: 2px;
+    border: 1px solid #ccc;
+    float: left;
 }
 
 #main2 a {
-	text-decoration: none;
-	color: #1164ee;
+    color: #1164ee;
+    text-decoration: none;
 }
 
 #main2 a:hover {
-	text-decoration: underline;
-	cursor: pointer;
+    text-decoration: underline;
 }
 
 #showpipeimg {
-	width: 208px;
-	height: 840px;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	float: left;
+    width: 208px;
+    height: 840px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    float: left;
 }
 
 #showvideo {
-	width: 1018px;
-	height: 840px;
-	margin-left: 10px;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	float: left;
-}
-
-.videoTitle {
-	height: 30px;
-	font-size: 18px;
-	font-weight: 600;
-	font-family: 宋体;
-	text-align: center;
-	line-height: 30px;
-	float: left;
+    width: 1018px;
+    height: 840px;
+    margin-left: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    float: left;
 }
 
 #video {
-	width: 640px;;
-	height: 540px;
-	margin-left: 20px;
-	background-color: #fff;
-	outline: none;
-	cursor: pointer;
-	float: left;
+    width: 640px;;
+    height: 540px;
+    margin-left: 20px;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+    float: left;
+}
+
+.videoTitle {
+    height: 30px;
+    font: 600 18px simsun;
+    text-align: center;
+    line-height: 30px;
+    float: left;
 }
 
 .img {
-	width: 320px;
-	height: 240px;
-	background-color: #fafafa;
-	float: left;
-}
-
-#explain {
-	width: 318px;
-	height: 25px;
-	color: #999;
-	font-size: 18px;
-	font-family: simsun;
-	margin-top: 5px;
-	text-indent: 5px;
-	line-height: 25px;
-	float: left;
+    width: 320px;
+    height: 240px;
+    background-color: #fafafa;
+    float: left;
 }
 
 #memu2 {
-	width: 100%;
-	height: 30px;
-	font-family: 宋体;
-	float: left;
+    width: 100%;
+    height: 30px;
+    float: left;
 }
 
 #memu2 div {
-	width: 525px;
-	height: 100%;
-	font-size: 20px;
-	font-weight: 700;
-	line-height: 30px;
-	text-indent: 20px;
-	float: left;
+    width: 525px;
+    height: 100%;
+    font: 700 20px smsun;
+    line-height: 30px;
+    text-indent: 20px;
+    float: left;
 }
 
 #memu2 input {
-	width: 70px;
-	height: 24px;
-	margin: 4px 5px;
-	color: #ffffff;
-	font-size: 15px;
-	font-family: 仿宋;
-	font-weight: 600;
-	border-radius: 1px;
-	border: none;
-	float: left;
+    width: 70px;
+    height: 24px;
+    margin: 4px 5px;
+    color: #ffffff;
+    font: 600 15px fangsong;
+    border-radius: 1px;
+    border: none;
+    float: left;
 }
 
 #title {
-	width: 100%;
-	table-layout: fixed;
-	float: left;
+    width: 100%;
+    table-layout: fixed;
+    float: left;
 }
 
 #title tr {
-	color: #fff;
-	font-size: 18px;
-	font-family: simsun;
-	text-align: center;
+    color: #fff;
+    font: 18px simsun;
+    text-align: center;
 }
 
 #showItem {
-	width: 100%;
-	height: 210px;
-	overflow-y: scroll;
-	float: left;
+    width: 100%;
+    height: 210px;
+    overflow-y: scroll;
+    float: left;
 }
 
 #tab2 {
-	width: 100%;
-	background-color: #F1F1F1;
-	table-layout: fixed;
+    width: 100%;
+    background-color: #F1F1F1;
+    table-layout: fixed;
 }
 
-#tab2  tr {
-	height: 24px;
-	background-color: #fff;
-	cursor: pointer;
+#tab2 tr {
+    height: 24px;
+    background-color: #fff;
+    cursor: pointer;
 }
 
 #tab2 tr td {
-	text-align: center;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 #tab2 tr td a {
-	font-size: 14px;
+    font-size: 14px;
 }
 
 #tab2 tr td input {
-	width: 100%;
-	height: 100%;
-	font-size: 14px;
-	font-family: simsun;
-	text-indent: 6px;
-	outline: none;
-	border: none;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    font-family: simsun;
+    text-indent: 6px;
+    outline: none;
+    border: none;
 }
 
 #tab2 tr td img {
-	width: 14px;
-	height: 14px;
-	margin-top: 2px;
-	display: none;
-	float: right;
+    width: 14px;
+    height: 14px;
+    margin-top: 2px;
+    display: none;
+    float: right;
 }
 
 #ishow {
-	width: 40px;
-	height: 40px;
-	right: 10%;
-	bottom: 150px;
-	position: fixed;
-	color: #ffffff;
-	font-size: 35px;
-	text-align: center;
-	line-height: 36px;
-	background-color: #AAA;
-	border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    right: 10%;
+    bottom: 150px;
+    position: fixed;
+    color: #ffffff;
+    font-size: 35px;
+    text-align: center;
+    line-height: 36px;
+    background-color: #AAA;
+    border-radius: 4px;
 }
 
 #ishow:hover {
-	background-color: #ff4444;
-	cursor: pointer;
+    background-color: #ff4444;
+    cursor: pointer;
 }
 
 #toTop {
-	width: 40px;
-	height: 40px;
-	right: 10%;
-	bottom: 100px;
-	position: fixed;
-	color: #ffffff;
-	font-size: 35px;
-	text-align: center;
-	line-height: 40px;
-	background-color: #AAA;
-	border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    right: 10%;
+    bottom: 100px;
+    position: fixed;
+    color: #ffffff;
+    font-size: 35px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #AAA;
+    border-radius: 4px;
 }
 
 #toTop:hover {
-	background-color: #ff4444;
-	cursor: pointer;
+    background-color: #ff4444;
+    cursor: pointer;
 }

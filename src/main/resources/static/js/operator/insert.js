@@ -47,7 +47,7 @@ $(document).ready(function() {
         }
         if ($(".textbox:eq(6)").val() == "") {
             $(".textbox:eq(6)").css("background-color", "#f00");
-            showTips(tipsText5);
+            showTips(tipsText6);
             return false;
         }
         /** 提交数据 */

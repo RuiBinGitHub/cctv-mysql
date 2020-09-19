@@ -27,6 +27,7 @@ import com.springboot.entity.User;
 import com.springboot.util.AppHelper;
 import com.springboot.util.ModeHelper;
 import com.springboot.util.ModePreview;
+import com.springboot.util.TranHelper;
 
 @RestController
 @RequestMapping(value = "/project")
@@ -35,6 +36,8 @@ public class ProjectController {
 	@Value(value = "${mypath}")
 	private String path;
 
+	@Resource
+	private TranHelper tranHelper;
 	@Resource
 	private ModeHelper modeHelper;
 	@Resource
@@ -55,10 +58,10 @@ public class ProjectController {
 
 	/** 获取个人项目列表 */
 	@RequestMapping(value = "/showlist")
-	public ModelAndView showList(String name, @RequestParam(defaultValue = "1") int page) {
+	public ModelAndView showList(String name, String sort, @RequestParam(defaultValue = "1") int page) {
 		ModelAndView view = new ModelAndView("project/showlist");
 		User user = (User) AppHelper.findMap("user");
-		map = AppHelper.getMap("state", "未提交", "page", page, "user", user);
+		map = AppHelper.getMap("state", "未提交", "sort", sort, "page", page, "user", user);
 		if (!StringUtils.isEmpty(name))
 			map.put("name", name);
 		PageInfo<Project> info = projectBiz.findListProject(map);
@@ -70,10 +73,10 @@ public class ProjectController {
 
 	/** 获取公司项目列表 */
 	@RequestMapping(value = "/findlist")
-	public ModelAndView findList(String name, @RequestParam(defaultValue = "1") int page) {
+	public ModelAndView findList(String name, String sort, @RequestParam(defaultValue = "1") int page) {
 		ModelAndView view = new ModelAndView("project/findlist");
 		User user = (User) AppHelper.findMap("user");
-		map = AppHelper.getMap("state", "已提交", "page", page, "company", user.getCompany());
+		map = AppHelper.getMap("state", "已提交", "sort", sort, "page", page, "company", user.getCompany());
 		if (!StringUtils.isEmpty(name))
 			map.put("name", name);
 		PageInfo<Project> info = projectBiz.findListProject(map);
@@ -209,12 +212,12 @@ public class ProjectController {
 		if (StringUtils.isEmpty(project))
 			return view;
 		view.setViewName("project/editinfo");
+		Pipe pipe = new Pipe();
 		List<Pipe> pipes = pipeBiz.findListPipe(project);
 		if (pipes != null && pipes.size() != 0) {
 			no = no >= pipes.size() ? pipes.size() - 1 : no;
-			Pipe pipe = pipes.get(no);
+			pipe = pipes.get(no);
 			pipe.setItems(itemBiz.findListItem(pipe));
-			view.addObject("pipe", pipe);
 		}
 		names = operatorBiz.findListName(user.getCompany());
 		List<Code> codes = codeBiz.findListCode(null);
@@ -222,6 +225,7 @@ public class ProjectController {
 		view.addObject("pipes", pipes);
 		view.addObject("names", names);
 		view.addObject("codes", codes);
+		view.addObject("pipe", pipe);
 		view.addObject("path", path);
 		return view;
 	}
@@ -230,25 +234,51 @@ public class ProjectController {
 	@RequestMapping(value = "/findinfo")
 	public ModelAndView findInfo(int id, @RequestParam(defaultValue = "0") int no) {
 		ModelAndView view = new ModelAndView("userview/failure");
+		Project project = projectBiz.findInfoProject(id, null);
+		if (StringUtils.isEmpty(project))
+			return view;
+		view.setViewName("project/findinfo");
+		Pipe pipe = new Pipe();
+		List<Pipe> pipes = pipeBiz.findListPipe(project);
+		if (pipes != null && pipes.size() != 0) {
+			no = no >= pipes.size() ? pipes.size() - 1 : no;
+			pipe = pipes.get(no);
+			pipe.setItems(itemBiz.findListItem(pipe));
+		}
+		view.addObject("project", project);
+		view.addObject("pipes", pipes);
+		view.addObject("pipe", pipe);
+		view.addObject("path", path);
+		return view;
+	}
+
+	@RequestMapping(value = "/checkview")
+	public ModelAndView check(int id, @RequestParam(defaultValue = "0") int no) {
+		ModelAndView view = new ModelAndView("userview/failure");
 		User user = (User) AppHelper.findMap("user");
 		map = AppHelper.getMap("id", id, "company", user.getCompany());
 		Project project = projectBiz.findInfoProject(map);
 		if (StringUtils.isEmpty(project))
 			return view;
-		view.setViewName("project/findinfo");
+		Pipe pipe = new Pipe();
 		List<Pipe> pipes = pipeBiz.findListPipe(project);
 		if (pipes != null && pipes.size() != 0) {
 			no = no >= pipes.size() ? pipes.size() - 1 : no;
-			Pipe pipe = pipes.get(no);
+			pipe = pipes.get(no);
 			pipe.setItems(itemBiz.findListItem(pipe));
-			view.addObject("pipe", pipe);
 		}
+		names = operatorBiz.findListName(user.getCompany());
+		List<Code> codes = codeBiz.findListCode(null);
+		view.setViewName("project/checkview");
 		view.addObject("project", project);
 		view.addObject("pipes", pipes);
+		view.addObject("names", names);
+		view.addObject("codes", codes);
+		view.addObject("pipe", pipe);
 		view.addObject("path", path);
 		return view;
 	}
-
+	
 	/** 导入项目 */
 	@RequestMapping(value = "/import", method = RequestMethod.POST)
 	public ModelAndView inportItems(MultipartFile file) {
@@ -258,19 +288,6 @@ public class ProjectController {
 		if (!StringUtils.isEmpty(file))
 			modeHelper.ItemMode(file, user);
 		return view;
-	}
-
-	/** 预览文件 */
-	@RequestMapping(value = "/preview", method = RequestMethod.POST)
-	public ModelAndView previewItem(MultipartFile file) {
-		ModelAndView view = new ModelAndView("userview/failure");
-		String name = modePreview.ItemMode(file);
-		if (StringUtils.isEmpty(name))
-			return view;
-		String local = path.replace("ItemImage", "TempFile");
-		view.setViewName("redirect:" + local + name + ".pdf");
-		return view;
-
 	}
 
 	/** 导入深度 */
@@ -284,6 +301,44 @@ public class ProjectController {
 		view.setViewName("redirect:editinfo?id=" + id);
 		projectBiz.importProject(project, xfile);
 		return view;
+	}
+
+	/** 预览文件 */
+	@RequestMapping(value = "/preview")
+	public ModelAndView previewItem(MultipartFile file) {
+		ModelAndView view = new ModelAndView("userview/failure");
+		String name = modePreview.ItemMode(file);
+		if (StringUtils.isEmpty(name))
+			return view;
+		String local = path.replace("ItemImage", "TempFile");
+		view.setViewName("redirect:" + local + name + ".pdf");
+		return view;
+
+	}
+
+	@RequestMapping(value = "/tranview")
+	public ModelAndView transView(String name, @RequestParam(defaultValue = "1") int page) {
+		ModelAndView view = new ModelAndView("project/tranview");
+		User user = (User) AppHelper.findMap("user");
+		map = AppHelper.getMap("standard", "HKCCEC 2009", "page", page, "user", user);
+		if (!StringUtils.isEmpty(name))
+			map.put("name", name);
+		PageInfo<Project> info = projectBiz.findListProject(map);
+		view.addObject("projects", info.getList());
+		view.addObject("count", info.getPages());
+		view.addObject("page", page);
+		return view;
+
+	}
+
+	/** 转换项目规范 */
+	@RequestMapping(value = "/tranitem", method = RequestMethod.POST)
+	public boolean trans(@RequestParam(defaultValue = "0") int id) {
+		User user = (User) AppHelper.findMap("user");
+		Project project = projectBiz.findInfoProject(id, user);
+		if (!StringUtils.isEmpty(project))
+			tranHelper.trans(project);
+		return true;
 	}
 
 }

@@ -37,6 +37,113 @@ $(document).ready(function() {
         window.open("/cctv/geominfo/showlist");
     });
     /** *************************************************************** */
+    var name = $("input[name=name]").val();
+    var sort = $("input[name=sort]").val();
+    $("#tab1 thead th:eq(1)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "findlist?sort=name1";
+    	else
+    		location.href = "findlist?name=" + name + "&sort=name1";
+    });
+    $("#tab1 thead th:eq(2)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "findlist?sort=client1";
+    	else
+    		location.href = "findlist?name=" + name + "&sort=client1";
+    });
+    $("#tab1 thead th:eq(3)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "findlist?sort=slope1";
+    	else
+    		location.href = "findlist?name=" + name + "&sort=slope1";
+    });
+    $("#tab1 thead th:eq(4)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "findlist?sort=standard1";
+    	else
+    		location.href = "findlist?name=" + name + "&sort=standard1";
+    });
+    $("#tab1 thead th:eq(5)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "findlist?sort=userid1";
+    	else
+    		location.href = "findlist?name=" + name + "&sort=userid1";
+    });
+    $("#tab1 thead th:eq(6)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "findlist?sort=date1";
+    	else
+    		location.href = "findlist?name=" + name + "&sort=date1";
+    });
+    var sort = $("input[name=sort]").val();
+    if (sort === "name") {
+    	$("#tab1 thead th:eq(1)").text($("#tab1 thead th:eq(1)").text() + "↑");
+    } else if (sort === "name1") {
+    	$("#tab1 thead th:eq(1)").text($("#tab1 thead th:eq(1)").text() + "↓");
+    	$("#tab1 thead th:eq(1)").unbind("click");
+    	$("#tab1 thead th:eq(1)").click(function() {
+    		if (name == null || name == "")
+        		location.href = "findlist?sort=name";
+        	else
+        		location.href = "findlist?name=" + name + "&sort=name";
+        });
+    } else if (sort === "client") {
+    	$("#tab1 thead th:eq(2)").text($("#tab1 thead th:eq(2)").text() + "↑");
+    } else if (sort === "client1") {
+    	$("#tab1 thead th:eq(2)").text($("#tab1 thead th:eq(2)").text() + "↓");
+    	$("#tab1 thead th:eq(2)").unbind("click");
+    	$("#tab1 thead th:eq(2)").click(function() {
+        	if (name == null || name == "")
+        		location.href = "findlist?sort=client";
+        	else
+        		location.href = "findlist?name=" + name + "&sort=client";
+        });
+    } else if (sort === "slope") {
+    	$("#tab1 thead th:eq(3)").text($("#tab1 thead th:eq(3)").text() + "↑");
+    } else if (sort === "slope1") {
+    	$("#tab1 thead th:eq(3)").text($("#tab1 thead th:eq(3)").text() + "↓");
+    	$("#tab1 thead th:eq(3)").unbind("click");
+    	$("#tab1 thead th:eq(3)").click(function() {
+    		if (name == null || name == "")
+        		location.href = "findlist?sort=slope";
+        	else
+        		location.href = "findlist?name=" + name + "&sort=slope";
+        });
+    } else if (sort === "standard") {
+    	$("#tab1 thead th:eq(4)").text($("#tab1 thead th:eq(4)").text() + "↑");
+    } else if (sort === "standard1") {
+    	$("#tab1 thead th:eq(4)").text($("#tab1 thead th:eq(4)").text() + "↓");
+    	$("#tab1 thead th:eq(4)").unbind("click");
+    	$("#tab1 thead th:eq(4)").click(function() {
+    		if (name == null || name == "")
+        		location.href = "findlist?sort=standard";
+        	else
+        		location.href = "findlist?name=" + name + "&sort=standard";
+        });
+    } else if (sort === "userid") {
+    	$("#tab1 thead th:eq(5)").text($("#tab1 thead th:eq(5)").text() + "↑");
+    } else if (sort === "userid1") {
+    	$("#tab1 thead th:eq(5)").text($("#tab1 thead th:eq(5)").text() + "↓");
+    	$("#tab1 thead th:eq(5)").unbind("click");
+    	$("#tab1 thead th:eq(5)").click(function() {
+    		if (name == null || name == "")
+        		location.href = "findlist?sort=userid";
+        	else
+        		location.href = "findlist?name=" + name + "&sort=userid";
+        });
+    } else if (sort === "date") {
+    	$("#tab1 thead th:eq(6)").text($("#tab1 thead th:eq(6)").text() + "↑");
+    } else if (sort === "date1") {
+    	$("#tab1 thead th:eq(6)").text($("#tab1 thead th:eq(6)").text() + "↓");
+    	$("#tab1 thead th:eq(6)").unbind("click");
+    	$("#tab1 thead th:eq(6)").click(function() {
+    		if (name == null || name == "")
+        		location.href = "findlist?sort=date";
+        	else
+        		location.href = "findlist?name=" + name + "&sort=date";
+        });
+    }
+    /** *************************************************************** */
     /** 初始化表格 */
     var name = $("#menuText").val();
     $("#tab1 tbody tr").each(function(i) {
@@ -81,15 +188,19 @@ $(document).ready(function() {
     /** *************************************************************** */
     /** 上一页 */
     $(".pagebtn:eq(0)").click(function() {
-        var name = $("#menuText").val().trim();
         var page = Number($("#page1").text()) - 1;
-        window.location.href = "findlist?name=" + name + "&page=" + page;
+        if (sort == null || sort == "")
+        	window.location.href = "findlist?name=" + name + "&page=" + page;
+        else
+        	window.location.href = "findlist?name=" + name + "&sort=" + sort + "&page=" + page;
     });
     /** 下一页 */
     $(".pagebtn:eq(1)").click(function() {
-        var name = $("#menuText").val().trim();
         var page = Number($("#page1").text()) + 1;
-        window.location.href = "findlist?name=" + name + "&page=" + page;
+        if (sort == null || sort == "")
+        	window.location.href = "findlist?name=" + name + "&page=" + page;
+        else
+        	window.location.href = "findlist?name=" + name + "&sort=" + sort + "&page=" + page;
     });
     var page1 = $("#page1").text();
     var page2 = $("#page2").text();

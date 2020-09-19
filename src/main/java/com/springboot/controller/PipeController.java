@@ -39,7 +39,7 @@ public class PipeController {
 
 	/** 插入数据 */
 	@RequestMapping(value = "/insert")
-	public boolean insertPipe(int id, int no) {
+	public boolean insert(int id, int no) {
 		User user = (User) AppHelper.findMap("user");
 		Project project = projectBiz.findInfoProject(id, user);
 		if (StringUtils.isEmpty(project))
@@ -82,7 +82,7 @@ public class PipeController {
 
 	/** 更新数据 */
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public boolean updatePipe(Pipe pipe) {
+	public boolean update(Pipe pipe) {
 		User user = (User) AppHelper.findMap("user");
 		map = AppHelper.getMap("id", pipe.getId(), "user", user);
 		if (pipeBiz.findInfoPipe(map) == null)
@@ -110,6 +110,39 @@ public class PipeController {
 		return true;
 	}
 
+	/** 更新数据 */
+	@RequestMapping(value = "/commit", method = RequestMethod.POST)
+	public boolean commit(Pipe pipe) {
+		User user = (User) AppHelper.findMap("user");
+		map = AppHelper.getMap("id", pipe.getId(), "company", user.getCompany());
+		Pipe cust = pipeBiz.findInfoPipe(map);
+		if (StringUtils.isEmpty(cust))
+			return false;
+		pipeBiz.updatePipe(pipe);
+		List<Item> items = pipe.getItems();
+		for (int i = 0; items != null && i < items.size(); i++) {
+			Item item = items.get(i);
+			String data = item.getPicture();
+			if ("#已移除#".equals(item.getPhoto()))
+				items.get(i).setPhoto("");
+			if (data != null && data.length() > 40) {
+				String name = AppHelper.UUIDCode();
+				AppHelper.saveImage(data, myfile + "ItemImage/", name);
+				item.setPicture(name);
+			}
+			item.setNo(i);
+			item.setPipe(pipe);
+			if (item.getId() == 0)
+				itemBiz.insertItem(item);
+			else
+				itemBiz.updateItem(item);
+		}
+		pipeBiz.check(cust, pipe);
+		itemBiz.sortItemImg(pipe.getProject());
+		return true;
+	}
+	
+	
 	/** 删除数据 */
 	@RequestMapping(value = "/delete")
 	public boolean daletePipe(@RequestParam(defaultValue = "0") int id) {

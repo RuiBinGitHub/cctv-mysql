@@ -54,6 +54,9 @@
 			<if test="name != null">
 				and p.name like #{name}
 			</if>
+			<if test="standard != null">
+				and p.standard = #{standard}
+			</if>
 			<if test="state != null">
 				and p.state = #{state}
 			</if>

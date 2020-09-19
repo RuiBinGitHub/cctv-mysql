@@ -14,7 +14,7 @@
     <div id="tips"></div>
     <div id="main">
       <div id="mainMenu">
-       <div id="menuTitle" th:text="#{menu.title.text}"></div>
+        <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/cctv/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
           <div class="menu1"><a href="/cctv/project/findlist" th:text="#{menu.div.text2}"></a></div>
@@ -36,6 +36,8 @@
         <div class="menu2"><a href="/cctv/userinfo/center" th:text="#{menu.div.text9}"></a></div>
       </div>
       
+      <input type="hidden" name="name" th:value="${param.name}"/>
+      <input type="hidden" name="sort" th:value="${param.sort}"/>
       <div id="mainInfo">
         <div id="infoTop" th:text="#{project.findlist.title}"></div>
         <div id="infoMenu">
@@ -53,9 +55,9 @@
           <thead>
             <tr height="40px" style="background-color:#51596b">
               <th width="4%">NO</th>           
-			  <th width="14%" th:text="#{project.findlist.table.title1}"></th>
+			  <th width="16%" th:text="#{project.findlist.table.title1}"></th>
 			  <th width="20%" th:text="#{project.findlist.table.title2}"></th>
-			  <th width="12%" th:text="#{project.findlist.table.title3}"></th>
+			  <th width="10%" th:text="#{project.findlist.table.title3}"></th>
 			  <th width="12%" th:text="#{project.findlist.table.title4}"></th>
 			  <th width="12%" th:text="#{project.findlist.table.title5}"></th>
 			  <th width="12%" th:text="#{project.findlist.table.title6}"></th>

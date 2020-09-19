@@ -10,7 +10,6 @@
   </head>
   <body>
     <div th:replace="navigation::navigation"></div>
-    <div id="Tip"></div>
     <div id="TitleMemu">
       <div style="width:1200px;height:100%;margin:0 auto;">
         <a href="/cctv/project/showlist" title="首页"><img src="/cctv/img/msdi.png"></a>
@@ -18,7 +17,7 @@
 	    <input type="button" th:value="#{project.findinfo.menu.button2}" style="background-color:#00A3FE"/>
       </div>
     </div>
-    <!-- ------------------------------------------------------------- -->
+    <!-- ****************************************************************** -->
     <input type="hidden" id="path" th:value="${path}"/>
     <div id="main">
       <div id="mainTitle" th:text="${'项目浏览 - ['+project.name +']'}"></div>
@@ -96,7 +95,7 @@
           <span style="width:181px;">Road Name</span>
           <span style="width:181px;">House Number</span>
           <span style="width:181px;">Building</span>
-          <span style="width:102px;">division</span>
+          <span style="width:102px;">Division</span>
           <span style="width:209px;">Drainage Area Code</span>
         </div>
         <div id="value2" style="height:30px;">

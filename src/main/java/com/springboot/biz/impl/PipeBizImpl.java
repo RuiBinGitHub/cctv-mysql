@@ -7,20 +7,26 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.springboot.biz.ItemBiz;
+import com.springboot.biz.LoginfoBiz;
 import com.springboot.biz.PipeBiz;
 import com.springboot.dao.PipeDao;
 import com.springboot.entity.Item;
+import com.springboot.entity.Loginfo;
 import com.springboot.entity.Pipe;
 import com.springboot.entity.Project;
 import com.springboot.entity.User;
 import com.springboot.util.AppHelper;
+import com.springboot.util.CameHelper;
 
 @Service
 @Transactional
 public class PipeBizImpl implements PipeBiz {
 
+	@Resource
+	private LoginfoBiz loginfoBiz;
 	@Resource
 	private PipeDao pipeDao;
 	@Resource
@@ -41,10 +47,10 @@ public class PipeBizImpl implements PipeBiz {
 	}
 
 	public void combinPipe(int id, List<?> list) {
-		map  = AppHelper.getMap("id", id, "list", list);
+		map = AppHelper.getMap("id", id, "list", list);
 		pipeDao.combinPipe(map);
 	}
-	
+
 	public Pipe findInfoPipe(int id, User user) {
 		map = AppHelper.getMap("id", id, "user", user);
 		return pipeDao.findInfoPipe(map);
@@ -66,7 +72,106 @@ public class PipeBizImpl implements PipeBiz {
 	public int getCount(Map<String, Object> map) {
 		return pipeDao.getCount(map);
 	}
-	
+
+	public void check(Pipe cust, Pipe pipe) {
+		StringBuffer context = new StringBuffer("");
+		if (cust.getNo() != pipe.getNo())
+			context.append("*.修改Survey ID为" + pipe.getNo() + "\n");
+		if (!cust.getOperator().equals(pipe.getOperator()))
+			context.append("*.修改Operator为" + pipe.getOperator() + "\n");
+		if (!cust.getWorkorder().equals(pipe.getWorkorder()))
+			context.append("*.修改Work Order No为" + pipe.getWorkorder() + "\n");
+		if (!cust.getReference().equals(pipe.getReference()))
+			context.append("*.修改Pipe Length Reference为" + pipe.getReference() + "\n");
+		if (!cust.getPurposes().equals(pipe.getPurposes()))
+			context.append("*.修改Purpose为" + pipe.getPurposes() + "\n");
+		if (!cust.getSlope().equals(pipe.getSlope()))
+			context.append("*.修改Slope为" + pipe.getSlope() + "\n");
+		if (!cust.getSloperef().equals(pipe.getSloperef()))
+			context.append("*.修改Slope Reference No为" + pipe.getSloperef() + "\n");
+		if (!cust.getYearlaid().equals(pipe.getYearlaid()))
+			context.append("*.修改Year Laid为" + pipe.getYearlaid() + "\n");
+		if (!cust.getDate().equals(pipe.getDate()))
+			context.append("*.修改Date为" + pipe.getDate() + "\n");
+		if (!cust.getTime().equals(pipe.getTime()))
+			context.append("*.修改Time为" + pipe.getTime() + "\n");
+
+		if (!cust.getDistrict1().equals(pipe.getDistrict1()))
+			context.append("*.修改District1为" + pipe.getDistrict1() + "\n");
+		if (!cust.getDistrict2().equals(pipe.getDistrict2()))
+			context.append("*.修改District2为" + pipe.getDistrict2() + "\n");
+		if (!cust.getDistrict3().equals(pipe.getDistrict3()))
+			context.append("*.修改District3为" + pipe.getDistrict3() + "\n");
+		if (!cust.getRoadname().equals(pipe.getRoadname()))
+			context.append("*.修改Road Name为" + pipe.getRoadname() + "\n");
+		if (!cust.getHousenum().equals(pipe.getHousenum()))
+			context.append("*.修改House Number为" + pipe.getHousenum() + "\n");
+		if (!cust.getBuilding().equals(pipe.getBuilding()))
+			context.append("*.修改Building为" + pipe.getBuilding() + "\n");
+		if (!cust.getDivision().equals(pipe.getDivision()))
+			context.append("*.修改Division为" + pipe.getDivision() + "\n");
+		if (!cust.getAreacode().equals(pipe.getAreacode()))
+			context.append("*.修改Drainage Area Code为" + pipe.getAreacode() + "\n");
+
+		if (!cust.getSmanholeno().equals(pipe.getSmanholeno()))
+			context.append("*.修改Start MH为" + pipe.getSmanholeno() + "\n");
+		if (!cust.getFmanholeno().equals(pipe.getFmanholeno()))
+			context.append("*.修改Finish MH为" + pipe.getFmanholeno() + "\n");
+		if (!cust.getUses().equals(pipe.getUses()))
+			context.append("*.修改Use为" + CameHelper.getCameText(pipe.getUses(), "use") + "\n");
+		if (!cust.getDire().equals(pipe.getDire()))
+			context.append("*.修改Direction为" + CameHelper.getCameText(pipe.getDire(), "dir") + "\n");
+		if (!cust.getHsize().equals(pipe.getHsize()))
+			context.append("*.修改Size(Dia)H为" + pipe.getHsize() + "\n");
+		if (!cust.getWsize().equals(pipe.getWsize()))
+			context.append("*.修改Size(Dia)W为" + pipe.getWsize() + "\n");
+		if (!cust.getShape().equals(pipe.getShape()))
+			context.append("*.修改Shape为" + CameHelper.getCameText(pipe.getShape(), "sha") + "\n");
+		if (!cust.getMater().equals(pipe.getMater()))
+			context.append("*.修改Material为" + CameHelper.getCameText(pipe.getMater(), "mat") + "\n");
+		if (!cust.getLining().equals(pipe.getLining()))
+			context.append("*.修改Lining为" + CameHelper.getCameText(pipe.getLining(), "lin") + "\n");
+		if (cust.getPipelength() != pipe.getPipelength())
+			context.append("*.修改Pipe Length为" + pipe.getPipelength() + "\n");
+		if (cust.getTestlength() != pipe.getTestlength())
+			context.append("*.修改Total Length为" + pipe.getTestlength() + "\n");
+
+		if (!cust.getSdepth().equals(pipe.getSdepth()))
+			context.append("*.修改Start Depth为" + pipe.getSdepth() + "\n");
+		if (!cust.getScoverlevel().equals(pipe.getScoverlevel()))
+			context.append("*.修改Start Cover Level为" + pipe.getScoverlevel() + "\n");
+		if (!cust.getSinvertlevel().equals(pipe.getSinvertlevel()))
+			context.append("*.修改Start Invert Level为" + pipe.getSinvertlevel() + "\n");
+		if (!cust.getFdepth().equals(pipe.getFdepth()))
+			context.append("*.修改Finish Depth为" + pipe.getFdepth() + "\n");
+		if (!cust.getFcoverlevel().equals(pipe.getFcoverlevel()))
+			context.append("*.修改Finish Cover Level为" + pipe.getFcoverlevel() + "\n");
+		if (!cust.getFinvertlevel().equals(pipe.getFinvertlevel()))
+			context.append("*.修改Finish Invert Level为" + pipe.getFinvertlevel() + "\n");
+		if (!cust.getCategory().equals(pipe.getCategory()))
+			context.append("*.修改Category为" + CameHelper.getCameText(pipe.getCategory(), "cat") + "\n");
+		if (!cust.getCleaned().equals(pipe.getCleaned()))
+			context.append("*.修改Cleaned为" + pipe.getCleaned() + "\n");
+		if (!cust.getWeather().equals(pipe.getWeather()))
+			context.append("*.修改Weather为" + CameHelper.getCameText(pipe.getWeather(), "wea") + "\n");
+		if (!cust.getVideono().equals(pipe.getVideono()))
+			context.append("*.修改Video No/File Name为" + pipe.getVideono() + "\n");
+		if (!cust.getComment().equals(pipe.getComment()))
+			context.append("*.修改Comments General为" + pipe.getComment() + "\n");
+
+		
+		
+		if (!StringUtils.isEmpty(context.toString())) {
+			User user = (User) AppHelper.findMap("user");
+			Loginfo loginfo = new Loginfo();
+			loginfo.setContext(context.toString());
+			loginfo.setDate(AppHelper.getDate(null));
+			loginfo.setUser(user);
+			loginfo.setPipe(pipe);
+			loginfoBiz.insertLoginfo(loginfo);
+		}
+	}
+
 	public void appendPipe(Pipe pipe) {
 		insertPipe(pipe);
 		String standard = pipe.getProject().getStandard();

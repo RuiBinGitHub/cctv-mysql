@@ -82,7 +82,6 @@ public class AppHelper {
 		return response;
 	}
 
-	
 	/** 获取session */
 	public static HttpSession getSession() {
 		HttpServletRequest request = getRequest();
@@ -131,6 +130,21 @@ public class AppHelper {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static void removeFile(File file) {
+		if (file.isFile()) {
+			file.delete();
+			return;
+		}
+		File[] files = file.listFiles();
+		if (files == null || files.length == 0) {
+			file.delete();
+			return;
+		}
+		for (File temp : files)
+			removeFile(temp);
+		file.delete();
 	}
 
 	/** 对象转换为xml文件 */

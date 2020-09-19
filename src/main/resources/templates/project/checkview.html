@@ -1,13 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
   <head>
-    <title>项目编辑</title>
+    <title>项目检测</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
-    <link type="text/css" rel="stylesheet" href="/cctv/css/project/editinfo.css"/>
+    <link type="text/css" rel="stylesheet" href="/cctv/css/project/checkview.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/cctv/js/laydate/laydate.js"></script>
-    <script type="text/javascript" src="/cctv/js/project/editinfo.js"></script>
+    <script type="text/javascript" src="/cctv/js/project/checkview.js"></script>
   </head>
   <body>
     <div th:replace="navigation::navigation"></div>
@@ -340,8 +340,26 @@
 	<input type="file" id="file1" accept="video/*" style="display:none"/>
 	<input type="file" id="file2" accept="image/*" style="display:none"/>
 	<canvas id="canvas1" style="display:none"></canvas>
+	
+	<div id="log"><img alt="" src="/cctv/img/记录 (1).png"/></div>
 	<div id="ishow">－</div>
 	<div id="toTop">△</div>
+	
+	<div id="page">
+	  <div id="logMain">
+	  <div id="logTitle">
+	    <div style="width:114px">Date</div>
+	    <div style="width:648px">Operation</div>
+	    <div style="width:104px">User</div>
+	    <div style="width:16px"></div>
+	  </div>
+	  <div id="logValue">
+	  <table id="tab3">
+	  </table>
+	  </div>
+	  </div>
+	</div>
+	
 	<!-- Code 列表 -->
 	<datalist id="icode"></datalist>
 	<datalist id="codes" th:if="${project.standard=='HKCCEC 2009'}">

@@ -11,6 +11,8 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,8 @@ import com.springboot.util.ZipFileHelper;
 @RestController
 public class FileInfoController {
 
+	private static final Logger log = LoggerFactory.getLogger(FileInfoController.class);
+	
 	@Value(value = "${myfile}")
 	private String path;
 
@@ -54,7 +58,7 @@ public class FileInfoController {
 	private HelperPDF helperPDF;
 
 	@RequestMapping(value = "/download")
-	public void download(@RequestParam(defaultValue = "0") int id) throws IOException {
+	public void download(@RequestParam(defaultValue = "0") int id) {
 		Project project = projectBiz.findInfoProject(id, null);
 		if (StringUtils.isEmpty(project))
 			return; // 查询结果为空
@@ -64,6 +68,8 @@ public class FileInfoController {
 		File report = new File(srcPath + name + "/report/");
 		File vedio = new File(srcPath + name + "/vedio/");
 		File data = new File(srcPath + name + "/data/");
+		File compre = new File(zipPath + name);
+		compre.mkdirs();
 		report.mkdirs();
 		vedio.mkdirs();
 		data.mkdirs();
@@ -75,29 +81,46 @@ public class FileInfoController {
 			computes.computePipe(pipe, project.getStandard());
 		}
 		project.setPipes(pipes);
-		
+
 		String file = srcPath + name + "/" + project.getDate() + "_" + project.getName();
 		AppHelper.convert(project, data.getPath() + "/" + project.getName() + ".xml");
 		helperPDF.initPDF(project, file + "_CCTV.pdf");
+		helperMDB.initMDB(project, srcPath + name + "/");
 		helperDOC.initDOC(project, srcPath + name + "/");
-		// helperMDB.initMDB(project, srcPath + name + "/");
 
 		HttpServletResponse response = AppHelper.getResponse();
 		String fileName = project.getDate() + "_" + project.getName();
-		File zipFile = ZipFileHelper.toZip(srcPath + name, zipPath, fileName);
+		File zipFile = ZipFileHelper.toZip(srcPath + name, zipPath + name, fileName);
 		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName + ".zip");
 		response.setContentType("application/force-download");
 
 		int len = -1;
 		byte[] buffer = new byte[1024];
-		InputStream fstream = new FileInputStream(zipFile.getPath());
-		InputStream bstream = new BufferedInputStream(fstream);
-		OutputStream outputStream = response.getOutputStream();
-		while ((len = bstream.read(buffer)) > 0) {
-			outputStream.write(buffer, 0, len);
-			outputStream.flush();
+		InputStream fstream = null;
+		InputStream bstream = null;
+		OutputStream outputStream = null;
+		try {
+			fstream = new FileInputStream(zipFile.getPath());
+			bstream = new BufferedInputStream(fstream);
+			outputStream = response.getOutputStream();
+			while ((len = bstream.read(buffer)) > 0) {
+				outputStream.write(buffer, 0, len);
+				outputStream.flush();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				log.info("关闭流对象...");
+				if (outputStream != null)
+					outputStream.close();
+				if (bstream != null)
+					bstream.close();
+				if (fstream != null)
+					fstream.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		bstream.close();
-		zipFile.delete();
 	}
 }

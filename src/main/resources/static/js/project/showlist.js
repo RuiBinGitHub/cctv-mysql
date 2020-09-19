@@ -44,6 +44,9 @@ $(document).ready(function() {
     $(".con div:eq(1)").click(function() {
     	$("#file2").click();
     });
+    $(".con div:eq(2)").click(function() {
+    	window.open("tranview");
+    });
     $("#file1").change(function() {
         if (this.files.length == 0)
             return false;
@@ -58,6 +61,112 @@ $(document).ready(function() {
         $("#tips").text(itipsText);
         $("#form2").submit();
     });
+    /** *************************************************************** */
+    var name = $("input[name=name]").val();
+    var sort = $("input[name=sort]").val();
+    $("#tab1 thead th:eq(1)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "showlist?sort=name1";
+    	else
+    		location.href = "showlist?name=" + name + "&sort=name1";
+    });
+    $("#tab1 thead th:eq(2)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "showlist?sort=client1";
+    	else
+    		location.href = "showlist?name=" + name + "&sort=client1";
+    });
+    $("#tab1 thead th:eq(3)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "showlist?sort=slope1";
+    	else
+    		location.href = "showlist?name=" + name + "&sort=slope1";
+    });
+    $("#tab1 thead th:eq(4)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "showlist?sort=standard1";
+    	else
+    		location.href = "showlist?name=" + name + "&sort=standard1";
+    });
+    $("#tab1 thead th:eq(5)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "showlist?sort=operator1";
+    	else
+    		location.href = "showlist?name=" + name + "&sort=operator1";
+    });
+    $("#tab1 thead th:eq(6)").click(function() {
+    	if (name == null || name == "")
+    		location.href = "showlist?sort=date1";
+    	else
+    		location.href = "showlist?name=" + name + "&sort=date1";
+    });
+    if (sort === "name") {
+    	$("#tab1 thead th:eq(1)").text($("#tab1 thead th:eq(1)").text() + "↑");
+    } else if (sort === "name1") {
+    	$("#tab1 thead th:eq(1)").text($("#tab1 thead th:eq(1)").text() + "↓");
+    	$("#tab1 thead th:eq(1)").unbind("click");
+    	$("#tab1 thead th:eq(1)").click(function() {
+    		if (name == null || name == "")
+        		location.href = "showlist?sort=name";
+        	else
+        		location.href = "showlist?name=" + name + "&sort=name";
+        });
+    } else if (sort === "client") {
+    	$("#tab1 thead th:eq(2)").text($("#tab1 thead th:eq(2)").text() + "↑");
+    } else if (sort === "client1") {
+    	$("#tab1 thead th:eq(2)").text($("#tab1 thead th:eq(2)").text() + "↓");
+    	$("#tab1 thead th:eq(2)").unbind("click");
+    	$("#tab1 thead th:eq(2)").click(function() {
+        	if (name == null || name == "")
+        		location.href = "showlist?sort=client";
+        	else
+        		location.href = "showlist?name=" + name + "&sort=client";
+        });
+    } else if (sort === "slope") {
+    	$("#tab1 thead th:eq(3)").text($("#tab1 thead th:eq(3)").text() + "↑");
+    } else if (sort === "slope1") {
+    	$("#tab1 thead th:eq(3)").text($("#tab1 thead th:eq(3)").text() + "↓");
+    	$("#tab1 thead th:eq(3)").unbind("click");
+    	$("#tab1 thead th:eq(3)").click(function() {
+        	if (name == null || name == "")
+        		location.href = "showlist?sort=slope";
+        	else
+        		location.href = "showlist?name=" + name + "&sort=slope";
+        });
+    } else if (sort === "standard") {
+    	$("#tab1 thead th:eq(4)").text($("#tab1 thead th:eq(4)").text() + "↑");
+    } else if (sort === "standard1") {
+    	$("#tab1 thead th:eq(4)").text($("#tab1 thead th:eq(4)").text() + "↓");
+    	$("#tab1 thead th:eq(4)").unbind("click");
+    	$("#tab1 thead th:eq(4)").click(function() {
+        	if (name == null || name == "")
+        		location.href = "showlist?sort=standard";
+        	else
+        		location.href = "showlist?name=" + name + "&sort=standard";
+        });
+    } else if (sort === "operator") {
+    	$("#tab1 thead th:eq(5)").text($("#tab1 thead th:eq(5)").text() + "↑");
+    } else if (sort === "operator1") {
+    	$("#tab1 thead th:eq(5)").text($("#tab1 thead th:eq(5)").text() + "↓");
+    	$("#tab1 thead th:eq(5)").unbind("click");
+    	$("#tab1 thead th:eq(5)").click(function() {
+        	if (name == null || name == "")
+        		location.href = "showlist?sort=operator";
+        	else
+        		location.href = "showlist?name=" + name + "&sort=operator";
+        });
+    } else if (sort === "date") {
+    	$("#tab1 thead th:eq(6)").text($("#tab1 thead th:eq(6)").text() + "↑");
+    } else if (sort === "date1") {
+    	$("#tab1 thead th:eq(6)").text($("#tab1 thead th:eq(6)").text() + "↓");
+    	$("#tab1 thead th:eq(6)").unbind("click");
+    	$("#tab1 thead th:eq(6)").click(function() {
+        	if (name == null || name == "")
+        		location.href = "showlist?sort=date";
+        	else
+        		location.href = "showlist?name=" + name + "&sort=date";
+        });
+    }
     /** *************************************************************** */
     /** 初始化表格 */
     var name = $("#menuText").val();
@@ -103,15 +212,19 @@ $(document).ready(function() {
     /** *************************************************************** */
     /** 上一页 */
     $(".pagebtn:eq(0)").click(function() {
-        var name = $("#menuText").val().trim();
         var page = Number($("#page1").text()) - 1;
-        window.location.href = "showlist?name=" + name + "&page=" + page;
+        if (sort == null || sort == "")
+        	window.location.href = "showlist?name=" + name + "&page=" + page;
+        else
+        	window.location.href = "showlist?name=" + name + "&sort=" + sort + "&page=" + page;
     });
     /** 下一页 */
     $(".pagebtn:eq(1)").click(function() {
-        var name = $("#menuText").val().trim();
         var page = Number($("#page1").text()) + 1;
-        window.location.href = "showlist?name=" + name + "&page=" + page;
+        if (sort == null || sort == "")
+        	window.location.href = "showlist?name=" + name + "&page=" + page;
+        else
+        	window.location.href = "showlist?name=" + name + "&sort=" + sort + "&page=" + page;
     });
     var page1 = $("#page1").text();
     var page2 = $("#page2").text();

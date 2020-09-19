@@ -36,7 +36,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/userview/**", "anon");
 		filterMap.put("/company/**", "roles[role1]"); // 公司操作
 		filterMap.put("/operator/**", "roles[role2]"); // 人员操作
-		
+
 		filterMap.put("/project/showlist", "roles[role4]"); // 个人列表
 		filterMap.put("/project/findlist", "roles[role2]"); // 项目管理
 		filterMap.put("/project/insertview", "roles[role4]"); // 新建项目链接
@@ -54,9 +54,11 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/project/combineview", "roles[role2]"); // 合并项目
 		filterMap.put("/project/combinelist", "roles[role2]"); // 合并列表
 		filterMap.put("/project/combine", "roles[role2]"); // 项目合并
+		filterMap.put("/project/tranview", "roles[role4]"); // 标准转换
+		filterMap.put("/project/tranitem", "roles[role4]"); // 标准转换
 		filterMap.put("/pipe/**", "roles[role4]"); // 管道操作
 		filterMap.put("/item/**", "roles[role4]"); // 记录操作
-		
+
 		filterMap.put("/markinfo/markview", "roles[vrole,role3]"); // 评分项目
 		filterMap.put("/markinfo/marklist", "roles[vrole,role3]"); // 评分列表
 		filterMap.put("/markinfo/showlist", "roles[vrole,role3]"); // 个人列表
@@ -67,10 +69,10 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/markinfo/update", "roles[vrole,role3]"); // 更新评分
 		filterMap.put("/markinfo/delete", "roles[vrole,role3]"); // 删除评分
 		filterMap.put("/markinfo/remove", "roles[vrole,role2]"); // 移除评分
-		
+
 		filterMap.put("/geominfo/findinfo", "roles[vrole,role2]"); // 坐标输入
 		filterMap.put("/geominfo/showlist", "roles[vrole,role4]"); // 地图展示
-		
+
 		filterMap.put("/userinfo/showlist", "roles[role2]"); // 人员管理
 		filterMap.put("/userinfo/showinfo", "roles[role2]"); // 信息统计
 		filterMap.put("/userinfo/updatepass", "roles[role4]"); // 更新密码
@@ -78,7 +80,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 		filterMap.put("/userinfo/updateview", "roles[role2]"); // 更新人员
 		filterMap.put("/userinfo/update", "roles[role2]"); // 更新人员
 		filterMap.put("/userinfo/center", "roles[role4]"); // 个人中心
-		
+
 		factoryBean.setFilterChainDefinitionMap(filterMap);
 		// 配置跳转的登录页面
 		factoryBean.setLoginUrl("/userview/loginview");

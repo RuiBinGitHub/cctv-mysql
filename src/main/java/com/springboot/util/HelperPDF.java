@@ -14,6 +14,8 @@ import java.util.TreeMap;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.ResourceUtils;
@@ -47,6 +49,8 @@ import com.springboot.entity.Project;
 
 @Component
 public class HelperPDF extends PdfPageEventHelper {
+
+	private static final Logger log = LoggerFactory.getLogger(HelperPDF.class);
 
 	@Value(value = "${myfile}")
 	private String myfile;
@@ -104,6 +108,7 @@ public class HelperPDF extends PdfPageEventHelper {
 			PdfPTable PipeTitleA = null;
 			DecimalFormat foramt1 = new DecimalFormat("#0");
 			DecimalFormat foramt2 = new DecimalFormat("#0.0");
+			DecimalFormat foramt3 = new DecimalFormat("#0.00");
 			// 输出表格FromA
 			for (String key : pipeMap.keySet()) {
 				double PipeLength_A = 0.0; // 记录管线长度
@@ -142,7 +147,7 @@ public class HelperPDF extends PdfPageEventHelper {
 					PipeTitleA.addCell(getCell(pipe.getComment(), font, 1, 1, 1, 0, 1));
 					if (i == list.size() - 1) {
 						PipeTitleA.addCell(getCell("Total Length", font, 4, 1, 1, 16, 1));
-						PipeTitleA.addCell(getCell(foramt2.format(PipeLength_A), font, 25, 1, 1, 16, 1));
+						PipeTitleA.addCell(getCell(foramt3.format(PipeLength_A), font, 25, 1, 1, 16, 1));
 					}
 					TableHeightA = PipeTitleA.getTotalHeight(); // 计算表格高度
 					double height = TableHeightA + table_a.getTotalHeight();
@@ -190,7 +195,7 @@ public class HelperPDF extends PdfPageEventHelper {
 					}
 					if (i == list.size() - 1) {
 						PipeTitleB2.addCell(getCell("Total", font, 4, 1, 1, 16, 1));
-						PipeTitleB2.addCell(getCell(foramt2.format(PipeLength_B), font, 1, 1, 1, 0, 1));
+						PipeTitleB2.addCell(getCell(foramt3.format(PipeLength_B), font, 1, 1, 1, 0, 1));
 						for (int j = 0; j < surve.length; j++) {
 							String value = surve[j] == 0 ? "" : surve[j] + "";
 							PipeTitleB2.addCell(getCell(value, font, 1, 1, 1, 0, 1));
@@ -269,16 +274,17 @@ public class HelperPDF extends PdfPageEventHelper {
 					double pipesize = size2 - size1 == 0.0 ? 1 : size2 - size1;
 					for (int j = index; items != null && j < z; j++) {
 						Item item = items.get(j);
-						double itemdist = Double.valueOf(item.getDist()) - size1;
+						double dist = Double.valueOf(item.getDist());
+						double itemdist = dist - size1;
 						if (item.getCode().equals("MH")) { // 画出MH
-							double dist = Double.valueOf(item.getDist());
-							int distance = "0.0".equals(item.getDist()) ? 20 : 50;
+							int distance = dist == 0.0 ? 20 : 50;
 							int location = (int) (itemdist / pipesize * length + distance);
 							if ("F".equals(pipe.getUses()))
 								graphics.fillRect(81, location, 30, 30);
 							else
 								graphics.fillArc(81, location, 30, 30, 0, 360);
-							if (item.getDist().equals("0.0"))
+
+							if (dist == 0.0)
 								graphics.drawString(pipe.getSmanholeno() + "", 88, 16);
 							if (dist == pipe.getTestlength() && pipe.getTestlength() != 0)
 								graphics.drawString(pipe.getFmanholeno() + "", 88, length + 90);
@@ -321,7 +327,7 @@ public class HelperPDF extends PdfPageEventHelper {
 						graphics.drawLine(90, distance, 102, distance);
 						graphics.drawLine(102, distance, 125, location);
 						graphics.drawLine(125, location, 145, location);
-						graphics.drawString(foramt2.format(AppHelper.getDoule(item.getDist())), 150, location + 3);
+						graphics.drawString(foramt3.format(AppHelper.getDoule(item.getDist())), 150, location + 3);
 						graphics.drawString(item.getCode() + "", 180, location + 3);
 
 						for (int no = 0; no < list.size(); no++)
@@ -422,9 +428,13 @@ public class HelperPDF extends PdfPageEventHelper {
 					imgNo = 0;
 				}
 			}
-			document.close();
+
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			log.info("关闭流对象...");
+			if (document != null)
+				document.close();
 		}
 	}
 
@@ -914,7 +924,8 @@ public class HelperPDF extends PdfPageEventHelper {
 		appendTableTitle(pipeInfo, "Area Code", font1, 10);
 		appendTableValue(pipeInfo, pipe.getAreacode(), font2, 10, 3, border);
 		appendTableTitle(pipeInfo, "Video No", font1, 10);
-		appendTableValue(pipeInfo, pipe.getVideono(), font2, 10, 3, border);
+		// appendTableValue(pipeInfo, pipe.getVideono(), font2, 10, 3, border);
+		appendTableValue(pipeInfo, "--", font2, 10, 3, border);
 		nestTable(report, pipeInfo, 1, 1, 4, 1, 1);
 		return report;
 	}
@@ -987,7 +998,8 @@ public class HelperPDF extends PdfPageEventHelper {
 		int[] border = new int[] { 1, 0, 0, 1 };
 		TableValue(table, "Video No:", font1, 10, 1, border, 2);
 		border = new int[] { 1, 0, 0, 0 };
-		TableValue(table, pipe.getVideono(), font1, 10, 1, border, 0);
+		// TableValue(table, pipe.getVideono(), font1, 10, 1, border, 0);
+		TableValue(table, "--", font1, 10, 1, border, 0);
 		TableValue(table, "Chainage:", font1, 10, 1, border, 2);
 		border = new int[] { 1, 1, 0, 0 };
 		TableValue(table, item.getDist() + " m", font1, 10, 1, border, 0);
@@ -1029,7 +1041,7 @@ public class HelperPDF extends PdfPageEventHelper {
 		standarTable.addCell(getCell("NO", font1, 1, 1, 0, 12, 0));
 		standarTable.addCell(getCell("", font1, 10, 1, 0, 8, 0)); // 插入间隔行
 
-		standarTable.addCell(getCell("KEYCCTV Project Sequence No:001", font1, 5, 1, 0, 12, 0));
+		standarTable.addCell(getCell("KEYCCTV Project Sequence " + project.getId(), font1, 5, 1, 0, 12, 0));
 		standarTable.addCell(getCell("NOTE: ", font1, 1, 1, 0, 12, 2));
 		standarTable.addCell(getCell("P--Peak; M--Mean; T--Total", font1, 4, 1, 0, 12, 0));
 		return standarTable;

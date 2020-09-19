@@ -77,7 +77,7 @@ $(document).ready(function() {
 	});
 	/** 下一页 */
 	$(".pagebtn:eq(1)").click(function() {
-		var type = $("#choice").val();
+		var state = $("#choice").val();
 		var page = Number($("#page1").text()) + 1;
 		window.location.href = "showlist?state=" + state + "&page=" + page;
 	});

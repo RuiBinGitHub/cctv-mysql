@@ -90,8 +90,8 @@ $(document).ready(function() {
     });
     /** 显示提示信息 */
     function showTips(text) {
-        $("#Tip").show().delay(1800).hide(200);
-        $("#Tip").text(text);
+        $("#tips").show().delay(1800).hide(200);
+        $("#tips").text(text);
     }
     function Ajax(url, data) {
         var result = null;

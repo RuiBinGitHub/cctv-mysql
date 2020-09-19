@@ -13,7 +13,7 @@ public class ZipFileHelper {
 	public static File toZip(String srcPath, String zipPath, String name) {
 		try {
 			File srcFile = new File(srcPath);
-			File zipFile = new File(zipPath + name);
+			File zipFile = new File(zipPath + "/" + name + ".zip");
 			FileOutputStream fileOutputStream = new FileOutputStream(zipFile);
 			ZipOutputStream zipOutputStream = new ZipOutputStream(fileOutputStream);
 			compress(srcFile, zipOutputStream, name);

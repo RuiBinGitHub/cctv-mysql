@@ -74,6 +74,11 @@
 	cursor: pointer;
 }
 
+#tab1 thead th:hover {
+	background-color: #5c657a;
+	cursor: pointer;
+}
+
 #page {
 	top: 0;
 	left: 0;

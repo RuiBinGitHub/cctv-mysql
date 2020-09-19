@@ -12,6 +12,8 @@ import java.sql.Types;
 import java.text.DecimalFormat;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,9 @@ import com.springboot.entity.Project;
 @Component
 public class HelperMDB {
 
+	
+	private static final Logger log = LoggerFactory.getLogger(HelperMDB.class);
+	
 	@Value(value = "${myfile}")
 	private String myfile;
 
@@ -148,6 +153,7 @@ public class HelperMDB {
 						File Image = new File(filePath);
 						File itemp = new File(path + "/data/" + foramt.format(ImageName) + ".png");
 						FileUtils.copyFile(Image, itemp);
+						stream.close();
 						ImageName++;
 					}
 					pstat.setInt(20, itemNo++);
@@ -157,6 +163,7 @@ public class HelperMDB {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
+			log.info("关闭流对象...");
 			close(conn, pstat);
 		}
 	}

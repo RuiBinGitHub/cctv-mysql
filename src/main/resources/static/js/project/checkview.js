@@ -590,7 +590,7 @@
         });
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").css("background-color", "#ccc");
         $("#memu1 input:eq(1),#TitleMemu input:eq(1)").attr("disabled", true);
-        if (Ajax("/cctv/pipe/update", $("#form1").serialize()))
+        if (Ajax("/cctv/pipe/commit", $("#form1").serialize()))
             showTips(tipsText1);
         setTimeout("location.reload()", 2000);
     });
@@ -1529,6 +1529,27 @@
         $("#tab2 tbody tr").eq(index).click();
     }
     /**************************************************************************/
+    $("#log").click(function() {
+    	if ($("#tab3 tr").length == 0) {
+    		var context = "";
+    		var data = Ajax("/cctv/loginfo/findlist", {id: id1});
+    		for (var i = 0; i < data.length; i++) {
+    			context += "<tr>";
+    			context += "  <td style='width:13%' valign='top'>[" + data[i].date + "]</td>";
+    			context += "  <td style='width:75%' align=left>" + data[i].context + "</td>";
+    			context += "  <td style='width:12%'>" + data[i].user.name + "</td>";
+    			context += "</tr>";
+			}
+    		console.log(context);
+    		$("#tab3").html(context);
+    	}
+    	$("#page").show();
+    });
+    $(document).keydown(function(event){
+    	if (event.keyCode == 27 && $("#page:visible"))
+    		$("#page").hide();
+    });
+    
     if (sessionStorage.control == "隐藏") {
  	   	$("#showItem").css("height", "756px");
  	   	$("#ishow").text("＋");

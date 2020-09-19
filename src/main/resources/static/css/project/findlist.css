@@ -26,3 +26,8 @@
 	background-color: #40b4f2;
 	cursor: pointer;
 }
+
+#tab1 thead th:hover {
+	background-color: #5c657a;
+	cursor: pointer;
+}

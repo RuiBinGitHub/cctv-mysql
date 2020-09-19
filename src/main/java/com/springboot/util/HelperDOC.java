@@ -11,6 +11,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.springboot.biz.PipeBiz;
@@ -26,12 +28,18 @@ import freemarker.template.TemplateException;
 @Component
 public class HelperDOC {
 
+	private static final Logger log = LoggerFactory.getLogger(HelperDOC.class);
+	
 	@Resource
 	private Computes computes;
 	@Resource
 	private ProjectBiz projectBiz;
 	@Resource
 	private PipeBiz pipeBiz;
+
+	private OutputStream stream = null;
+	private OutputStreamWriter writer = null;
+	private BufferedWriter bwriter = null;
 
 	public void initDOC(Project project, String path) {
 		try {
@@ -40,9 +48,9 @@ public class HelperDOC {
 			config.setClassForTemplateLoading(HelperDOC.class, "/");
 			Template template = config.getTemplate("Template.xml");
 			String FileName = path + "/" + project.getDate() + "_" + project.getName();
-			OutputStream stream = new FileOutputStream(FileName + "_CCTV.doc");
-			OutputStreamWriter writer = new OutputStreamWriter(stream, "utf-8");
-			BufferedWriter bwriter = new BufferedWriter(writer);
+			stream = new FileOutputStream(FileName + "_CCTV.doc");
+			writer = new OutputStreamWriter(stream, "utf-8");
+			bwriter = new BufferedWriter(writer);
 
 			double length = 0;
 			List<Pipe> pipes = project.getPipes();
@@ -91,13 +99,28 @@ public class HelperDOC {
 				}
 				length += pipe.getTestlength();
 			}
-			
+
 			Map<String, Object> data = new HashMap<>();
 			data.put("list", pipes);
 			data.put("sum", length);
 			template.process(data, bwriter);
+
+			writer.close();
+			bwriter.close();
 		} catch (IOException | TemplateException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				log.info("关闭流对象...");
+				if (stream != null)
+					stream.close();
+				if (writer != null)
+					writer.close();
+				if (bwriter != null)
+					writer.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

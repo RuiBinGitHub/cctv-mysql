@@ -38,6 +38,8 @@
         <div class="menu2"><a href="/cctv/userinfo/center" th:text="#{menu.div.text9}"></a></div>
       </div>
       
+      <input type="hidden" name="name" th:value="${param.name}"/>
+      <input type="hidden" name="sort" th:value="${param.sort}"/>
       <div id="mainInfo">
         <div id="infoTop" th:text="#{project.showlist.title}"></div>
         <div id="infoMenu">
@@ -50,19 +52,23 @@
           <input type="button" id="import" th:value="#{project.showlist.button2}"/>
           <div id="ipopup">
             <div class="con-ret"></div>
-      		<div class="con"><div>导入</div><div>预览</div></div>
+      		<div class="con">
+      		  <div>导入</div>
+      		  <div>预览</div>
+      		  <div>转换</div>
+      		</div>
           </div>
         </div>
         <table id="tab1">
           <thead>
             <tr height="40px" style="background-color:#51596b;">
               <th width="4%">NO</th>           
-			  <th width="14%" th:text="#{project.showlist.table.title1}">   
+			  <th width="16%" th:text="#{project.showlist.table.title1}">   
 			  <th width="20%" th:text="#{project.showlist.table.title2}"> 
-			  <th width="12%" th:text="#{project.showlist.table.title3}">
+			  <th width="10%" th:text="#{project.showlist.table.title3}">
 			  <th width="12%" th:text="#{project.showlist.table.title4}">
 			  <th width="12%" th:text="#{project.showlist.table.title5}">   
-			  <th width="12%" th:text="#{project.showlist.table.title6}"> 
+			  <th width="12%" th:text="#{project.showlist.table.title6}">
 			  <th width="14%" th:text="#{project.showlist.table.title7}">
 			</tr>       
           </thead>

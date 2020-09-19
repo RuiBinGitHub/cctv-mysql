@@ -65,15 +65,17 @@ public class ProjectBizImpl implements ProjectBiz {
 	}
 
 	public PageInfo<Project> findListProject(Map<String, Object> map) {
+		String sort = (String) map.get("sort");
+		if (!StringUtils.isEmpty(sort))
+			sort = sort.replace("1", " desc");
 		if (!StringUtils.isEmpty(map.get("name")))
 			map.put("name", "%" + map.get("name") + "%");
 		if (!StringUtils.isEmpty(map.get("page")))
-			PageHelper.startPage((int) map.get("page"), 15);
+			PageHelper.startPage((int) map.get("page"), 15, sort);
 		List<Project> projects = projectDao.findListProject(map);
 		PageInfo<Project> info = new PageInfo<Project>(projects);
 		return info;
 	}
-
 
 	public int appendProject(Project project) {
 		insertProject(project);
@@ -100,7 +102,7 @@ public class ProjectBizImpl implements ProjectBiz {
 		map = AppHelper.getMap("company", company, "list", list);
 		return projectDao.removeProject(map);
 	}
-	
+
 	public void combinProject(String list, Company company) {
 		List<String> name = Arrays.asList(list.split(","));
 		int id = AppHelper.getInt(name.get(0));

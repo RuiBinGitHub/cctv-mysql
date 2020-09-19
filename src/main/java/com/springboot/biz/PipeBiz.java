@@ -16,7 +16,7 @@ public interface PipeBiz {
 	void deletePipe(Pipe pipe);
 
 	void combinPipe(int id, List<?> list);
-	
+
 	Pipe findInfoPipe(int id, User user);
 
 	Pipe findInfoPipe(Map<String, Object> map);
@@ -27,7 +27,8 @@ public interface PipeBiz {
 
 	int getCount(Map<String, Object> map);
 
-	void appendPipe(Pipe pipe);
+	void check(Pipe cust, Pipe pipe);
 
+	void appendPipe(Pipe pipe);
 
 }
