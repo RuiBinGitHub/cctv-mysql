@@ -49,9 +49,7 @@ $(document).ready(function() {
     });
     /** *************************************************************** */
     $("#video").click(function() {
-    	var src = $("#video").attr("src");
-        if (src != undefined && src != "")
-            video.paused ? video.play() : video.pause();
+    	// TODO
     });
     $("#video").dblclick(function() {
         $("#file").click();

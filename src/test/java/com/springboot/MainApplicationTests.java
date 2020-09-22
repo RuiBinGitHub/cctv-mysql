@@ -19,12 +19,10 @@ public class MainApplicationTests {
 
 	@Resource
 	private MailBean mailBean;
-
 	public Map<String, Object> map = null;
 
 	@Test
 	public void contextLoads() {
-		mailBean.sendMail("919732942@qq.com", "88888");
 		System.out.println("--");
 	}
 

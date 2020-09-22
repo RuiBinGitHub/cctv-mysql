@@ -105,10 +105,9 @@ $(document).ready(function() {
 			$(this).text("(无)");
 	});
 	/** ***************************************************************** */
-	$("#video").click(function() {
-		if ($("#video").attr("src") != undefined)
-			video.paused ? video.play() : video.pause();
-	});
+    $("#video").click(function() {
+    	// TODO
+    });
 	$("#video").dblclick(function() {
 		$("#file").click();
 	});

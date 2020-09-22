@@ -8,10 +8,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @SpringBootApplication
 @MapperScan("com.springboot.dao")
-public class MainApplication {
+public class MainApplication  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MainApplication.class, args);
 	}
-
 }

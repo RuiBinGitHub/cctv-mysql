@@ -563,11 +563,14 @@
     /** ******************************************************************** */
     /** 添加管道按钮 */
     $("#memu1 input:eq(0), #TitleMemu input:eq(0)").click(function() {
+    	/**
         var value = $("#tab1 tbody tr:last").attr("id");
         var index = value == undefined ? 0 : value;
         var length = $("#tab1 tbody tr").length;
         if (Ajax("/cctv/pipe/insert", {id: id2, no: index}))
             window.location.href = "editinfo?id=" + id2 + "&no=" + length;
+         */
+    	showTips("不支持该操作...");
     });
     /** 保存数据按钮 */
     $("#memu1 input:eq(1), #TitleMemu input:eq(1)").click(function() {
@@ -607,7 +610,7 @@
         $(this).find("input:eq(0)").css("background-color", "#ff8000");
         $(this).find("input:eq(1)").css("background-color", "#ee4200");
         $(this).find("input:eq(0)").click(function() {
-            window.location.href = "editinfo?id=" + id2 + "&no=" + no;
+            window.location.href = "checkview?id=" + id2 + "&no=" + no;
         });
         $(this).find("input:eq(1)").click(function() {
             if (!confirm(tipsText2))
@@ -631,16 +634,6 @@
     $("#link1").attr("target", "_bank");
     $("#link1").attr("href", "http://www1.slope.landsd.gov.hk/smris/map");
     $("input[name=time]").attr("placeholder", "HH:MM");
-    $("#link2").click(function() {
-        $("input[name=xfile]").click();
-    });
-    $("input[name=xfile]").attr("title", "导入沙井深度");
-    $("input[name=xfile]").change(function() {
-        if (this.files.length == 0)
-            return false;
-        $("#form2").attr("action", "importdepth");
-        $("#form2").submit();
-    });
     /** ******************************************************************** */
     var reg = /^[+]{0,1}(\d+)$/; // 正整数正则表达式
     var timeReg = /^(([0-1][0-9])|2[0-3]):([0-5][0-9])$/; // 时间正则表达式
@@ -933,10 +926,7 @@
     /** ******************************************************************** */
     // 视频播放器点击事件
     $("#video").click(function() {
-    	var src = $(this).attr("src");
-        if (src != undefined && src != "")
-            this.paused ? this.play() : this.pause();
-        $(this).focus();
+    	$(this).focus();
     });
     // 视频播放器双击事件
     $("#video").dblclick(function() {
@@ -1198,12 +1188,11 @@
     	itemindex = $(this).parent().find("tr").index($(this));
     	$("#tab2 tbody tr").find("td:eq(0) a").text("");
         $(this).find("td:eq(0) a").text("▶");
+        $("#pic2").attr("src", "/cctv/img/blank.png");
         var value = $(this).find("input:last").val();
-        if (value == "" || value.length == 0)
-        	$("#pic2").attr("src", "/cctv/img/blank.png");
-        else if (value != "" && value.length < 40)
+        if (value != "" && value.length < 40)
             $("#pic2").attr("src", path + value + ".png");
-        else if (value != "" && value.length > 40)
+        if (value != "" && value.length > 40)
         	$("#pic2")[0].src = value;
     });
     // 单元格获取焦点事件
@@ -1540,7 +1529,6 @@
     			context += "  <td style='width:12%'>" + data[i].user.name + "</td>";
     			context += "</tr>";
 			}
-    		console.log(context);
     		$("#tab3").html(context);
     	}
     	$("#page").show();

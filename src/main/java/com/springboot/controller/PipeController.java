@@ -119,6 +119,7 @@ public class PipeController {
 		if (StringUtils.isEmpty(cust))
 			return false;
 		pipeBiz.updatePipe(pipe);
+		pipeBiz.check(cust, pipe);
 		List<Item> items = pipe.getItems();
 		for (int i = 0; items != null && i < items.size(); i++) {
 			Item item = items.get(i);
@@ -137,12 +138,10 @@ public class PipeController {
 			else
 				itemBiz.updateItem(item);
 		}
-		pipeBiz.check(cust, pipe);
 		itemBiz.sortItemImg(pipe.getProject());
 		return true;
 	}
-	
-	
+
 	/** 删除数据 */
 	@RequestMapping(value = "/delete")
 	public boolean daletePipe(@RequestParam(defaultValue = "0") int id) {

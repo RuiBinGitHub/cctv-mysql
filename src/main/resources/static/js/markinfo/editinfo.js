@@ -97,8 +97,7 @@ $(document).ready(function() {
     });
     /********************************************************************/
     $("#video").click(function() {
-        if ($("#video").attr("src") != undefined)
-            video.paused ? video.play() : video.pause();
+    	// TODO
     });
     $("#video").dblclick(function() {
         $("#file").click();

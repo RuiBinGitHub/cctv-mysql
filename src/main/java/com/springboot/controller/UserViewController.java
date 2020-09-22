@@ -72,8 +72,8 @@ public class UserViewController {
 			view.addObject("tips", "*公司账号使用期限到期！");
 			return view;
 		}
-		// 设置session过期时间为无限
-		SecurityUtils.getSubject().getSession().setTimeout(-2000);
+		// 设置session过期时间为一天
+		SecurityUtils.getSubject().getSession().setTimeout(6000 * 60 * 24);
 		Session session = SecurityUtils.getSubject().getSession();
 		applicationContext.pushMap(username, session);
 

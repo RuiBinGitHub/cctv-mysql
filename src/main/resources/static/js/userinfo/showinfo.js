@@ -33,11 +33,11 @@ $(document).ready(function() {
             type: "pie",
             innerSize: "40%",  // 内心圆大小
             data: [{
-                name: "已完成项目",
+                name: "已提交项目",
                 y: value2,
                 color: "#FC851D"
             }, {
-                name: "未完成项目",
+                name: "未提交项目",
                 y: value1,
                 color: "#DADADA"
             }]

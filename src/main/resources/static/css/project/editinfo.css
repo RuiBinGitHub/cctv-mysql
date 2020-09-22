@@ -313,21 +313,26 @@ input[type=text] {
 #memu2 div {
     width: 525px;
     height: 100%;
-    font: 700 20px smsun;
+    font: 700 20px simsun;
     line-height: 30px;
     text-indent: 20px;
     float: left;
 }
 
 #memu2 input {
-    width: 70px;
-    height: 24px;
-    margin: 4px 5px;
-    color: #ffffff;
-    font: 600 15px fangsong;
-    border-radius: 1px;
-    border: none;
-    float: left;
+	width: 70px;
+	height: 24px;
+	margin: 4px 5px;
+	color: #ffffff;
+	font: 600 15px fangsong;
+	border-radius: 1px;
+	outline: none;
+	border: none;
+	float: left;
+}
+
+#memu2 input:hover {
+	color: #F7C93D;
 }
 
 #title {

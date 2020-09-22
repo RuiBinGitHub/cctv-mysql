@@ -11,8 +11,8 @@
 	<select id="findListLoginfo" parameterType="Map" resultMap="loginfoMap">
 		select l.*, u.name u_name from loginfo l left join users u on u.id = l.userid
 		<where>
-			<if test="pipe != null">
-				and l.pipeid = #{pipe.id}
+			<if test="id != null">
+				l.pipeid = #{id}
 			</if>
 		</where>
 		order by l.id

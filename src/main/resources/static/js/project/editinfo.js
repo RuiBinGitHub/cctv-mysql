@@ -933,9 +933,6 @@
     /** ******************************************************************** */
     // 视频播放器点击事件
     $("#video").click(function() {
-    	var src = $(this).attr("src");
-        if (src != undefined && src != "")
-            this.paused ? this.play() : this.pause();
         $(this).focus();
     });
     // 视频播放器双击事件
@@ -1198,12 +1195,11 @@
     	itemindex = $(this).parent().find("tr").index($(this));
     	$("#tab2 tbody tr").find("td:eq(0) a").text("");
         $(this).find("td:eq(0) a").text("▶");
+        $("#pic2").attr("src", "/cctv/img/blank.png");
         var value = $(this).find("input:last").val();
-        if (value == "" || value.length == 0)
-        	$("#pic2").attr("src", "/cctv/img/blank.png");
-        else if (value != "" && value.length < 40)
+        if (value != "" && value.length < 40)
             $("#pic2").attr("src", path + value + ".png");
-        else if (value != "" && value.length > 40)
+        if (value != "" && value.length > 40)
         	$("#pic2")[0].src = value;
     });
     // 单元格获取焦点事件
