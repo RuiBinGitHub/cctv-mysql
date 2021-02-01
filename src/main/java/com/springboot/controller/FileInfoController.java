@@ -1,126 +1,91 @@
 package com.springboot.controller;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.springboot.biz.CompanyBiz;
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.ZipUtil;
 import com.springboot.biz.ItemBiz;
 import com.springboot.biz.PipeBiz;
 import com.springboot.biz.ProjectBiz;
 import com.springboot.entity.Pipe;
 import com.springboot.entity.Project;
-import com.springboot.util.AppHelper;
-import com.springboot.util.Computes;
-import com.springboot.util.HelperDOC;
-import com.springboot.util.HelperMDB;
-import com.springboot.util.HelperPDF;
-import com.springboot.util.ZipFileHelper;
+import com.springboot.util.*;
+import lombok.Cleanup;
+import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 @RestController
 public class FileInfoController {
 
-	private static final Logger log = LoggerFactory.getLogger(FileInfoController.class);
-	
-	@Value(value = "${myfile}")
-	private String path;
+    @Value(value = "${myfile}")
+    private String path;
 
-	@Resource
-	private CompanyBiz companyBiz;
-	@Resource
-	private ProjectBiz projectBiz;
-	@Resource
-	private PipeBiz pipeBiz;
-	@Resource
-	private ItemBiz itemBiz;
-	@Resource
-	private Computes computes;
-	@Resource
-	private HelperDOC helperDOC;
-	@Resource
-	private HelperMDB helperMDB;
-	@Resource
-	private HelperPDF helperPDF;
+    @Resource
+    private MarkFileDoc markFileDoc;
+    @Resource
+    private MarkFileMdb markFileMdb;
+    @Resource
+    private MarkFilePdf markFilePdf;
+    @Resource
+    private ProjectBiz projectBiz;
+    @Resource
+    private Computes computes;
+    @Resource
+    private PipeBiz pipeBiz;
+    @Resource
+    private ItemBiz itemBiz;
 
-	@RequestMapping(value = "/download")
-	public void download(@RequestParam(defaultValue = "0") int id) {
-		Project project = projectBiz.findInfoProject(id, null);
-		if (StringUtils.isEmpty(project))
-			return; // 查询结果为空
-		String srcPath = path + "/report/";
-		String zipPath = path + "/compre/";
-		String name = AppHelper.UUIDCode();
-		File report = new File(srcPath + name + "/report/");
-		File vedio = new File(srcPath + name + "/vedio/");
-		File data = new File(srcPath + name + "/data/");
-		File compre = new File(zipPath + name);
-		compre.mkdirs();
-		report.mkdirs();
-		vedio.mkdirs();
-		data.mkdirs();
+    @SneakyThrows
+    @RequestMapping(value = "/download", method = RequestMethod.GET)
+    public void download(int id, HttpServletResponse response) {
+        Project project = projectBiz.findInfoProject(id, null);
+        if (StringUtils.isEmpty(project))
+            return; // 查询结果为空
+        String name = AppUtils.UUIDCode();
+        String srcPath = path + "/report/";
+        FileUtil.mkdir(srcPath + name + "/data/");
+        FileUtil.mkdir(srcPath + name + "/report/");
+        FileUtil.mkdir(srcPath + name + "/video/");
 
-		List<Pipe> pipes = pipeBiz.findListPipe(project);
-		for (int i = 0; pipes != null && i < pipes.size(); i++) { // 计算管道分数
-			Pipe pipe = pipes.get(i);
-			pipe.setItems(itemBiz.findListItem(pipe));
-			computes.computePipe(pipe, project.getStandard());
-		}
-		project.setPipes(pipes);
+        List<Pipe> pipes = pipeBiz.findListPipe(project);
+        for (Pipe pipe : pipes) {
+            pipe.setItems(itemBiz.findListItem(pipe));
+            computes.computePipe(pipe, project.getStandard());
+        }
+        project.setPipes(pipes);
 
-		String file = srcPath + name + "/" + project.getDate() + "_" + project.getName();
-		AppHelper.convert(project, data.getPath() + "/" + project.getName() + ".xml");
-		helperPDF.initPDF(project, file + "_CCTV.pdf");
-		helperMDB.initMDB(project, srcPath + name + "/");
-		helperDOC.initDOC(project, srcPath + name + "/");
+        AppUtils.convert(project, srcPath + name + "/data/");
+        markFilePdf.initPDF(project, srcPath + name + "/");
+        markFileMdb.initMDB(project, srcPath + name + "/");
+        markFileDoc.initDOC(project, srcPath + name + "/");
 
-		HttpServletResponse response = AppHelper.getResponse();
-		String fileName = project.getDate() + "_" + project.getName();
-		File zipFile = ZipFileHelper.toZip(srcPath + name, zipPath + name, fileName);
-		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName + ".zip");
-		response.setContentType("application/force-download");
+        File zipFile = new File(path + "/compre/" + name + ".zip");
+        ZipUtil.zip(srcPath + name, zipFile.getPath());
 
-		int len = -1;
-		byte[] buffer = new byte[1024];
-		InputStream fstream = null;
-		InputStream bstream = null;
-		OutputStream outputStream = null;
-		try {
-			fstream = new FileInputStream(zipFile.getPath());
-			bstream = new BufferedInputStream(fstream);
-			outputStream = response.getOutputStream();
-			while ((len = bstream.read(buffer)) > 0) {
-				outputStream.write(buffer, 0, len);
-				outputStream.flush();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				log.info("关闭流对象...");
-				if (outputStream != null)
-					outputStream.close();
-				if (bstream != null)
-					bstream.close();
-				if (fstream != null)
-					fstream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+        String fileName = project.getDate() + "_" + project.getName() + ".zip";
+        fileName = new String(fileName.getBytes(StandardCharsets.UTF_8), StandardCharsets.ISO_8859_1);
+        response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);
+        response.setContentType("application/force-download");
+
+        int len;
+        byte[] bytes = new byte[1024];
+        @Cleanup InputStream fstream = new FileInputStream(zipFile);
+        @Cleanup InputStream bstream = new BufferedInputStream(fstream);
+        @Cleanup OutputStream outputStream = response.getOutputStream();
+        while ((len = bstream.read(bytes)) > 0) {
+            outputStream.write(bytes, 0, len);
+            outputStream.flush();
+        }
+        // 删除下载文件
+        FileUtil.del(srcPath + name);
+        FileUtil.del(zipFile.getPath());
+    }
 }

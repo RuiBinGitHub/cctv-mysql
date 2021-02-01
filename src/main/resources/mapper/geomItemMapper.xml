@@ -3,62 +3,61 @@
 
 <mapper namespace="com.springboot.dao.GeomItemDao">
 
-	<!-- 插入数据 -->
-	<insert id="insertGeomItem" parameterType="GeomItem" useGeneratedKeys="true" keyProperty="id">
+    <!-- 插入数据 -->
+    <insert id="insertGeomItem" parameterType="GeomItem" useGeneratedKeys="true" keyProperty="id">
 		insert into geomItem values(null, #{scope}, #{project.id})
 	</insert>
 
-	<!-- 更新数据 -->
-	<update id="updateGeomItem" parameterType="GeomItem">
-		update geomItem set scope = #{scope} where id=#{id}
+    <!-- 更新数据 -->
+    <update id="updateGeomItem" parameterType="GeomItem">
+		update geomItem set scope = #{scope} where id = #{id}
 	</update>
-	
-	<!-- 删除数据 -->
-	<delete id="deleteGeomItem" parameterType="GeomItem">
+
+    <!-- 删除数据 -->
+    <delete id="deleteGeomItem" parameterType="GeomItem">
 		delete from geomItem where id = #{id}
 	</delete>
-	
-	<select id="findInfoGeomItem" parameterType="Map" resultMap="GeomItemMap">
-		select a.id, a.scope, avg(b.smhx) x, avg(b.smhy) y, c.name, c.operator, c.date from geomitem a
-			left join geompipe b on b.geomid = a.id 
-			left join project c on c.id = a.projectid 
-		<where>
-			<if test="id != null">
-				and a.id = #{id}
-			</if>
-			<if test="project != null">
-				and c.id = #{project.id}
-			</if>
-			<if test="user != null">
-				and c.userid = #{user.id}
-			</if>
-		</where>
-		group by a.id
-	</select>
-	
-	<select id="showListGeomItem" parameterType="Map" resultMap="GeomItemMap">
-		select a.id, a.scope, avg(b.smhx) x, avg(b.smhy) y, c.name, c.operator, c.date from geomitem a
-			left join geompipe b on b.geomid = a.id
-			left join project c on c.id = a.projectid
-			left join users d on d.id = c.userid
-		where b.smhGradeA != "" and b.fmhGradeA != ""
-		<if test="company != null">
-			and d.companyid = #{company.id}
-		</if>
-		group by a.id order by a.id desc
-	</select>
-	
-	<resultMap id="GeomItemMap" type="GeomItem">
-		<id property="id" column="id"/>
-		<result property="x" column="x"/>
-		<result property="y" column="y"/>
-		<result property="scope" column="scope"/>
-		<association property="project" javaType="Project">
-			<result property="name" column="name"/>
-			<result property="operator" column="operator"/>
-			<result property="date" column="date"/>
-		</association>
-	</resultMap>
-	
+
+    <select id="findInfoGeomItem" parameterType="Map" resultMap="GeomItemMap">
+        select a.id, avg(b.smhx) x, avg(b.smhy) y, c.name, c.operator, c.date from geomitem a
+        left join geompipe b on b.geomid = a.id
+        left join project c on c.id = a.projectid
+        <where>
+            <if test="id != null">
+                and a.id = #{id}
+            </if>
+            <if test="project != null">
+                and c.id = #{project.id}
+            </if>
+            <if test="user != null">
+                and c.userid = #{user.id}
+            </if>
+        </where>
+        group by a.id
+    </select>
+
+    <select id="findListGeomItem" parameterType="Map" resultMap="GeomItemMap">
+        select a.id, avg(b.smhx) x, avg(b.smhy) y, c.name, c.operator, c.date from geomitem a
+        left join geompipe b on b.geomid = a.id
+        left join project c on c.id = a.projectid
+        left join users d on d.id = c.userid
+        where b.smhGradeA != "" and b.fmhGradeA != ""
+        <if test="company != null">
+            and d.companyid = #{company.id}
+        </if>
+        group by a.id order by a.id desc
+    </select>
+
+    <resultMap id="GeomItemMap" type="GeomItem">
+        <id property="id" column="id"/>
+        <result property="x" column="x"/>
+        <result property="y" column="y"/>
+        <association property="project" javaType="Project">
+            <result property="name" column="name"/>
+            <result property="operator" column="operator"/>
+            <result property="date" column="date"/>
+        </association>
+    </resultMap>
+
 </mapper>
  

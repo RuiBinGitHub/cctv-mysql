@@ -1,182 +1,191 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-  <head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
     <title>用户中心</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/layui/css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="/cctv/css/common/itemlist.css"/>
     <link rel="stylesheet" type="text/css" href="/cctv/css/userinfo/center.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/cctv/layui/layui-2.5.6.min.js"></script>
     <script type="text/javascript" src="/cctv/js/userinfo/center.js"></script>
-  </head>
-  <body>
-    <div th:replace="navigation::navigation"></div>
-    <div id="tips"></div>
-    <div id="main">
-      <div id="mainMenu">
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <div id="mainMenu">
         <div id="menuTitle" th:text="#{menu.title.text}"></div>
         <div class="menu2"><a href="/cctv/project/showlist" th:text="#{menu.div.text1}"></a></div>
         <shiro:hasRole name="role2">
-          <div class="menu2"><a href="/cctv/project/findlist" th:text="#{menu.div.text2}"></a></div>
+            <div class="menu2"><a href="/cctv/project/findlist" th:text="#{menu.div.text2}"></a></div>
         </shiro:hasRole>
         <shiro:hasRole name="role3,vrole">
-          <div class="menu2"><a href="/cctv/markinfo/markview" th:text="#{menu.div.text3}"></a></div>
-          <div class="menu2"><a href="/cctv/markinfo/marklist" th:text="#{menu.div.text4}"></a></div>
+            <div class="menu2"><a href="/cctv/markinfo/markview" th:text="#{menu.div.text3}"></a></div>
+            <div class="menu2"><a href="/cctv/markinfo/marklist" th:text="#{menu.div.text4}"></a></div>
         </shiro:hasRole>
         <shiro:hasRole name="role2,vrole">
-          <div class="menu2"><a href="/cctv/markinfo/findlist" th:text="#{menu.div.text5}"></a></div>
+            <div class="menu2"><a href="/cctv/markinfo/findlist" th:text="#{menu.div.text5}"></a></div>
         </shiro:hasRole>
         <shiro:hasRole name="role2">
-          <div class="menu2"><a href="/cctv/operator/showlist" th:text="#{menu.div.text6}"></a></div>
-          <div class="menu2"><a href="/cctv/userinfo/showlist" th:text="#{menu.div.text7}"></a></div>
+            <div class="menu2"><a href="/cctv/operator/showlist" th:text="#{menu.div.text6}"></a></div>
+            <div class="menu2"><a href="/cctv/userinfo/showlist" th:text="#{menu.div.text7}"></a></div>
         </shiro:hasRole>
         <shiro:hasRole name="vrole">
-          <div class="menu2"><a href="/cctv/message/showlist" th:text="#{menu.div.text8}"></a></div>
+            <div class="menu2"><a href="/cctv/message/showlist" th:text="#{menu.div.text8}"></a></div>
         </shiro:hasRole>
         <div class="menu1"><a href="/cctv/userinfo/center" th:text="#{menu.div.text9}"></a></div>
-      </div>
-      
-      <div id="mainInfo">
+    </div>
+
+    <div id="mainInfo">
         <div id="infoTop" th:text="#{userinfo.center.title}"></div>
+
         <!-- 表格1开始 -->
-        <table class="table1" style="border-bottom:1px solid #ccc;">
-          <tr>
-            <td width="18%" align="left"><img src="/cctv/img/center1.png"><a th:text="#{userinfo.center.table1.label1}"></a></td>
-            <td width="32%">
-              <input id="name" type="text" th:value="${session.user.name}"/>
-              <img id="edit" src="/cctv/img/center8.png" style="margin-top:5px;"/>
-            </td> 
-            <td width="18%" align="left"><img src="/cctv/img/center2.png"><a th:text="#{userinfo.center.table1.label2}"></a></td>
-            <td width="32%"  th:if="${session.user.role == 'role2'}">管理人员</td>
-            <td width="32%"  th:if="${session.user.role == 'role3'}">评分人员</td>
-            <td width="32%"  th:if="${session.user.role == 'role4'}">编辑人员</td>
-          </tr>
-          <tr>
-            <td align="left"><img src="/cctv/img/center3.png"><a th:text="#{userinfo.center.table1.label3}"></a></td>
-            <td th:text="${session.user.email}"></td>
-            <td align="left"><img src="/cctv/img/center4.png"><a th:text="#{userinfo.center.table1.label4}"></a></td>
-            <td th:text="${session.user.phone}"></td>
-          </tr>
-          <tr>
-            <td align="left"><img src="/cctv/img/center5.png"><a th:text="#{userinfo.center.table1.label5}"></a></td>
-            <td th:text="${session.user.company.date}"></td>
-            <td align="left"><img src="/cctv/img/center6.png"><a th:text="#{userinfo.center.table1.label6}"></a></td>
-            <td th:text="${session.user.company.term}"></td>
-          </tr>
+        <table class="table1" style="border-bottom: 1px solid #ccc;">
+            <colgroup>
+                <col width="15%">
+                <col width="35%">
+                <col width="15%">
+                <col width="35%">
+            </colgroup>
+            <tr>
+                <td><img src="/cctv/img/center1.png" alt=""><a th:text="#{userinfo.center.table1.label1}"></a></td>
+                <td>
+                    <input id="name" type="text" th:value="${session.user.name}"/>
+                    <img id="edit" src="/cctv/img/center8.png" alt=""/>
+                </td>
+                <td><img src="/cctv/img/center2.png" alt=""><a th:text="#{userinfo.center.table1.label2}"></a></td>
+                <td th:if="${session.user.role == 'role2'}">管理人员</td>
+                <td th:if="${session.user.role == 'role3'}">评分人员</td>
+                <td th:if="${session.user.role == 'role4'}">编辑人员</td>
+            </tr>
+            <tr>
+                <td><img src="/cctv/img/center3.png" alt=""><a th:text="#{userinfo.center.table1.label3}"></a></td>
+                <td th:text="${session.user.mail}"></td>
+                <td><img src="/cctv/img/center4.png" alt=""><a th:text="#{userinfo.center.table1.label4}"></a></td>
+                <td th:text="${session.user.mobi}"></td>
+            </tr>
+            <tr>
+                <td><img src="/cctv/img/center5.png" alt=""><a th:text="#{userinfo.center.table1.label5}"></a></td>
+                <td th:text="${session.user.company.date}"></td>
+                <td><img src="/cctv/img/center6.png" alt=""><a th:text="#{userinfo.center.table1.label6}"></a></td>
+                <td th:text="${session.user.company.term}"></td>
+            </tr>
         </table>
-        <!-- 表格1结束 -->
-        
+
+        <!-- 表格2开始 -->
         <table class="table2">
-          <tr> <!-- 登录密码 -->
-            <td width="80%" align="left"><img src="/cctv/img/center7.png"><h4 th:text="#{userinfo.center.table2.title1}"></h4></td>
-            <td width="20%" align="center">
-              <img style="margin-top:2px;float:left;" src="/cctv/img/ioc1.png">
-              <span style="color:#44B333;font-weight:600;" th:text="#{userinfo.center.list.link1}"></span> | 
-              <a id="link1" class="link1" th:text="#{userinfo.center.list.link3}"></a>
-            </td>
-          </tr>
-          <tr style="height:75px;border-bottom:1px dashed #ccc;">
-            <td colspan="2" th:text="#{userinfo.center.table2.context1}"></td>
-          </tr>
-          <tr> <!-- 电子邮箱 -->
-            <td align="left"><img src="/cctv/img/center3.png"><h4 th:text="#{userinfo.center.table2.title2}"></h4></td>
-            <!-- 已绑定邮箱 -->
-            <td th:if="${session.user.email != '--' && session.user.email != null}" align="center">
-              <img style="margin-top:2px;float:left;" src="/cctv/img/ioc1.png">
-              <span style="color:#44B333;font-weight:600;" th:text="#{userinfo.center.list.link1}"></span> | 
-              <a id="link2" class="link1" th:text="#{userinfo.center.list.link3}"></a>
-            </td>
-            <!-- 未绑定邮箱 -->
-            <td th:if="${session.user.email == '--' || session.user.email == null}" align="center">
-              <img style="margin-top:2px;float:left;" src="/cctv/img/ioc2.png">
-              <span style="color:#FF9900;font-weight:600;" th:text="#{userinfo.center.list.link2}"></span> | 
-              <a id="link2" class="link1" th:text="#{userinfo.center.list.link4}"></a>
-            </td>
-          </tr>
-          <tr style="height:75px;border-bottom:1px dashed #ccc;">
-            <td colspan="2" th:text="#{userinfo.center.table2.context2}"></td>
-          </tr>
-          <tr> <!-- 手机号码 -->
-            <td align="left"><img src="/cctv/img/center4.png"><h4 th:text="#{userinfo.center.table2.title3}"></h4></td>
-            <td align="center">
-              <img style="margin-top:2px;float:left;" src="/cctv/img/ioc2.png">
-              <span style="color:#FF9900;font-weight:600;" th:text="#{userinfo.center.list.link2}"></span> | 
-              <a id="link3" class="link1" th:text="#{userinfo.center.list.link4}"></a>
-         	</td>
-          </tr>
-          <tr style="height:75px;"><td colspan="2" th:text="#{userinfo.center.table2.context3}"></td></tr>
+            <colgroup>
+                <col width="80%">
+                <col width="20%">
+            </colgroup>
+            <tr> <!-- 登录密码 -->
+                <td><img src="/cctv/img/center7.png" alt=""><h4 th:text="#{userinfo.center.table2.title1}"></h4></td>
+                <td style="text-align: center">
+                    <img src="/cctv/img/ioc1.png" alt=""/>
+                    <span style="color: #44B333;" th:text="#{userinfo.center.list.link1}"></span>
+                    <span style="color: #000">&nbsp;|&nbsp;</span>
+                    <a id="link1" class="link" style="color: #44B333;" th:text="#{userinfo.center.list.link3}"></a>
+                </td>
+            </tr>
+            <tr style="height:75px;border-bottom:1px dashed #CCC;">
+                <td colspan="2" th:text="#{userinfo.center.table2.context1}"></td>
+            </tr>
+            <tr> <!-- 电子邮箱 -->
+                <td><img src="/cctv/img/center3.png" alt=""><h4 th:text="#{userinfo.center.table2.title2}"></h4></td>
+                <!-- 已绑定邮箱 -->
+                <td th:if="${session.user.mail != '--' && session.user.mail != null}" style="text-align: center">
+                    <img src="/cctv/img/ioc1.png" alt=""/>
+                    <span style="color: #44B333" th:text="#{userinfo.center.list.link1}"></span>
+                    <span style="color: #000">&nbsp;|&nbsp;</span>
+                    <a id="link2" class="link" style="color: #44B333;" th:text="#{userinfo.center.list.link3}"></a>
+                </td>
+                <!-- 未绑定邮箱 -->
+                <td th:if="${session.user.mail == '--' || session.user.mail == null}" style="text-align: center">
+                    <img src="/cctv/img/ioc2.png"/>
+                    <span style="color: #FF9900" th:text="#{userinfo.center.list.link2}"></span>
+                    <span style="color: #000">&nbsp;|&nbsp;</span>
+                    <a id="link2" class="link" style="color: #FF9900;" th:text="#{userinfo.center.list.link4}"></a>
+                </td>
+            </tr>
+            <tr style="height:75px;border-bottom:1px dashed #CCC;">
+                <td colspan="2" th:text="#{userinfo.center.table2.context2}"></td>
+            </tr>
+            <tr> <!-- 手机号码 -->
+                <td><img src="/cctv/img/center4.png"><h4 th:text="#{userinfo.center.table2.title3}"></h4></td>
+                <td style="text-align: center">
+                    <img src="/cctv/img/ioc2.png/">
+                    <span style="color: #FF9900" th:text="#{userinfo.center.list.link2}"></span>
+                    <span style="color: #000">&nbsp;|&nbsp;</span>
+                    <a id="link3" class="link" style="color: #FF9900;" th:text="#{userinfo.center.list.link4}"></a>
+                </td>
+            </tr>
+            <tr style="height:75px;">
+                <td colspan="2" th:text="#{userinfo.center.table2.context3}"></td>
+            </tr>
         </table>
-      </div>
     </div>
-    
-    <div id="page">
-      <!-- 修改密码 -->
-      <div id="webform1">
-	    <div class="title" th:text="#{userinfo.center.webform1.title}"></div>
-	    <span class="colse">X</span>
-	    <table id="table1">
-	      <tr height="30px">
-	        <td colspan="2" align="center"><a style="color:#f00"></a></td>
-	      </tr>
-	      <tr height="55px">
-	        <td width="36%" align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform1.font1}"></a></td>
-	        <td width="64%"><input class="textbox" type="password"/></td>
-	      </tr>
-	      <tr height="55px">
-	        <td align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform1.font2}"></a></td>
-	        <td><input class="textbox" type="password"/></td>
-	      </tr>
-	      <tr height="55px">
-	        <td align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform1.font3}"></a></td>
-	        <td><input class="textbox" type="password"/></td>
-	      </tr>
-	      <tr height="55px">
-	        <td></td>
-	        <td><input type="button" class="btn" th:value="#{userinfo.center.webform.button}"/></td>
-	      </tr>
-	      <tr height="20px">
-	        <td colspan="2" align="center"></td>
-	      </tr>
-	    </table>
-	  </div>
-	  
-	  <!-- 绑定邮箱 -->
-	  <div id="webform2">
-        <div class="title" th:text="#{userinfo.center.webform2.title}"></div>
-	    <span class="colse">X</span>
-	    <table id="table2">
-	      <tr height="30px">
-	        <td colspan="2" align="center"><a style="color:#f00"></a></td>
-	      </tr>
-	      <tr height="55px">
-	        <td width="35%" align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform2.font1}"></a></td>
-	        <td width="65%"><a style="color:#F29D17;font-weight:700" th:text="${session.user.username}"></a></td>
-	      </tr>
-	      <tr height="55px">
-	        <td align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform2.font2}"></a></td>
-	        <td><input class="textbox" type="text"/></td>
-	      </tr>
-	      <tr height="55px">
-	        <td align="right"><font color="#f00">*</font><a th:text="#{userinfo.center.webform2.font3}"></a></td>
-	        <td>
-	          <input class="textbox" type="text" style="width:120px"/>
-	          <input id="getCode" type="button" th:value="#{userinfo.center.webform2.button}"/>
-	        </td>
-	      </tr>
-	      <tr height="55px">
-	        <td></td>
-	        <td><input type="button" class="btn" th:value="#{userinfo.center.webform.button}"/></td>
-	      </tr>
-	      <tr height="20px">
-	        <td colspan="2" align="center"></td>
-	      </tr>
-	    </table>
-	  </div>
-    </div>
-    
-    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<!-- 重置密码 -->
+<div id="webform1" style="display: none">
+    <table id="table1">
+        <colgroup>
+            <col width="180px">
+            <col width="270px">
+        </colgroup>
+        <tr height="70px">
+            <td align="right"><span>*</span><a th:text="#{userinfo.center.webform1.font1}"></a></td>
+            <td><input class="textbox" type="password"/></td>
+        </tr>
+        <tr height="70px">
+            <td align="right"><span>*</span><a th:text="#{userinfo.center.webform1.font2}"></a></td>
+            <td><input class="textbox" type="password"/></td>
+        </tr>
+        <tr height="70px">
+            <td align="right"><span>*</span><a th:text="#{userinfo.center.webform1.font3}"></a></td>
+            <td><input class="textbox" type="password"/></td>
+        </tr>
+        <tr height="70px">
+            <td></td>
+            <td><input type="button" class="btn" th:value="#{userinfo.center.webform.button}"/></td>
+        </tr>
+    </table>
+</div>
+
+<!-- 绑定邮箱 -->
+<div id="webform2" style="display: none">
+    <table id="table2">
+        <colgroup>
+            <col width="160px">
+            <col width="290px">
+        </colgroup>
+        <tr height="70px">
+            <td align="right"><span>*</span><a th:text="#{userinfo.center.webform2.font1}"></a></td>
+            <td><a style="color:#F29D17;font-weight:700" th:text="${session.user.username}"></a></td>
+        </tr>
+        <tr height="70px">
+            <td align="right"><span>*</span><a th:text="#{userinfo.center.webform2.font2}"></a></td>
+            <td><input class="textbox" type="text"/></td>
+        </tr>
+        <tr height="70px">
+            <td align="right"><span>*</span><a th:text="#{userinfo.center.webform2.font3}"></a></td>
+            <td>
+                <input class="textbox" type="text" style="width:125px"/>
+                <input id="getCode" type="button" th:value="#{userinfo.center.webform2.button}"/>
+            </td>
+        </tr>
+        <tr height="70px">
+            <td></td>
+            <td><input type="button" class="btn" th:value="#{userinfo.center.webform.button}"/></td>
+        </tr>
+    </table>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

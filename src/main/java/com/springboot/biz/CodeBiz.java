@@ -7,10 +7,8 @@ import com.springboot.entity.Code;
 
 public interface CodeBiz {
 
-	Code findInfoCode(Map<String, Object> map);
+    Code findInfoCode(String standard, String code);
 
-	Code findInfoCode(String standard, String code);
-
-	List<Code> findListCode(Map<String, Object> map);
+    List<Code> findListCode(Map<String, Object> map);
 
 }

@@ -18,6 +18,4 @@ public interface OperatorDao {
 
 	List<Operator> findListOperator(Map<String, Object> map);
 
-	List<String> findListName(Company company);
-
 }

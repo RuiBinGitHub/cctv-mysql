@@ -1,34 +1,26 @@
 package com.springboot.bean;
 
-public class Came {
+import lombok.Data;
 
-	private String name;
-	private String text;
+import java.io.Serializable;
 
-	public Came() {
-		this.name = "";
-		this.text = "";
-	}
+@Data
+public class Came implements Serializable {
 
-	public Came(String name, String text) {
-		this.name = name;
-		this.text = text;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public String getName() {
-		return name;
-	}
+    private String model;
+    private String name;
+    private String text;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public static Came getInstance(String model, String name, String text) {
+        return new Came(model, name, text);
+    }
 
-	public String getText() {
-		return text;
-	}
-
-	public void setText(String text) {
-		this.text = text;
-	}
+    private Came(String model, String name, String text) {
+        this.model = model;
+        this.name = name;
+        this.text = text;
+    }
 
 }

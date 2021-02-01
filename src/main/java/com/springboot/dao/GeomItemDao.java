@@ -15,6 +15,6 @@ public interface GeomItemDao {
 
 	GeomItem findInfoGeomItem(Map<String, Object> map);
 
-	List<GeomItem> showListGeomItem(Map<String, Object> map);
+	List<GeomItem> findListGeomItem(Map<String, Object> map);
 
 }

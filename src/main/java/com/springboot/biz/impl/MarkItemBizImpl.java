@@ -1,41 +1,31 @@
 package com.springboot.biz.impl;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
-
-import com.springboot.biz.MarkPipeBiz;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.springboot.biz.MarkItemBiz;
 import com.springboot.biz.MessageBiz;
-import com.springboot.biz.PipeBiz;
 import com.springboot.dao.MarkItemDao;
-import com.springboot.entity.MarkPipe;
 import com.springboot.entity.MarkItem;
-import com.springboot.entity.Pipe;
 import com.springboot.entity.Project;
 import com.springboot.entity.User;
-import com.springboot.util.AppHelper;
+import com.springboot.util.AppUtils;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
 public class MarkItemBizImpl implements MarkItemBiz {
 
 	@Resource
-	private MessageBiz messageBiz;
-	@Resource
 	private MarkItemDao markItemDao;
 	@Resource
-	private MarkPipeBiz markPipeBiz;
-	@Resource
-	private PipeBiz pipeBiz;
-
+	private MessageBiz messageBiz;
 	private Map<String, Object> map = null;
 
 	public void insertMarkItem(MarkItem MarkItem) {
@@ -47,7 +37,7 @@ public class MarkItemBizImpl implements MarkItemBiz {
 	}
 
 	public MarkItem findInfoMarkItem(int id, User user) {
-		map = AppHelper.getMap("id", id, "user", user);
+		map = AppUtils.getMap("id", id, "user", user);
 		return markItemDao.findInfoMarkItem(map);
 	}
 
@@ -55,14 +45,13 @@ public class MarkItemBizImpl implements MarkItemBiz {
 		return markItemDao.findInfoMarkItem(map);
 	}
 
-	public PageInfo<Project> findViewMarkItem(Map<String, Object> map) {
+	public PageInfo<MarkItem> findViewMarkItem(Map<String, Object> map) {
 		if (!StringUtils.isEmpty(map.get("name")))
 			map.put("name", "%" + map.get("name") + "%");
 		if (!StringUtils.isEmpty(map.get("page")))
 			PageHelper.startPage((int) map.get("page"), 15);
-		List<Project> projects = markItemDao.findViewMarkItem(map);
-		PageInfo<Project> info = new PageInfo<Project>(projects);
-		return info;
+		List<MarkItem> markItems = markItemDao.findViewMarkItem(map);
+		return new PageInfo<>(markItems);
 	}
 
 	public PageInfo<MarkItem> findListMarkItem(Map<String, Object> map) {
@@ -71,33 +60,17 @@ public class MarkItemBizImpl implements MarkItemBiz {
 		if (!StringUtils.isEmpty(map.get("page")))
 			PageHelper.startPage((int) map.get("page"), 15);
 		List<MarkItem> markItems = markItemDao.findListMarkItem(map);
-		PageInfo<MarkItem> info = new PageInfo<MarkItem>(markItems);
-		return info;
+		return new PageInfo<>(markItems);
 	}
 
-	public int getPage(Map<String, Object> map, int size) {
-		if (!StringUtils.isEmpty(map.get("name")))
-			map.put("name", "%" + map.get("name") + "%");
-		int count = markItemDao.getCount(map);
-		return (int) Math.ceil((double) count / size);
-	}
-
-	public int appendMarkItem(MarkItem MarkItem) {
-		this.insertMarkItem(MarkItem);
-		Project project = MarkItem.getProject();
-		messageBiz.sendMessage(project.getUser(), project, MarkItem);
-		List<Pipe> pipes = pipeBiz.findListPipe(project);
-		for (int i = 0; pipes != null && i < pipes.size(); i++) {
-			MarkPipe markPipe = new MarkPipe();
-			markPipe.setScore1(0);
-			markPipe.setScore2(0);
-			markPipe.setLevel1(5);
-			markPipe.setLevel2(5);
-			markPipe.setPipe(pipes.get(i));
-			markPipe.setMarkItem(MarkItem);
-			markPipeBiz.insertMarkPipe(markPipe);
-		}
-		return MarkItem.getId();
+	public MarkItem appendMarkItem(Project project, User user) {
+		MarkItem markItem = new MarkItem();
+		markItem.setDate(LocalDate.now().toString());
+		markItem.setProject(project);
+		markItem.setUser(user);
+		markItemDao.insertMarkItem(markItem);
+		messageBiz.sendMessage(project.getUser(), project, markItem);
+		return markItem;
 	}
 
 }

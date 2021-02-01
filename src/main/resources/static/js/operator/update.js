@@ -1,82 +1,56 @@
-$(document).ready(function() {
+layui.use(["layer", "form"], function () {
+    const layer = layui.layer;
 
-	// 获取当前语言
-	var language = $("#infoTop").text().length == 4 ? "zh" : "en";
-    /********************************************************************/
-    var tipsText1 = language == "zh" ? "請輸入人員全名！" : "Please enter the Full Name!";
-    var tipsText2 = language == "zh" ? "人員名稱已經存在！" : "The Full Name already exists!";
-    var tipsText3 = language == "zh" ? "請輸入人員姓氏！" : "Please enter the Last Name!";
-    var tipsText4 = language == "zh" ? "請輸入人員名字！" : "Please enter the First Name!";
-    var tipsText5 = language == "zh" ? "請輸入會員等級！" : "Please enter the Member Level!";
-    var tipsText6 = language == "zh" ? "請輸入會員編號！" : "Please enter the Member Number!";
-    if (language == "zh") {
-        $(".textbox:eq(0)").attr("placeholder", "人員名稱，2-12位");
-        $(".textbox:eq(1)").attr("placeholder", "人員姓氏，1-6位");
-        $(".textbox:eq(2)").attr("placeholder", "人員名字，1-6位");
+    // 获取当前语言
+    const language = $("#infoTop").text().length === 4 ? "zh" : "en";
+    const tipsText1 = language === "zh" ? "請輸入人員名字！" : "Please enter the First Name!";
+    const tipsText2 = language === "zh" ? "請輸入人員姓氏！" : "Please enter the Last Name!";
+    const tipsText3 = language === "zh" ? "請輸入會員等級！" : "Please enter the Member Level!";
+    const tipsText4 = language === "zh" ? "請輸入會員編號！" : "Please enter the Member Number!";
+    /** *************************************************************** */
+
+    // 设置输入框颜色
+    $("input[name=name]").css("background-color", "#999");
+    $("input[name=name]").attr("title", "人员名称无法修改");
+    if (language === "zh") {
+        $("input[name=firstname]").attr("placeholder", "人員名字，1-6位");
+        $("input[name=lastname]").attr("placeholder", "人員姓氏，1-6位");
     } else {
-        $(".textbox:eq(0)").attr("placeholder", "Operator Full Name,2-12 place");
-        $(".textbox:eq(1)").attr("placeholder", "Operator Last Name,1-6 place");
-        $(".textbox:eq(2)").attr("placeholder", "Operator First Name,1-6 place");
+        $("input[name=firstname]").attr("placeholder", "Operator First Name,1-6 place");
+        $("input[name=lastname]").attr("placeholder", "Operator Last Name,1-6 place");
     }
-    /** ***************************************************************** */
-    $(".combtn").click(function() {
-        if ($(".textbox:eq(0)").val() == "") {
-            $(".textbox:eq(0)").css("background-color", "#f00");
-            showTips(tipsText1);
+
+    /** *************************************************************** */
+    $(".combtn").on("click", function () {
+        if ($("input[name=firstname]").val() === "") {
+            $("input[name=firstname]").css("background-color", "#f00");
+            layer.msg(tipsText1, {icon: 3});
             return false;
         }
-        var data = {id: $("input[name=id]").val(), name: $(".textbox:eq(0)").val()};
-        if (Ajax("isexistname", data)) {
-            $(".textbox:eq(0)").css("background-color", "#f00");
-            showTips(tipsText2);
+        if ($("input[name=lastname]").val() === "") {
+            $("input[name=lastname]").css("background-color", "#f00");
+            layer.msg(tipsText2, {icon: 2});
             return false;
         }
-        if ($(".textbox:eq(1)").val() == "") {
-            $(".textbox:eq(1)").css("background-color", "#f00");
-            showTips(tipsText3);
+        if ($("input[name=membergrades]").val() === "") {
+            $("input[name=membergrades]").css("background-color", "#f00");
+            layer.msg(tipsText3, {icon: 2});
             return false;
         }
-        if ($(".textbox:eq(2)").val() == "") {
-            $(".textbox:eq(2)").css("background-color", "#f00");
-            showTips(tipsText4);
+        if ($("input[name=membernumber]").val() === "") {
+            $("input[name=membernumber]").css("background-color", "#f00");
+            layer.msg(tipsText4, {icon: 2});
             return false;
         }
-        if ($(".textbox:eq(5)").val() == "") {
-            $(".textbox:eq(5)").css("background-color", "#f00");
-            showTips(tipsText5);
-            return false;
-        }
-        if ($(".textbox:eq(6)").val() == "") {
-            $(".textbox:eq(6)").css("background-color", "#f00");
-            showTips(tipsText5);
-            return false;
-        }
-        /** 提交数据 */
-        $(this).css("background-color", "#ccc");
+        /** 提交数据  */
+        $(this).css("background-color", "#cccccc");
         $(this).attr("disabled", true);
         $("#form1").submit();
     });
+
     /** 输入框获取焦点事件 */
-    $("#tab1 input[type=text]").on("input", function() {
-		$(this).css("background-color", "#FFFFFF");
-	});
-    /** 显示提示信息 */
-    function showTips(text) {
-        $("#Tip").show().delay(1800).hide(200);
-        $("#Tip").text(text);
-    }
-    function Ajax(url, data) {
-        var result = null;
-        $.ajax({
-            url: url,
-            data: data,
-            type: "post",
-            async: false,
-            datatype: "json",
-            success: function(data) {
-                result = data;
-            }
-        });
-        return result;
-    }
+    $("#tab1 input[type=text]").on("input", function () {
+        $(this).css("background-color", "#FFFFFF");
+    });
+
 });

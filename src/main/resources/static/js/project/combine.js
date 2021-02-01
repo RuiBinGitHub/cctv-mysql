@@ -1,107 +1,110 @@
-$(document).ready(function() {
+layui.use(["layer", "form"], function () {
+    const layer = layui.layer;
 
-	var language = $("#infoTop").text().length == 4 ? "zh" : "en";
-    var tipsText = language == "zh" ? "確定要合並項目嗎？" : "Are you sure you want to combine projects?";
+    const language = $("#infoTop").text().length === 4 ? "zh" : "en";
+    const tipsText1 = language === "zh" ? "最少选择两个项目！" : "Select at least 2 items!";
+    const tipsText2 = language === "zh" ? "確定要合並項目嗎？" : "Are you sure you want to combine projects?";
     /** *************************************************************** */
     $("#menuBtn1").attr("disabled", true);
-    $("#menuText").on("input", function() {
-        $("#menuBtn1").attr("disabled", $(this).val() == "");
+    $("#menuText").on("input", function () {
+        $("#menuBtn1").attr("disabled", $(this).val() === "");
     });
-    $("#menuText").keydown(function() {
-        if (event.keyCode == 13)
+    $("#menuText").on("keydown", function (event) {
+        if (event.which === 13)
             $("#menuBtn2").click();
     });
-    $("#menuBtn1").click(function() {
-    	$("#menuText").val("");
+    $("#menuBtn1").on("click", function () {
+        $("#menuText").val("");
         initlist(Ajax("combinelist", null));
-
     });
-    $("#menuBtn2").click(function() {
-        var name = $("#menuText").val();
-        if (name.trim() != "")
+    $("#menuBtn2").on("click", function () {
+        const name = $("#menuText").val();
+        if (name.trim() !== "")
             initlist(Ajax("combinelist", {name: name}));
     });
     /** *************************************************************** */
     initlist(Ajax("combinelist", null));
+
     function initlist(data) {
-        var context = "";
-        for (var i = 0; i < data.length; i++) {
-            context += "<tr align='center'>";
-            context += "  <td width='50px'><input type='checkbox' value=" + data[i].id + "></td>";
-            context += "  <td width='30px'>" + (i + 1) + "</td>";
-            context += "  <td width='200px'><a>" + data[i].name + "</a></td>";
-            context += "  <td width='240px'>" + data[i].client + "</td>";
-            context += "  <td width='100px'>" + data[i].slope + "</td>";
-            context += "  <td width='120px'>" + data[i].standard + "</td>";
-            context += "  <td width='120px'>" + data[i].user.name + "</td>";
-            context += "  <td width='120px'>" + data[i].date + "</td>";
+        let context = "";
+        for (let i = 0; i < data.length; i++) {
+            context += "<tr>";
+            context += "    <td width='50px'><input type='checkbox' value=" + data[i].id + "></td>";
+            context += "    <td width='30px'>" + (i + 1) + "</td>";
+            context += "    <td width='200px'><a>" + data[i].name + "</a></td>";
+            context += "    <td width='240px'>" + data[i].client + "</td>";
+            context += "    <td width='100px'>" + data[i].slope + "</td>";
+            context += "    <td width='120px'>" + data[i].standard + "</td>";
+            context += "    <td width='120px'>" + data[i].user.name + "</td>";
+            context += "    <td>" + data[i].date + "</td>";
             context += "</tr>";
         }
-        $("#tab1").html(context);
+        $("#tab1 tbody").html(context);
         /** *********************************************************** */
-        var list = $("#fieldset div").map(function() {
+        const list = $("#fieldset div").map(function () {
             return $(this).attr("id");
-        }).get(); // 获取ID列表
-        var name = $("#menuText").val();
-        $("#tab1 tr").each(function(i) {
-            var id = $(this).find("input").val();
+        }).get(); // 获取已选项目ID列表
+
+        const name = $("#menuText").val();
+        $("#tab1 tbody tr").each(function () {
+            const id = $(this).find("input").val();
             $(this).find("a").attr("target", "_blank");
             $(this).find("a").attr("href", "findinfo?id=" + id);
-            $(this).find("input").prop("checked", list.indexOf(id) != -1);
+            $(this).find("input").prop("checked", list.indexOf(id) !== -1);
             /** ******************************************************* */
-            var text = $(this).find("td:eq(2)").text();
-            var font = "<font color='#f00'>" + name + "</font>";
-            var expr = new RegExp(name,"gm");
-            var cont = text.replace(expr, font);
+            const text = $(this).find("td:eq(2)").text();
+            const font = "<span>" + name + "</span>";
+            const expr = new RegExp(name, "gm");
+            const cont = text.replace(expr, font);
             $(this).find("td:eq(2) a").html(cont);
         });
     }
+
     /** *************************************************************** */
     // 设置复选框点击事件
-    $("#tab1").on("click", "tr", function() {
-    	$(this).find("input").click();
-    });
-    $("#tab1").on("click", "input", function(e) {
-    	e.stopPropagation();
-        var id = $(this).val();
+    $("#tab1").on("click", "tbody tr td input", function () {
+        const id = $(this).val();
         if ($(this).is(":checked") && $("#fieldset div").length < 20) {
-            var name = $(this).parents("tr").find("td:eq(2)").text();
-            var text = "<div id='" + id + "'>" + name + "</div>";
-            $("#fieldset").append(text);
+            const name = $(this).parents("tr").find("a").text();
+            $("#fieldset").append("<div id='" + id + "'>" + name + "</div>");
         } else
-            $("div[id=" + id + "]").remove();
+            $("#fieldset div[id=" + id + "]").remove();
     });
-    $("#fieldset").on("dblclick", "div", function() {
-        var id = $(this).attr("id");
+    // 设置双击标签事件
+    $("#fieldset").on("dblclick", "div", function () {
+        const id = $(this).attr("id");
         $("input[value=" + id + "]").prop("checked", false);
         $(this).remove();
     });
     /** *************************************************************** */
-    $(".combtn").click(function() {
-        var list = $("#fieldset div").map(function() {
+    $(".combtn").on("click", function () {
+        const list = $("#fieldset div").map(function () {
             return $(this).attr("id");
         }).get();
-        if (list.length < 2 || !confirm(tipsText))
+        /** 至少选择两个项目 */
+        if (list != null && list.length < 2) {
+            layer.msg(tipsText1, {icon: 2});
             return false;
-        $(this).css("background-color", "#ccc");
+        }
+        /** 确定合并项目 */
+        $("input[name=list]").val(list);
+        if (!confirm(tipsText2))
+            return false;
+        $(this).css("background-color", "#CCC");
         $(this).attr("disabled", true);
-        $("#form input").val(list);
-        $("#form").submit();
+        $("#form1").submit();
     });
-    /** 显示提示信息 */
-    function showTips(text) {
-        $("#tips").show().delay(1800).hide(200);
-        $("#tips").text(text);
-    }
+
+    /** *************************************************************** */
     function Ajax(url, data) {
-        var result = null;
+        let result = null;
         $.ajax({
             url: url,
             data: data,
             type: "post",
             async: false,
             datatype: "json",
-            success: function(data) {
+            success: function (data) {
                 result = data;
             }
         });

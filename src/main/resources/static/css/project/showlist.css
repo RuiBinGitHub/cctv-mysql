@@ -1,91 +1,63 @@
 @CHARSET "UTF-8";
 
-#infoMenu {
-	position: relative;
+#mainInfo {
+    position: relative;
 }
 
 #append, #import {
-	width: 64px;
-	height: 30px;
-	color: #ffffff;
-	margin: 5px 0px 5px 10px;
-	border: none;
-	float: left;
-}
-
-#append {
-	background-color: #3CB44B;
-}
-
-#append:hover {
-	background-color: #50c55f;
-	cursor: pointer;
+    width: 64px;
+    margin: 15px 3px;
+    float: left;
 }
 
 #import {
-	background-color: #2CACF1;
+    background-color: #1E9FFF;
 }
 
-#import:hover {
-	background-color: #40b4f2;
-	cursor: pointer;
+.import-option {
+    top: 95px;
+    right: 13px;
+    width: 100px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    position: absolute;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
 }
 
-#ipopup {
-	top: 36px;
-	right: 2px;
-	width: 100px;
-	height: 68px;
-	position: absolute;
-	display: none;
+.import-option div {
+    width: 100%;
+    height: 30px;
+    color: #666666;
+    font-size: 14px;
+    text-align: center;
+    line-height: 30px;
+    float: left;
 }
 
-.con-ret {
-	top: -6px;
-	left: 60px;
-	border: 7px solid transparent;
-	border-bottom-color: #FF5D23;
-	position: absolute;
-}
-
-.con {
-	top: 7px;
-	width: 98px;
-	height: auto;
-	background-color: #fff;
-	border: 1px solid #ddd;
-	border-top: 3px solid #FF5D23;
-	border-radius: 0px 0px 3px 3px;
-	position: absolute;
-}
-
-.con div {
-	width: 100%;
-	height: 28px;
-	font-size: 14px;
-	font-family: 等线;
-	text-align: center;
-	line-height: 28px;
-}
-
-.con div:hover {
-	color: #FF5D23;
-	background-color: #eaeaea;
-	cursor: pointer;
+.import-option div:hover {
+    background-color: #f0f0f0;
 }
 
 #tab1 thead th:hover {
-	background-color: #5c657a;
-	cursor: pointer;
+    background-color: #5C657A;
+    cursor: pointer;
 }
 
-#page {
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 0.1);
-	position: fixed;
-	display: none;
-	z-index: 2;
+#tab1 tbody tr td a {
+    width: 135px;
+    height: 16px;
+    margin: 4px 0;
+    float: left;
 }
+
+#tab1 tbody tr td img {
+    width: 16px;
+    height: 16px;
+    margin: 4px;
+    cursor: pointer;
+    float: right;
+}
+

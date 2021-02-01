@@ -1,6 +1,7 @@
 package com.springboot.util;
 
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -23,62 +24,58 @@ import com.springboot.entity.Project;
 @Transactional
 public class TranHelper {
 
-	@Resource
-	private CodeBiz codeBiz;
-	@Resource
-	private Computes computes;
+    @Resource
+    private ProjectBiz projectBiz;
+    @Resource
+    private PipeBiz pipeBiz;
+    @Resource
+    private ItemBiz itemBiz;
+    @Resource
+    private CodeBiz codeBiz;
 
-	@Resource
-	private ProjectBiz projectBiz;
-	@Resource
-	private PipeBiz pipeBiz;
-	@Resource
-	private ItemBiz itemBiz;
+    public void ItemTran(Project project) {
+        int photo = 1;
+        DecimalFormat foramt = new DecimalFormat("#000");
+        List<String> list = Arrays.asList("CPF", "GYF", "ICF", "LHF", "BRF", "MHF", "OSF", "OCF", "OFF", "REF", "SKF");
 
-	public void trans(Project project) {
-		int photo = 1;
-		Item item = null;
-		Pipe pipe = null;
-		Code code = null;
-		String codes = "CPF, GYF, ICF, LHF, BRF, MHF, OSF, OCF, OFF, REF, SKF";
-		DecimalFormat foramt = new DecimalFormat("#000");
+        List<Pipe> pipes = pipeBiz.findListPipe(project);
+        for (int i = 0; pipes != null && i < pipes.size(); i++) {
+            Pipe pipe = pipes.get(i);
+            List<Item> items = itemBiz.findListItem(pipe);
+            Iterator<Item> iterator = items.iterator();
+            while (iterator.hasNext()) {
+                Item item = iterator.next();
+                if ("ST".equals(item.getCode())) {
+                    iterator.remove();
+                    continue;
+                }
+                if ("WL".equals(item.getCode()))
+                    item.setCode("WLC");
+                if (item.getCode().endsWith("J") || list.contains(item.getCode()))
+                    item.setCode(item.getCode().substring(0, item.getCode().length() - 1));
+                Code code = codeBiz.findInfoCode(project.getStandard(), item.getCode());
+                if (code == null || "-".equals(code.getCode2())) {
+                    iterator.remove();
+                    continue;
+                }
+                item.setCode(code.getCode2());
+                if (!StringUtils.isEmpty(item.getPicture()))
+                    item.setPhoto(foramt.format(photo++));
+            }
+            pipe.setItems(items);
+        }
 
-		List<Pipe> pipes = pipeBiz.findListPipe(project);
-		for (int i = 0; pipes != null && i < pipes.size(); i++) {
-			pipe = pipes.get(i);
-			List<Item> items = itemBiz.findListItem(pipe);
-			Iterator<Item> iterator = items.iterator();
-			while (iterator.hasNext()) {
-				item = iterator.next();
-				if ("ST".equals(item.getCode())) {
-					iterator.remove();
-					continue;
-				}
-				if ("WL".equals(item.getCode()))
-					item.setCode("WLC");
-				if (item.getCode().endsWith("J") || codes.contains(item.getCode()))
-					item.getCode().substring(0, item.getCode().length() - 1);
-				code = codeBiz.findInfoCode(project.getStandard(), item.getCode());
-				if ("-".equals(code.getMscc()))
-					iterator.remove();
-				item.setCode(code.getMscc());
-				item.setPhoto("");
-				if (!StringUtils.isEmpty(item.getPicture()))
-					item.setPhoto(foramt.format(photo++));
-			}
-			pipe.setItems(items);
-		}
+        project.setStandard("MSCC 2004");
+        projectBiz.insertProject(project);
+        for (int i = 0; pipes != null && i < pipes.size(); i++) {
+            Pipe pipe = pipes.get(i);
+            pipe.setProject(project);
+            pipeBiz.insertPipe(pipe);
+            for (Item item : pipe.getItems()) {
+                item.setPipe(pipe);
+                itemBiz.insertItem(item);
+            }
+        }
+    }
 
-		project.setStandard("MSCC 2004");
-		projectBiz.insertProject(project);
-		for (int i = 0; pipes != null && i < pipes.size(); i++) {
-			pipes.get(i).setProject(project);
-			pipeBiz.insertPipe(pipes.get(i));
-			List<Item> items = pipes.get(i).getItems();
-			for (int j = 0; items != null && j < items.size(); j++) {
-				items.get(j).setPipe(pipes.get(i));
-				itemBiz.insertItem(items.get(j));
-			}
-		}
-	}
 }

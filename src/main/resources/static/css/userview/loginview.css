@@ -1,5 +1,10 @@
 @CHARSET "UTF-8";
 
+input {
+	padding: 0;
+	outline: none;
+}
+
 #main {
 	width: 1200px;
 	margin: 125px auto;
@@ -30,25 +35,21 @@
 #title {
 	width: 200px;
 	height: 50px;
+	margin: 50px 30px 15px 0;
 	color: #00953E;
-	font-size: 25px;
-	font-family: simsun;
-	font-weight: 600;
+	font: 600 25px simsun;
 	text-align: right;
 	line-height: 50px;
-	margin: 50px 30px 15px 0px;
 	float: left;
 }
 
 #tips {
 	width: 350px;
 	height: 25px;
-	color: #f00;
-	font-size: 18px;
-	font-family: simsun;
-	font-weight: 600;
-	line-height: 25px;
 	margin: 20px 20px 10px 30px;
+	color: #ff0000;
+	font: 600 18px simsun;
+	line-height: 25px;
 	float: left;
 }
 
@@ -58,31 +59,19 @@
 	float: left;
 }
 
-#tab1 .row {
-	height: 30px;
-	color: #00953E;
-	font-size: 18px;
-	font-family: simsun;
-	font-weight: 600;
-}
-
 #name, #pass {
 	width: 328px;
 	height: 28px;
-	font-size: 18px;
-	font-family: simsun;
+	font: 18px simsun;
 	text-indent: 5px;
 	border: none;
 	border-bottom: 2px solid #00953E;
-	outline: 0px;
 	float: left;
 }
 
 #tab1 a {
 	color: #00953E;
-	font-size: 16px;
-	font-family: simsun;
-	font-weight: 600;
+	font: 600 16px simsun;
 	text-decoration: none;
 }
 
@@ -91,20 +80,17 @@
 }
 
 #btn {
-	width: 150px;
+	width: 180px;
 	height: 30px;
 	color: #ffffff;
-	font-size: 18px;
-	font-family: simsun;
-	font-weight: 600;
+	font: 600 18px simsun;
 	background-color: #00953E;
 	border-radius: 30px;
-	outline: none;
+	cursor: pointer;
 	border: none;
 	float: left;
 }
 
 #btn:hover {
-	background-color: #00bd50;
-	cursor: pointer;
+	background-color: #00BD50;
 }

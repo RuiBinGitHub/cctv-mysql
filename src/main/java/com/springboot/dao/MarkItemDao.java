@@ -1,10 +1,9 @@
 package com.springboot.dao;
 
+import com.springboot.entity.MarkItem;
+
 import java.util.List;
 import java.util.Map;
-
-import com.springboot.entity.MarkItem;
-import com.springboot.entity.Project;
 
 public interface MarkItemDao {
 
@@ -14,9 +13,8 @@ public interface MarkItemDao {
 
 	MarkItem findInfoMarkItem(Map<String, Object> map);
 
-	List<Project> findViewMarkItem(Map<String, Object> map);
+	List<MarkItem> findViewMarkItem(Map<String, Object> map);
 
 	List<MarkItem> findListMarkItem(Map<String, Object> map);
 
-	int getCount(Map<String, Object> map);
 }

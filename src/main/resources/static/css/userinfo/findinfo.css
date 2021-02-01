@@ -1,0 +1,154 @@
+@CHARSET "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+}
+
+#main {
+    width: 1200px;
+    margin: 0 auto;
+}
+
+#mainTop {
+    width: 100%;
+    height: 48px;
+    margin-top: 10px;
+    font: 600 24px simsun;
+    text-indent: 20px;
+    line-height: 48px;
+    background-color: #fff;
+    border-bottom: 2px solid #CCC;
+    float: left;
+}
+
+#mainInfo {
+    width: 100%;
+    background-color: #fff;
+    float: left;
+}
+
+#main1 {
+    width: 1178px;
+    height: 230px;
+    font: 600 25px simsun;
+    margin: 10px 10px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+}
+
+.titel1 {
+    width: 25%;
+    height: 80px;
+    text-align: center;
+    line-height: 80px;
+    float: left;
+}
+
+.value1 {
+    width: 265px;
+    height: 120px;
+    margin: 0 15px;
+    color: #7CB5EC;
+    font: 700 48px simsun;
+    text-align: center;
+    line-height: 120px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    float: left;
+}
+
+.value2 {
+    width: 294px;
+    height: 140px;
+    font-size: 24px;
+    float: left;
+}
+
+#main1 tspan {
+    font: 18px simsun;
+}
+
+/** ********************************************************* */
+#main2 {
+    width: 848px;
+    height: 298px;
+    margin: 10px 10px 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    float: left;
+}
+
+#main3 {
+    width: 320px;
+    height: 300px;
+    margin-top: 10px;
+    color: #FFFFFF;
+    background-color: #2F2F30;
+    border-radius: 3px;
+    float: left;
+}
+
+#main3Title {
+    width: 290px;
+    height: 32px;
+    margin: 10px 15px;
+    font: 20px simsun;
+    border-bottom: 1px solid #666;
+    float: left;
+}
+
+#main3 .span1 {
+    width: 25px;
+    height: 25px;
+    margin: 10px 15px;
+    font: 18px simsun;
+    text-align: center;
+    line-height: 25px;
+    background-color: #878787;
+    border-radius: 4px;
+    float: left;
+}
+
+#main3 .span2 {
+    width: 250px;
+    height: 25px;
+    margin: 10px 0;
+    font: 18px simsun;
+    line-height: 25px;
+    cursor: pointer;
+    float: left;
+}
+
+#main3 .span2:hover {
+    text-decoration: underline;
+}
+
+/** ********************************************************* */
+#main4 {
+    width: 848px;
+    height: 298px;
+    margin: 10px 10px;
+    background-color: #2F2F30;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    float: left;
+}
+
+#main5 {
+    width: 318px;
+    height: 298px;
+    margin: 10px 0;
+    background-color: #2F2F30;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    float: left;
+}
+
+#main5 tspan {
+    font: 18px simsun;
+}

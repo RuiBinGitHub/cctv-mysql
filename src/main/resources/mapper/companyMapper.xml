@@ -3,42 +3,41 @@
 
 <mapper namespace="com.springboot.dao.CompanyDao">
 
-	<!-- 插入数据 -->
-	<insert id="insertCompany" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
-		insert into company values(null, #{name}, #{code}, #{cont},	#{term}, #{level}, #{date})
+    <!-- 插入数据 -->
+    <insert id="insertCompany" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
+		insert into company values(null, #{name}, #{code}, #{count}, #{level}, #{date}, #{term})
 	</insert>
 
-	<!-- 更新数据 -->
-	<update id="updateCompany" parameterType="Company">
-		update company set name = #{name}, code = #{code}, cont = #{cont}, term = #{term}, level = #{level}, date = #{date} where id=#{id}
+    <!-- 更新数据 -->
+    <update id="updateCompany" parameterType="Company">
+		update company set count = #{count}, level = #{level}, term = #{term} where id = #{id}
 	</update>
-	
-	<!-- 删除数据 -->
-	<delete id="deleteCompany" parameterType="Company">
+
+    <!-- 删除数据 -->
+    <delete id="deleteCompany" parameterType="Company">
 		delete from company where id = #{id}
 	</delete>
-	
-	<select id="findInfoCompany" parameterType="Map" resultType="Company">
-		select * from company where id != 0
-		<if test="id != null">
-			and id = #{id}
-		</if>
-		<if test="name != null">
-			and name = #{name}
-		</if>
-		<if test="code != null">
-			and code = #{code}
-		</if>
-	</select>
-	
-	<select id="findListCompany" parameterType="Map" resultType="Company">
-		select * from company where id != 0
-		<if test="name != null and name != ''">
-			and name like #{name}
-		</if>
-		order by id desc
-	</select>
-	
-	
+
+    <select id="findInfoCompany" parameterType="Map" resultType="Company">
+        select * from company where id != 0
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="name != null">
+            and name = #{name}
+        </if>
+        <if test="code != null">
+            and code = #{code}
+        </if>
+    </select>
+
+    <select id="findListCompany" parameterType="Map" resultType="Company">
+        select * from company where id != 0
+        <if test="name != null">
+            and name like #{name}
+        </if>
+        order by id desc
+    </select>
+
 </mapper>
  

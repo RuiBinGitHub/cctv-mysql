@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>信息提示</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/common/message.css"/>
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <img src="/cctv/img/感叹号.png" alt=""/>
+    <div th:text="${param.text}"></div>
+    <input type="button" th:value="#{common.message.button}" onclick="window.history.back()"/>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
+</html>

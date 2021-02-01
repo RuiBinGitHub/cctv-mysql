@@ -1,0 +1,218 @@
+@CHARSET "UTF-8";
+
+body {
+    background-color: #F5F5F5;
+}
+
+input {
+    padding: 0;
+    outline: none;
+}
+
+#main {
+    width: 1040px;
+    margin: 0 auto;
+}
+
+#main1, #main2, #main3 {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #fff;
+    float: left;
+}
+
+.title {
+    width: 1000px;
+    height: 60px;
+    margin: 0 20px;
+    font: 600 24px simsun;
+    text-align: center;
+    line-height: 60px;
+    border-bottom: 1px dashed #ccc;
+    position: relative;
+    float: left;
+}
+
+.title a {
+    color: #009344;
+}
+
+.title input {
+    top: 15px;
+    right: 10px;
+    width: 70px;
+    height: 30px;
+    color: #ffffff;
+    font: 18px simsun;
+    position: absolute;
+    cursor: pointer;
+    border: none;
+    z-index: 10;
+}
+
+.title input:hover {
+    color: #ff6600;
+}
+
+/** ****************************************** */
+#tab1 {
+    width: 1000px;
+    margin: 10px 20px;
+    border-bottom: 1px solid #F1F1F1;
+    float: left;
+}
+
+#tab1 thead tr,
+#tab1 tbody tr {
+    width: 100%;
+    display: table;
+}
+
+#tab1 thead tr th,
+#tab1 tbody tr td {
+    padding: 0;
+}
+
+#tab1 thead {
+    color: #ffffff;
+    font: 600 18px simsun;
+    background-color: #252829;
+}
+
+#tab1 tbody {
+    max-height: 300px;
+    font: 600 16px fangsong;
+    text-align: center;
+    overflow-y: scroll;
+    display: block;
+}
+
+#tab1 tbody tr {
+    height: 30px;
+    cursor: pointer;
+}
+
+#tab1 tr td input {
+    width: 48px;;
+    height: 20px;
+    color: #ffffff;
+    font: 16px Times New Roman, simsun;
+    background-color: #ff6600;
+    cursor: pointer;
+    border: none;
+}
+
+#tab1 tr input:hover {
+    color: #ff0;
+}
+
+#tab1 tbody tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+#tab1 tbody tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+#tab1 tbody tr:hover {
+    background-color: #FFD58D;
+}
+
+/** ****************************************** */
+.lable {
+    width: 1000px;
+    height: 40px;
+    margin: 10px 20px 0 20px;
+    color: #ffffff;
+    font: 600 18px simsun;
+    text-indent: 20px;
+    line-height: 40px;
+    background-color: #252829;
+    float: left;
+}
+
+.table {
+    width: 1000px;
+    color: #2AB673;
+    margin: 0 20px 10px;
+    font: 600 18px simsun;
+    border: 1px solid #ccc;
+    float: left;
+}
+
+.table input {
+    width: 180px;
+    height: 30px;
+    text-indent: 8px;
+    background-color: #dadada;
+    border-radius: 1px;
+    border: none;
+    float: left;
+}
+
+#common {
+    width: 160px;
+    height: 36px;
+    color: #ffffff;
+    margin: 10px 20px 20px 50px;
+    font: 600 18px simsun;
+    background-color: #39BB5C;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    float: left;
+}
+
+#common:hover {
+    color: #ff6600;
+}
+
+/*********************************************************/
+fieldset {
+    width: 474px;
+    margin: 15px;
+    padding: 6px;
+    font: 18px simsun;
+    border: 2px solid #dadada;
+    border-radius: 6px;
+    float: left;
+}
+
+#form2 table tr {
+    font-size: 18px;
+    background-color: #ffffff;
+}
+
+#form2 table tr td input {
+    width: 150px;
+    height: 24px;
+    text-indent: 5px;
+    border: none;
+    border-bottom: 1px solid #999;
+}
+
+#explain {
+    width: 100%;
+    height: 30px;
+    font: 16px 楷体;
+    text-indent: 50px;
+    line-height: 30px;
+    float: left;
+}
+
+#submit {
+    width: 160px;
+    height: 36px;
+    color: #ffffff;
+    margin: 10px 20px 20px 50px;
+    font: 600 18px simsun;
+    background-color: #39BB5C;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    float: left;
+}
+
+#submit:hover {
+    color: #ff6600;
+}

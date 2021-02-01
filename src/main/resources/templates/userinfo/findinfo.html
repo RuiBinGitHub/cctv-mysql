@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>用户统计</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/userinfo/findinfo.css"/>
+    <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/cctv/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="/cctv/js/highcharts/modules/exporting.js"></script>
+    <script type="text/javascript" src="/cctv/js/highcharts/modules/variable-pie.js"></script>
+    <script type="text/javascript" src="/cctv/js/userinfo/findinfo.js"></script>
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <div id="mainTop" th:text="${'数据统计 - [' + temp.name} + ']'"></div>
+    <div id="mainInfo">
+        <div id="main1">
+            <div class="titel1">创建项目数量</div>
+            <div class="titel1">编辑管道数量</div>
+            <div class="titel1">完成项目百分比</div>
+            <div class="titel1">及格项目百分比</div>
+            <div class="value1" th:text="${size1 + '（个）'}"></div>
+            <div class="value1" th:text="${size2 + '（段）'}"></div>
+            <div id="show1" class="value2"></div>
+            <div id="show2" class="value2"></div>
+        </div>
+
+        <!-- 项目与时间表 -->
+        <div id="main2"></div>
+
+        <!-- 最近完成项目 -->
+        <div id="main3">
+            <div id="main3Title">最近完成项目</div>
+            <div th:each="project,state:${projects2}" th:if="${state.index < 5}">
+                <span class="span1" th:text="${state.count}"></span>
+                <span class="span2" th:id="${project.id}" th:text="${project.name}"></span>
+            </div>
+        </div>
+
+        <!-- 项目与分数表 -->
+        <div id="main4"></div>
+        <div id="main5"></div>
+    </div>
+</div>
+
+<div id="data" style="display:none">
+    <a th:text="${#lists.size(projects1)}"></a>
+    <a th:text="${#lists.size(projects2)}"></a>
+    <a th:text="${#lists.size(markItems1)}"></a>
+    <a th:text="${#lists.size(markItems2)}"></a>
+</div>
+
+<div id="items1" style="display:none">
+    <div th:each="project:${projects1}" th:text="${project.date}"></div>
+    <div th:each="project:${projects2}" th:text="${project.date}"></div>
+</div>
+
+<div id="items2" style="display:none">
+    <span th:each="markItem:${markItems1}">
+      <a class="name" th:text="${markItem.project.name}"></a>
+      <a class="score1" th:text="${markItem.score1}"></a> <!-- 管道分数 -->
+      <a class="score2" th:text="${markItem.score2}"></a> <!-- 记录分数 -->
+    </span>
+    <span th:each="markItem:${markItems2}">
+      <a class="name" th:text="${markItem.project.name}"></a>
+      <a class="score1" th:text="${markItem.score1}"></a> <!-- 管道分数 -->
+      <a class="score2" th:text="${markItem.score2}"></a> <!-- 记录分数 -->
+    </span>
+</div>
+
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+
+</body>
+</html>

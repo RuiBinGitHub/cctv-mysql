@@ -1,142 +1,123 @@
 package com.springboot.util;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.springboot.bean.Came;
 import org.springframework.util.StringUtils;
 
-import com.springboot.bean.Came;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CameHelper {
 
-	private static Map<String, List<Came>> map = null;
+    private static List<Came> list = null;
 
-	private static Map<String, List<Came>> initMap() {
-		if (!StringUtils.isEmpty(map))
-			return map;
-		map = new HashMap<String, List<Came>>();
-		
-		List<Came> loclist = new ArrayList<Came>();
-		loclist.add(new Came("BL", "Bus Lane"));
-		loclist.add(new Came("BLG", "Under Permament Building"));
-		loclist.add(new Came("CR", "Cross Road"));
-		loclist.add(new Came("DIF", "Difficult Access Area"));
-		loclist.add(new Came("EX", "Expressway"));
-		loclist.add(new Came("FLD", "Fields"));
-		loclist.add(new Came("FWY", "Footway"));
-		loclist.add(new Came("RD", "Road"));
-		loclist.add(new Came("PD", "Other Pedestrian Area"));
-		loclist.add(new Came("WWY", "Under a Waterway"));
-		loclist.add(new Came("Z", "Other"));
+    private static List<Came> initList() {
+        if (!StringUtils.isEmpty(list))
+            return list;
+        list = new ArrayList<>(128);
 
-		List<Came> catlist = new ArrayList<Came>();
-		catlist.add(new Came("Z", "Z"));
+        list.add(Came.getInstance("loc", "BL", "Bus Lane"));
+        list.add(Came.getInstance("loc", "BLG", "Under Permament Building"));
+        list.add(Came.getInstance("loc", "CR", "Cross Road"));
+        list.add(Came.getInstance("loc", "DIF", "Difficult Access Area"));
+        list.add(Came.getInstance("loc", "EX", "Expressway"));
+        list.add(Came.getInstance("loc", "FLD", "Fields"));
+        list.add(Came.getInstance("loc", "FWY", "Footway"));
+        list.add(Came.getInstance("loc", "RD", "Road"));
+        list.add(Came.getInstance("loc", "PD", "Other Pedestrian Area"));
+        list.add(Came.getInstance("loc", "WWY", "Under a Waterway"));
+        list.add(Came.getInstance("loc", "Z", "Other"));
 
-		List<Came> shalist = new ArrayList<Came>();
-		shalist.add(new Came("A", "Arched with Flat Bottom"));
-		shalist.add(new Came("B", "Barrel e.g. Beer Barrel Shape"));
-		shalist.add(new Came("C", "Circular"));
-		shalist.add(new Came("E", "Egg Shape"));
-		shalist.add(new Came("H", "Horseshoe"));
-		shalist.add(new Came("O", "Oval"));
-		shalist.add(new Came("K", "Kerb Block"));
-		shalist.add(new Came("R", "Rectangular"));
-		shalist.add(new Came("S", "Square"));
-		shalist.add(new Came("T", "Trapezoidal"));
-		shalist.add(new Came("U", "U-shaped with Flat Top"));
-		shalist.add(new Came("Z", "Other"));
+        list.add(Came.getInstance("cat", "Z", "Z"));
 
-		List<Came> matlist = new ArrayList<Came>();
-		matlist.add(new Came("AC", "Asbestos Cement"));
-		matlist.add(new Came("BL", "Bitumen Lining"));
-		matlist.add(new Came("BR", "Brick"));
-		matlist.add(new Came("CI", "Cast Iron"));
-		matlist.add(new Came("CL", "Cement Mortar Lining"));
-		matlist.add(new Came("CO", "Concrete"));
-		matlist.add(new Came("CS", "Concrete Segments"));
-		matlist.add(new Came("DI", "Ductile Iron"));
-		matlist.add(new Came("EP", "Epoxy"));
-		matlist.add(new Came("FC", "Fibre Cement"));
-		matlist.add(new Came("FRP", "Fibre Reinforced Plastics"));
-		matlist.add(new Came("GI", "Galvanised Iron"));
-		matlist.add(new Came("MAC", "Masonry in Regular Courses"));
-		matlist.add(new Came("MAR", "Masonry in Randomly Coursed"));
-		matlist.add(new Came("PVC", "Polyvinyl Chloride"));
-		matlist.add(new Came("PE", "Polyethylene"));
-		matlist.add(new Came("PF", "Pitch Fibre"));
-		matlist.add(new Came("PP", "Polypropylene"));
-		matlist.add(new Came("PS", "Polyester"));
-		matlist.add(new Came("RC", "Reinforced Concrete"));
-		matlist.add(new Came("SPC", "Sprayed Concrete"));
-		matlist.add(new Came("ST", "Steel"));
-		matlist.add(new Came("VC", "Vitrified Clay"));
-		matlist.add(new Came("X", "Unidentified Material"));
-		matlist.add(new Came("XI", "Unidentified Type of Iron or Steel"));
-		matlist.add(new Came("XP", "Unidentified Type of Plastics"));
-		matlist.add(new Came("Z", "Other"));
+        list.add(Came.getInstance("sha", "A", "Arched with Flat Bottom"));
+        list.add(Came.getInstance("sha", "B", "Barrel e.g. Beer Barrel Shape"));
+        list.add(Came.getInstance("sha", "C", "Circular"));
+        list.add(Came.getInstance("sha", "E", "Egg Shape"));
+        list.add(Came.getInstance("sha", "H", "Horseshoe"));
+        list.add(Came.getInstance("sha", "O", "Oval"));
+        list.add(Came.getInstance("sha", "K", "Kerb Block"));
+        list.add(Came.getInstance("sha", "R", "Rectangular"));
+        list.add(Came.getInstance("sha", "S", "Square"));
+        list.add(Came.getInstance("sha", "T", "Trapezoidal"));
+        list.add(Came.getInstance("sha", "U", "U-shaped with Flat Top"));
+        list.add(Came.getInstance("sha", "Z", "Other"));
 
-		List<Came> linlist = new ArrayList<Came>();
-		linlist.add(new Came("CF", "Close Fit Lining"));
-		linlist.add(new Came("CIP", "Cured In Place Lining"));
-		linlist.add(new Came("CP", "Lining With Continuous Pipes"));
-		linlist.add(new Came("DP", "Lining With Discrete Pipes"));
-		linlist.add(new Came("M", "Lining Inserted During Manufacture"));
-		linlist.add(new Came("N", "No Lining"));
-		linlist.add(new Came("SEG", "Segmental Linings"));
-		linlist.add(new Came("SP", "Sprayed Lining"));
-		linlist.add(new Came("SW", "Spirally Wound Lining"));
-		linlist.add(new Came("Z", "Other"));
+        list.add(Came.getInstance("mat", "AC", "Asbestos Cement"));
+        list.add(Came.getInstance("mat", "BL", "Bitumen Lining"));
+        list.add(Came.getInstance("mat", "BR", "Brick"));
+        list.add(Came.getInstance("mat", "CI", "Cast Iron"));
+        list.add(Came.getInstance("mat", "CL", "Cement Mortar Lining"));
+        list.add(Came.getInstance("mat", "CO", "Concrete"));
+        list.add(Came.getInstance("mat", "CS", "Concrete Segments"));
+        list.add(Came.getInstance("mat", "DI", "Ductile Iron"));
+        list.add(Came.getInstance("mat", "EP", "Epoxy"));
+        list.add(Came.getInstance("mat", "FC", "Fibre Cement"));
+        list.add(Came.getInstance("mat", "FRP", "Fibre Reinforced Plastics"));
+        list.add(Came.getInstance("mat", "GI", "Galvanised Iron"));
+        list.add(Came.getInstance("mat", "MAC", "Masonry in Regular Courses"));
+        list.add(Came.getInstance("mat", "MAR", "Masonry in Randomly Coursed"));
+        list.add(Came.getInstance("mat", "PVC", "Polyvinyl Chloride"));
+        list.add(Came.getInstance("mat", "PE", "Polyethylene"));
+        list.add(Came.getInstance("mat", "PF", "Pitch Fibre"));
+        list.add(Came.getInstance("mat", "PP", "Polypropylene"));
+        list.add(Came.getInstance("mat", "PS", "Polyester"));
+        list.add(Came.getInstance("mat", "RC", "Reinforced Concrete"));
+        list.add(Came.getInstance("mat", "SPC", "Sprayed Concrete"));
+        list.add(Came.getInstance("mat", "ST", "Steel"));
+        list.add(Came.getInstance("mat", "VC", "Vitrified Clay"));
+        list.add(Came.getInstance("mat", "X", "Unidentified Material"));
+        list.add(Came.getInstance("mat", "XI", "Unidentified Type of Iron or Steel"));
+        list.add(Came.getInstance("mat", "XP", "Unidentified Type of Plastics"));
+        list.add(Came.getInstance("mat", "Z", "Other"));
 
-		List<Came> uselist = new ArrayList<Came>();
-		uselist.add(new Came("F", "Foul"));
-		uselist.add(new Came("S", "Surface water"));
-		uselist.add(new Came("C", "Combined"));
-		uselist.add(new Came("T", "Trade effluent"));
-		uselist.add(new Came("W", "Watercourse"));
-		uselist.add(new Came("O", "Others"));
-		uselist.add(new Came("U", "Unknown"));
+        list.add(Came.getInstance("lin", "CF", "Close Fit Lining"));
+        list.add(Came.getInstance("lin", "CIP", "Cured In Place Lining"));
+        list.add(Came.getInstance("lin", "CP", "Lining With Continuous Pipes"));
+        list.add(Came.getInstance("lin", "DP", "Lining With Discrete Pipes"));
+        list.add(Came.getInstance("lin", "M", "Lining Inserted During Manufacture"));
+        list.add(Came.getInstance("lin", "N", "No Lining"));
+        list.add(Came.getInstance("lin", "SEG", "Segmental Linings"));
+        list.add(Came.getInstance("lin", "SP", "Sprayed Lining"));
+        list.add(Came.getInstance("lin", "SW", "Spirally Wound Lining"));
+        list.add(Came.getInstance("lin", "Z", "Other"));
 
-		List<Came> dirlist = new ArrayList<Came>();
-		dirlist.add(new Came("U", "Upstream"));
-		dirlist.add(new Came("D", "Downstream"));
+        list.add(Came.getInstance("use", "F", "Foul"));
+        list.add(Came.getInstance("use", "S", "Surface water"));
+        list.add(Came.getInstance("use", "C", "Combined"));
+        list.add(Came.getInstance("use", "T", "Trade effluent"));
+        list.add(Came.getInstance("use", "W", "Watercourse"));
+        list.add(Came.getInstance("use", "O", "Others"));
+        list.add(Came.getInstance("use", "U", "Unknown"));
 
-		List<Came> wealist = new ArrayList<Came>();
-		wealist.add(new Came("1", "Dry"));
-		wealist.add(new Came("2", "Heavy Rain"));
-		wealist.add(new Came("3", "Light Rain"));
-		wealist.add(new Came("4", "Showers"));
+        list.add(Came.getInstance("dir", "U", "Upstream"));
+        list.add(Came.getInstance("dir", "D", "Downstream"));
 
-		map.put("loc", loclist);
-		map.put("cat", catlist);
-		map.put("sha", shalist);
-		map.put("mat", matlist);
-		map.put("lin", linlist);
-		map.put("use", uselist);
-		map.put("dir", dirlist);
-		map.put("wea", wealist);
-		return map;
-	}
+        list.add(Came.getInstance("wea", "1", "Dry"));
+        list.add(Came.getInstance("wea", "2", "Heavy Rain"));
+        list.add(Came.getInstance("wea", "3", "Light Rain"));
+        list.add(Came.getInstance("wea", "4", "Showers"));
 
-	public static String getCameName(String text, String model) {
-		Map<String, List<Came>> map = initMap();
-		List<Came> list = map.get(model);
-		for (int i = 0; list != null && i < list.size(); i++) {
-			if (list.get(i).getText().equals(text))
-				return list.get(i).getName();
-		}
-		return "";
-	}
+        // 返回数据列表
+        return list;
+    }
 
-	public static String getCameText(String name, String model) {
-		Map<String, List<Came>> map = initMap();
-		List<Came> list = map.get(model);
-		for (int i = 0; list != null && i < list.size(); i++) {
-			if (list.get(i).getName().equals(name))
-				return list.get(i).getText();
-		}
-		return "";
-	}
+    public static String getCameName(String text, String model) {
+        List<Came> list = initList();
+        Optional<Came> optional = list.stream().filter(came -> came.getModel().equals(model) && came.getText().equals(text)).findFirst();
+        if (optional.isPresent())
+            return optional.get().getName();
+        return "";
+    }
+
+    public static String getCameText(String name, String model) {
+        List<Came> list = initList();
+        Optional<Came> optional = list.stream().filter(came -> came.getModel().equals(model) && came.getName().equals(name)).findFirst();
+        if (optional.isPresent())
+            return optional.get().getText();
+        return "";
+    }
 
 }

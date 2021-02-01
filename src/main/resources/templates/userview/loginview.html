@@ -1,41 +1,51 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <title>用户登录</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="/cctv/css/userview/loginview.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/cctv/js/userview/loginview.js"></script>
-  </head>
-  <body>
-	<div id="main">
-	  <img id="logo" src="/cctv/img/bg_login.png"/>
-      <div id="mainInfo">
-        <img id="icon"src="/cctv/img/msdi.png"/>
+</head>
+<body>
+<div id="main">
+    <img id="logo" src="/cctv/img/bg_login.png"/>
+    <div id="mainInfo">
+        <img id="icon" src="/cctv/img/msdi.png" alt=""/>
         <div id="title">Sign In(登录)</div>
         <div id="tips" th:text="${tips}"></div>
         <form id="form1" action="/cctv/userview/login" method="post">
-        <table id="tab1">
-          <tr class="row"><td>UserName：</td></tr>
-          <tr height="40px">
-            <td><input type="text" id="name" name="username" th:value="${username}"/></td>
-          </tr>
-          <tr height="40px"><td></td></tr>
-          <tr class="row"><td>PassWord：</td></tr>
-          <tr height="40px">
-            <td><input type="text" id="pass" name="password" th:value="${password}"/></td>
-          </tr>
-          <tr height="40px"><td><a href="/cctv/userview/resetview">Retrieve Password</a></td></tr>
-          <tr height="99px"><td><input type="button" id="btn" value="Sign In"/></td></tr>
-        </table>
+            <table id="tab1">
+                <tr height="30px">
+                    <td style="color:#00953E;font:600 18px simsun">UserName：</td>
+                </tr>
+                <tr height="40px">
+                    <td><input type="text" id="name" name="username" th:value="${username}"/></td>
+                </tr>
+                <tr height="40px">
+                    <td></td>
+                </tr>
+                <tr height="30px">
+                    <td style="color: #00953E;font:600 18px simsun">PassWord：</td>
+                </tr>
+                <tr height="40px">
+                    <td><input type="text" id="pass" name="password" th:value="${password}"/></td>
+                </tr>
+                <tr height="40px">
+                    <td><a href="/cctv/userview/resetview">Retrieve Password</a></td>
+                </tr>
+                <tr height="99px">
+                    <td><input type="button" id="btn" value="Sign In"/></td>
+                </tr>
+            </table>
         </form>
-      </div>
     </div>
-    
-    <div style="width:100%;margin-top:80px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

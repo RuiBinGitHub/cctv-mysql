@@ -13,8 +13,6 @@ public interface MarkPipeBiz {
 
 	void updateMarkPipe(MarkPipe markPipe);
 
-	void deleteMarkPipe(MarkPipe markPipe);
-
 	MarkPipe findInfoMarkPipe(int id, User user);
 
 	MarkPipe findInfoMarkPipe(Map<String, Object> map);

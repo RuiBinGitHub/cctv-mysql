@@ -462,7 +462,7 @@
                 </w:p>
               </w:tc>
             </w:tr>
-		
+
 			<#list list as pipe>
             <w:tr w:rsidR="00645310" w:rsidRPr="008F2AFE" w:rsidTr="00E63340">
               <w:trPr>
@@ -619,9 +619,9 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if pipe.wsize ?? && pipe.wsize != ""> 
+                    <#if pipe.wsize ?? && pipe.wsize != "">
 						<w:t>${pipe.shape} ${pipe.wsize}X${pipe.hsize}</w:t>
-					<#else> 
+					<#else>
 						<w:t>${pipe.shape} ${pipe.hsize}</w:t>
 					</#if>
                   </w:r>
@@ -709,9 +709,9 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 0> 
+                    <#if (pipe.items?size) gt 0>
 						<w:t>${pipe.items[0].define}</w:t>
-					<#else> 
+					<#else>
 						<w:t></w:t>
 					</#if>
                   </w:r>
@@ -738,11 +738,11 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 0> 
+                    <#if (pipe.items?size) gt 0>
 						<w:t>${pipe.items[0].depict}</w:t>
-					<#else> 
+					<#else>
 						<w:t></w:t>
-					</#if>	
+					</#if>
                   </w:r>
                 </w:p>
               </w:tc>
@@ -767,11 +767,11 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 0> 
+                    <#if (pipe.items?size) gt 0>
 						<w:t>${pipe.items[0].dist}</w:t>
-					<#else> 
+					<#else>
 						<w:t></w:t>
-					</#if>	
+					</#if>
                   </w:r>
                 </w:p>
               </w:tc>
@@ -796,9 +796,9 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 0> 
+                    <#if (pipe.items?size) gt 0>
 						<w:t>${pipe.items[0].grade}</w:t>
-					<#else> 
+					<#else>
 						<w:t></w:t>
 					</#if>
                   </w:r>
@@ -806,7 +806,7 @@
               </w:tc>
             </w:tr>
 			<!-- ************************************************************************* -->
-			<#if (pipe.items?size) gt 1> 
+			<#if (pipe.items?size) gt 1>
 			<#list 1..(pipe.items?size-1) as i>
             <w:tr w:rsidR="00645310" w:rsidRPr="008F2AFE" w:rsidTr="00E63340">
               <w:trPr>
@@ -1240,7 +1240,7 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <w:t>${sum}</w:t>
+                    <w:t>${size}</w:t>
                   </w:r>
                 </w:p>
               </w:tc>
@@ -1802,7 +1802,7 @@
               </w:tc>
             </w:tr>
 		<!-- **************************************************************************** -->
-		<#list list as pipe>	
+		<#list list as pipe>
             <w:tr w:rsidR="00163A45" w:rsidRPr="008F2AFE" w:rsidTr="008F2AFE">
               <w:trPr>
                 <w:trHeight w:val="454"/>
@@ -1947,9 +1947,9 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 0> 
+                    <#if (pipe.items?size) gt 0>
 						<w:t>${pipe.items[0].depict}</w:t>
-					<#else> 
+					<#else>
 						<w:t></w:t>
 					</#if>
                   </w:r>
@@ -1976,9 +1976,9 @@
                       <w:sz w:val="22"/>
                       <w:szCs w:val="22"/>
                     </w:rPr>
-                    <#if (pipe.items?size) gt 0> 
+                    <#if (pipe.items?size) gt 0>
 						<w:t>${pipe.items[0].dist}</w:t>
-					<#else> 
+					<#else>
 						<w:t></w:t>
 					</#if>
                   </w:r>
@@ -2002,8 +2002,8 @@
               </w:tc>
             </w:tr>
 			<!-- ******************************************************************* -->
-			<#if (pipe.items?size) gt 1> 
-			<#list 1..(pipe.items?size-1) as i>	
+			<#if (pipe.items?size) gt 1>
+			<#list 1..(pipe.items?size-1) as i>
             <w:tr w:rsidR="00163A45" w:rsidRPr="008F2AFE" w:rsidTr="008F2AFE">
               <w:trPr>
                 <w:trHeight w:val="454"/>

@@ -3,82 +3,77 @@
 
 <mapper namespace="com.springboot.dao.UserDao">
 
-	<insert id="insertUser" parameterType="user" keyProperty="id" useGeneratedKeys="true">
-		insert into users values(null, #{name}, #{username}, #{password}, #{email}, #{phone}, #{state}, #{role}, #{company.id})
+    <insert id="insertUser" parameterType="user" keyProperty="id" useGeneratedKeys="true">
+		insert into users values(null, #{name}, #{username}, #{password}, #{mail}, #{mobi}, #{state}, #{role}, #{company.id})
 	</insert>
 
-	<update id="updateUser" parameterType="user">
+    <update id="updateUser" parameterType="user">
 		update users set name = #{name},
 			username = #{username},
 			password = #{password},
-			email = #{email},
-			phone = #{phone},
+			mail = #{mail},
+			mobi = #{mobi},
 			state = #{state},
-			role = #{role},
-			companyid = #{company.id} 
+			role = #{role}
 		where id = #{id}
 	</update>
 
-	<delete id="deleteUser" parameterType="user">
-		delete from users where id = #{id}
-	</delete>
+    <select id="findInfoUser" parameterType="Map" resultMap="UserMap">
+        select u.*, c.name c_name, c.code c_code, c.count c_count, c.level c_level, c.date c_date, c.term c_term from users u left join company c on c.id = u.companyid
+        <where>
+            <if test="id != null">
+                and u.id = #{id}
+            </if>
+            <if test="username != null">
+                and u.username = #{username}
+            </if>
+            <if test="password != null">
+                and u.password = #{password}
+            </if>
+            <if test="mail != null">
+                and u.mail = #{mail}
+            </if>
+            <if test="mobi != null">
+                and u.mobi = #{mobi}
+            </if>
+            <if test="company != null">
+                and c.id = #{company.id}
+            </if>
+        </where>
+    </select>
 
-	<select id="findInfoUser" parameterType="Map" resultMap="UserMap">
-		select u.*, c.name c_name, c.code c_code, c.cont c_cont, c.term c_term, c.level c_level, c.date c_date from users u left join company c on u.companyid = c.id
-		<where>
-			<if test="id != null">
-				and u.id = #{id}
-			</if>
-			<if test="username != null">
-				and u.username = #{username}
-			</if>
-			<if test="password != null">
-				and u.password = #{password}
-			</if>
-			<if test="email != null">
-				and u.email = #{email}
-			</if>
-			<if test="phone != null">
-				and u.phone = #{phone}
-			</if>
-			<if test="company != null">
-				and c.id = #{company.id}
-			</if>
-		</where>
-	</select>
-	
-	<select id="findListUser" parameterType="Map" resultMap="UserMap">
-		select u.*, c.name c_name, c.code c_code, c.cont c_cont, c.term c_term, c.level c_level, c.date c_date from users u left join company c on u.companyid = c.id
-		<where>
-			<if test="name != null">
-				and u.name like #{name}
-			</if>
-			<if test="company != null">
-				and c.id = #{company.id}
-			</if>
-		</where>
-		order by u.username
-	</select>
-	
-	<resultMap id="UserMap" type="User">
-		<id property="id" column="id"/>
-		<result property="name" column="name"/>
-		<result property="username" column="username"/>
-		<result property="password" column="password"/>
-		<result property="email" column="email"/>
-		<result property="phone" column="phone"/>
-		<result property="state" column="state"/>
-		<result property="role" column="role"/>
-	 	<association property="company" javaType="Company">
-	 		<id property="id" column="companyid"/>
-	 		<result property="name" column="c_name"/>
-	 		<result property="code" column="c_code"/>
-	 		<result property="cont" column="c_cont"/>
-	 		<result property="term" column="c_term"/>
-	 		<result property="level" column="c_level"/>
-	 		<result property="date" column="c_date"/>
-	 	</association>
-	</resultMap>
-	
+    <select id="findListUser" parameterType="Map" resultMap="UserMap">
+        select u.*, c.name c_name, c.code c_code, c.count c_count, c.level c_level, c.date c_date, c.term c_term from users u left join company c on c.id = u.companyid
+        <where>
+            <if test="name != null">
+                and u.name like #{name}
+            </if>
+            <if test="company != null">
+                and c.id = #{company.id}
+            </if>
+        </where>
+        order by u.id
+    </select>
+
+    <resultMap id="UserMap" type="User">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="mail" column="mail"/>
+        <result property="mobi" column="mobi"/>
+        <result property="state" column="state"/>
+        <result property="role" column="role"/>
+        <association property="company" javaType="Company">
+            <id property="id" column="companyid"/>
+            <result property="name" column="c_name"/>
+            <result property="code" column="c_code"/>
+            <result property="count" column="c_count"/>
+            <result property="level" column="c_level"/>
+            <result property="date" column="c_date"/>
+            <result property="term" column="c_term"/>
+        </association>
+    </resultMap>
+
 </mapper>
  

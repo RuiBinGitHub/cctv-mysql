@@ -1,33 +1,31 @@
 @CHARSET "UTF-8";
 
 #combin, #commap {
-	width: 64px;
-	height: 30px;
-	color: #ffffff;
-	margin: 5px 0px 5px 10px;
-	border: none;
-	float: left;
-}
-
-#combin {
-	background-color: #3CB44B;
-}
-
-#combin:hover {
-	background-color: #50c55f;
-	cursor: pointer;
+    width: 64px;
+    margin: 15px 3px;
+    float: left;
 }
 
 #commap {
-	background-color: #2CACF1;
-}
-
-#commap:hover {
-	background-color: #40b4f2;
-	cursor: pointer;
+    background-color: #1E9FFF;
 }
 
 #tab1 thead th:hover {
-	background-color: #5c657a;
-	cursor: pointer;
+    background-color: #5c657a;
+    cursor: pointer;
+}
+
+#tab1 tbody tr td a {
+    width: 135px;
+    height: 16px;
+    margin: 4px 0;
+    float: left;
+}
+
+#tab1 tbody tr td img {
+    width: 16px;
+    height: 16px;
+    margin: 4px;
+    cursor: pointer;
+    float: right;
 }

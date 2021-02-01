@@ -1,84 +1,75 @@
-$(document).ready(function() {
+layui.use(["layer", "form", "laydate"], function () {
+    const layer = layui.layer;
+    const laydate = layui.laydate;
+
     // 获取当前语言
-	var language = $("#infoTop").text().length == 4 ? "zh" : "en";
-    var tipsText1 = language == "zh" ? "請輸入項目編號！" : "Please enter the Project No!";
-    var tipsText2 = language == "zh" ? "项目名称不能包含'/'字符！" : "The Project No can't contain the '/' !";
-    var tipsText3 = language == "zh" ? "项目名称不能包含'\\'字符！" : "The Project No can't contain the '\\' !";
-    var tipsText4 = language == "zh" ? "請輸入公司名稱！" : "Please enter the Company Name!";
-    var tipsText5 = language == "zh" ? "請選擇操作人員！" : "Please select Operator!";
-    var tipsText6 = language == "zh" ? "請輸入調查日期！" : "Please enter the Date!";
+    const language = $("#infoTop").text().length === 4 ? "zh" : "en";
+    const tipsText1 = language === "zh" ? "請輸入項目編號！" : "Please enter the Project No!";
+    const tipsText2 = language === "zh" ? "項目編號不能包含'/'字符！" : "The Project No can't contain the '/' !";
+    const tipsText3 = language === "zh" ? "項目編號不能包含'\\'字符！" : "The Project No can't contain the '\\' !";
+    const tipsText4 = language === "zh" ? "請輸入公司名稱！" : "Please enter the Company Name!";
+    const tipsText5 = language === "zh" ? "請選擇操作人員！" : "Please select Operator!";
     /** *************************************************************** */
-    $("#tab1 input[type=text]:eq(0)").attr("maxlength", 24);
-    $("#tab1 input[type=text]:eq(0)").attr("placeholder", "最多输入24位");
-    $("#tab1 input[type=radio]:eq(0)").prop("checked", true);
-    $("#tab1 input[type=text]:eq(2)").attr("readonly", true);
-    $("#tab1 input[type=text]:eq(2)").focus(function() {
-        laydate();  // 启用日期控件
-    });
-    /** *************************************************************** */
-     // 设置日期为当前日期
-    var myDate = new Date();
-    var y = myDate.getFullYear();
-    var m = myDate.getMonth() + 1;
-    var d = myDate.getDate();
+    const myDate = new Date();
+    let y = myDate.getFullYear();
+    let m = myDate.getMonth() + 1;
+    let d = myDate.getDate();
     m = m < 10 ? "0" + m : m;
     d = d < 10 ? "0" + d : d;
-    var text = y + "-" + m + "-" + d;
-    $("#tab1 input[type=text]:eq(2)").val(text);
+
+    $("#tab1 input[name=name]").attr("maxlength", 24);
+    $("#tab1 input[name=name]").attr("placeholder", "最多输入24位");
+    $("#tab1 input[type=date]").attr("readonly", true);
+    laydate.render({
+        elem: "input[name=date]",
+        value: y + "-" + m + "-" + d,
+        showBottom: false
+    });
     /** *************************************************************** */
-    $(".combtn").click(function() {
-    	// 项目名称输入为空
-        if ($(".textbox:eq(0)").val() == "") {
-            $(".textbox:eq(0)").css("background-color", "#f00");
-            showTips(tipsText1);
+    $(".combtn").on("click", function () {
+        // 项目名称输入为空
+        if ($("input[name=name]").val() === "") {
+            $("input[name=name]").css("background-color", "#f00");
+            layer.msg(tipsText1, {icon: 2});
             return false;
         }
         // 项目名称包含/
-        if ($(".textbox:eq(0)").val().indexOf("/") != -1) {
-        	$(".textbox:eq(0)").css("background-color", "#f00");
-            showTips(tipsText2);
+        if ($("input[name=name]").val().indexOf("/") !== -1) {
+            $("input[name=name]").css("background-color", "#f00");
+            layer.msg(tipsText2, {icon: 2});
             return false;
         }
         // 项目名称包含\
-        if ($(".textbox:eq(0)").val().indexOf("\\") != -1) {
-        	$(".textbox:eq(0)").css("background-color", "#f00");
-            showTips(tipsText3);
+        if ($("input[name=name]").val().indexOf("\\") !== -1) {
+            $("input[name=name]").css("background-color", "#f00");
+            layer.msg(tipsText3, {icon: 2});
             return false;
         }
         // 公司名称输入为空
-        if ($(".textbox:eq(1)").val() == "") {
-            $(".textbox:eq(1)").css("background-color", "#f00");
-            showTips(tipsText4);
+        if ($("input[name=client]").val() === "") {
+            $("input[name=client]").css("background-color", "#f00");
+            layer.msg(tipsText4, {icon: 2});
             return false;
         }
         // 未选择操作人员
-        if ($(".select:eq(0)").val() == null) {
-            $(".select:eq(0)").css("background-color", "#f00");
-            showTips(tipsText5);
-            return false;
-        }
-        // 未选择创建日期
-        if ($(".textbox:eq(2)").val() == "") {
-            $(".textbox:eq(2)").css("background-color", "#f00");
-            showTips(tipsText6);
+        if ($("select[name=operator]").val() == null) {
+            $("select[name=operator]").css("background-color", "#f00");
+            layer.msg(tipsText5, {icon: 2});
             return false;
         }
         /** 提交数据 */
-        $(this).css("background-color", "#ccc");
+        $("input[name=name]").val($("input[name=name]").val().trim());
+        $(this).css("background-color", "#CCC");
         $(this).attr("disabled", true);
         $("#form1").submit();
     });
+
     // 输入框值修改事件
-    $("#tab1 input[type=text]").on("input", function() {
+    $("#tab1 input[type=text]").on("input", function () {
         $(this).css("background-color", "#fff");
     });
-    $("#tab1 select[name=operator]").focus(function() {
+    $("#tab1 select[name=operator]").on("focus", function () {
         $(this).css("background-color", "#fff");
     });
-    /** *************************************************************** */
-    function showTips(text) {
-        $("#Tip").show().delay(1800).hide(200);
-        $("#Tip").text(text);
-    }
-    
+
 });

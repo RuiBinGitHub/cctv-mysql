@@ -1,81 +1,86 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-  	<title>公司信息</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="/cctv/css/company/findinfo.css"/>
-	<script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/cctv/js/company/findinfo.js"></script>
-  </head>
-  <body>
-    <div id="naviMain">
-      <div id="navi">
-        <div style="width:880px;float:left;"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>公司信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/company/findinfo.css"/>
+</head>
+<body>
+<div id="naviMain">
+    <div id="navi">
+        <a href="showlist"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></a>
         <div class="naviItem"><img src="/cctv/img/navi5.png"/><a href="/cctv/userview/leave">退出登录</a></div>
-      </div>
     </div>
-    
-    <div id="main">
-      <div id="mainInfo">
+</div>
+
+<div id="main">
+    <div id="mainInfo">
         <div id="mainTop">公司信息</div>
         <fieldset id="field1" class="field">
-	      <legend><span style="font-size:18px;font-weight:700">公司信息</span></legend>
-	      <table id="table1">
-	    	<tr>
-	    	  <td width="120px" align="right"><span class="label">公司名称：</span></td>
-	    	  <td width="240px" align="left" th:text="${company?.name}"></td>
-	    	  <td width="120px" align="right"><span class="label">使用版本：</span></td>
-	    	  <td width="240px" align="left" th:text="${company?.level}"></td>
-	    	</tr>
-	    	<tr>
-	    	  <td align="right"><span class="label">使用人数：</span></td>
-	    	  <td align="left"><span th:text="${company?.cont}"></span> 人</td>
-	    	  <td align="right"><span class="label">使用年限：</span></td>
-	    	  <td align="left"><span th:text="${company?.term}"></span> 年</td>
-	    	</tr>
-	    	<tr>
-	    	  <td align="right"><span class="label">注册日期：</span></td>
-	    	  <td align="left"><span th:text="${company?.date}"></span></td>
-	    	  <td align="right"><span class="label">使用期限：</span></td>
-	    	  <td align="left"><span th:text="${company?.term}"></span></td>
-	    	</tr>
-	      </table>
-	  	</fieldset>
-	  	<div id="infoTitle">用户信息</div>
-	  	<div id="mainlist">
-	  	  <div id="infoTop">
-	  	    <div style="width:39px;">No</div>
-	  	    <div style="width:139px;">用户名称</div>
-	  	    <div style="width:184px;">登录账号</div>
-	  	    <div style="width:184px;">登录密码</div>
-	  	    <div style="width:107px;">用户职务</div>
-	  	    <div style="width:115px;">当前状态</div>
-	  	  </div>
-	  	  <div id="infoBody" style="width:100%;max-height:240px;overflow-y:scroll;float:left;">
-	  	  <table id="tab1" style="font-size:18px;">
-       	  	<tr th:each="temp,status:${users}" align="center" height="24px">
-              <td width="5%" th:text="${status.count}"></td>
-              <td width="18%" th:text="${temp.name}"></td>
-              <td width="24%" th:text="${temp.username}"></td>
-              <td width="24%" th:text="${temp.password}"></td>
-              <td width="14%" th:if="${temp.role=='role2'}">管理人员</td>
-              <td width="14%" th:if="${temp.role=='role3'}">评分人员</td>
-              <td width="14%" th:if="${temp.role=='role4'}">操作人员</td>
-              <td width="15%" th:text="${temp.state}"></td>
+            <legend><span style="font: 700 18px simsun;">公司信息</span></legend>
+            <table id="tab1">
+                <colgroup>
+                    <col width="120px"/>
+                    <col width="280px"/>
+                    <col width="120px"/>
+                    <col/>
+                </colgroup>
+                <tr>
+                    <td align="right">公司名称：</td>
+                    <td th:text="${company?.name}"></td>
+                    <td align="right">账号前缀：</td>
+                    <td th:text="${company?.code}"></td>
+                </tr>
+                <tr>
+                    <td align="right">使用人数：</td>
+                    <td th:text="${company?.count + ' 人'}"></td>
+                    <td align="right">使用版本：</td>
+                    <td th:text="${company?.level}"></td>
+                </tr>
+                <tr>
+                    <td align="right">注册日期：</td>
+                    <td th:text="${company?.date}"></td>
+                    <td align="right">使用期限：</td>
+                    <td th:text="${company?.term}"></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <div id="listTitle">用户信息</div>
+        <table id="tab2" cellspacing="0">
+            <thead>
+            <tr height="40px">
+                <th width="40px">No</th>
+                <th width="140px">用户名称</th>
+                <th width="185px">登录账号</th>
+                <th width="185px">登录密码</th>
+                <th width="105px">用户职务</th>
+                <th style="padding-right: 17px">当前状态</th>
             </tr>
-	      </table>
-	  	  </div>
-	  	</div>
-  	  	<div style="width:785px;margin-left:105px;font-size:14px;float:left;">
-  	  	  <a id="link" th:href="@{download(id=${param.id})}" style="float:right;">导出</a>
-  	  	</div>
-      </div>
+            </thead>
+            <tbody>
+            <tr th:each="temp,status:${users}">
+                <td width="40px" th:text="${status.count}"></td>
+                <td width="140px" th:text="${temp.name}"></td>
+                <td width="185px" th:text="${temp.username}"></td>
+                <td width="185px" th:text="${temp.password}"></td>
+                <td width="105px" th:if="${temp.role=='role2'}">管理人员</td>
+                <td width="105px" th:if="${temp.role=='role3'}">评分人员</td>
+                <td width="105px" th:if="${temp.role=='role4'}">操作人员</td>
+                <td th:text="${temp.state}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="width:784px;margin:10px 108px;float:left;">
+            <a id="link" th:href="@{download(id=${param.id})}">导出</a>
+        </div>
     </div>
-    
-    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

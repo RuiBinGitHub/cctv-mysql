@@ -9,26 +9,27 @@ import com.springboot.entity.User;
 
 public interface PipeBiz {
 
-	void insertPipe(Pipe pipe);
+    void insertPipe(Pipe pipe);
 
-	void updatePipe(Pipe pipe);
+    void updatePipe(Pipe pipe);
 
-	void deletePipe(Pipe pipe);
+    void deletePipe(Pipe pipe);
 
-	void combinPipe(int id, List<?> list);
+    Pipe findInfoPipe(int id, User user);
 
-	Pipe findInfoPipe(int id, User user);
+    Pipe findInfoPipe(Map<String, Object> map);
 
-	Pipe findInfoPipe(Map<String, Object> map);
+    List<Pipe> findListPipe(Project project);
 
-	List<Pipe> findListPipe(Project project);
+    List<Pipe> findListPipe(Map<String, Object> map);
 
-	List<Pipe> findListPipe(Map<String, Object> map);
+    int getCount(Map<String, Object> map);
 
-	int getCount(Map<String, Object> map);
+    void appendPipe(Pipe pipe);
 
-	void check(Pipe cust, Pipe pipe);
+    void replacPipe(Pipe pipe);
 
-	void appendPipe(Pipe pipe);
+    void removePipe(Pipe pipe);
 
+    void checkPipe(Pipe pipe1, Pipe pipe2, User user);
 }

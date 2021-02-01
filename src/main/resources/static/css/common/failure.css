@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #EFF2F5;
+}
+
+#main {
+    width: 400px;
+    height: 300px;
+    margin: 250px auto;
+    font: 18px simsun;
+}
+
+#page {
+    width: 398px;
+    height: 205px;
+    border: 1px solid #666;
+    border-radius: 6px;
+    float: left;
+}
+
+#h1 {
+    width: 100%;
+    height: 70px;
+    font: 600 20px simsun;
+    text-align: center;
+    line-height: 100px;
+    float: left;
+}
+
+#h2 {
+    width: 92%;
+    height: 70px;
+    margin: 0 4%;
+    color: #666666;
+    text-align: center;
+    line-height: 70px;
+    border-bottom: 1px solid #666;
+    float: left;
+}
+
+#h3 {
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    float: left;
+}
+
+#h3 a {
+    text-decoration: none;
+}
+
+#h3 a:hover {
+    text-decoration: underline;
+}

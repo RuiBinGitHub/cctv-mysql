@@ -3,20 +3,21 @@
 
 <mapper namespace="com.springboot.dao.CodeDao">
 
-	<select id="findInfoCode" parameterType="Map" resultType="Code">
-		select * from code
-		<where>
-			<if test="hkccec != null">
-				hkccec = #{hkccec}
-			</if>
-			<if test="mscc != null">
-				mscc = #{mscc}
-			</if>
-		</where>
-	</select>
-	
-	<select id="findListCode" parameterType="Map" resultType="Code">
+    <select id="findInfoCode" parameterType="Map" resultType="Code">
+        select * from code
+        <where>
+            <if test="code1 != null">
+                code1 = #{code1}
+            </if>
+            <if test="code2 != null">
+                code2 = #{code2}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListCode" parameterType="Map" resultType="Code">
 		select * from code order by id
 	</select>
+
 </mapper>
  

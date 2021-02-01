@@ -1,36 +1,36 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-  	<title>地图展示</title>
+<head>
+    <title>地图展示</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="/cctv/js/cesium/Widgets/widgets.css"/>
     <link rel="stylesheet" type="text/css" href="/cctv/css/geominfo/showlist.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/cctv/js/cesium/Cesium.js"></script>
-    <script type="text/javascript" src="/cctv/js/comm/proj4.js"></script>
-    <script type="text/javascript" src="/cctv/js/comm/ol.js"></script> 
-    <script type="text/javascript" src="/cctv/js/geominfo/showlist.js"></script> 
-  </head>
-  <body>
-    <div id="main">
-      <input type="text" id="textbox" value=""/>
-  	  <input type="button" id="btn1" value="+"/>
-      <div id="showdata"></div>
-      <a id="shownate">坐标：--，--</a>
-    </div>
-    
-    <!-- 输出项目数据 -->
-    <div id="list1" style="display:none;">
-  	  <div th:each="geomItem:${geomItems}" th:tltle="${geomItem.x + '   ' + geomItem.y}">
+    <script type="text/javascript" src="/cctv/js/common/proj4.js"></script>
+    <script type="text/javascript" src="/cctv/js/common/ol.js"></script>
+    <script type="text/javascript" src="/cctv/js/geominfo/showlist.js"></script>
+</head>
+<body>
+<div id="main">
+    <input type="text" id="textbox" value=""/>
+    <input type="button" id="btn1" value="+"/>
+    <div id="showdata"></div>
+    <a id="shownate">坐标：--，--</a>
+</div>
+
+<!-- 输出项目数据 -->
+<div id="list1" style="display:none;">
+    <div th:each="geomItem:${geomItems}" th:tltle="${geomItem.x + '   ' + geomItem.y}">
         <img alt="" src="/cctv/img/定位.png"/>
         <span th:data-x="${geomItem.x}" th:data-y="${geomItem.y}" th:text="${geomItem.project.name}"></span>
         <a th:text="${geomItem.project.operator + '    ' + geomItem.project.date}"></a>
-      </div>
-  	</div>
-  	<!-- 输出管道数据 -->
-  	<div id="list2" style="display:none;">
-  	  <span th:each="geomPipe:${geomPipes}">
+    </div>
+</div>
+<!-- 输出管道数据 -->
+<div id="list2" style="display:none;">
+    <span th:each="geomPipe:${geomPipes}">
   	    <a th:text="${geomPipe.id}"></a>
   	    <a th:text="${geomPipe.x1}"></a>
   	    <a th:text="${geomPipe.y1}"></a>
@@ -39,8 +39,8 @@
   	    <a th:text="${geomPipe.grade}"></a>
   	    <a th:text="${geomPipe.pipe.smanholeno}"></a>
   	    <a th:text="${geomPipe.pipe.fmanholeno}"></a>
-  	  </span>
-  	</div>
-  	
-  </body>
+    </span>
+</div>
+
+</body>
 </html>

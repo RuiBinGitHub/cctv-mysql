@@ -6,30 +6,35 @@ import java.util.Map;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
-import com.springboot.entity.Company;
 import com.springboot.entity.Project;
 import com.springboot.entity.User;
 
 public interface ProjectBiz {
 
-	void insertProject(Project project);
+    void insertProject(Project project);
 
-	void updateProject(Project project);
+    void updateProject(Project project);
 
-	void deleteProject(Project project);
+    void deleteProject(Project project);
 
-	Project findInfoProject(int id, User user);
+    Project findInfoProject(int id, User user);
 
-	Project findInfoProject(Map<String, Object> map);
+    Project findInfoProject(Map<String, Object> map);
 
-	PageInfo<Project> findListProject(Map<String, Object> map);
+    PageInfo<Project> findListProject(Map<String, Object> map);
 
-	int appendProject(Project project);
-	
-	int removeProject(Company company, List<?> list);
+    PageInfo<Project> findViewProject(Map<String, Object> map);
 
-	void combinProject(String list, Company company);
+    List<Project> findRealProject(Map<String, Object> map);
 
-	void importProject(Project project, MultipartFile file);
+    int appendProject(Project project, User user);
+
+    void importDepth(Project project, MultipartFile file);
+
+    void importImage(Project project, MultipartFile[] files);
+
+    void removeImage(Project project);
+
+    void sortImage(Project project);
 
 }

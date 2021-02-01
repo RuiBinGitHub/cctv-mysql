@@ -17,10 +17,10 @@ public interface MarkItemBiz {
 
 	MarkItem findInfoMarkItem(Map<String, Object> map);
 
-	PageInfo<Project> findViewMarkItem(Map<String, Object> map);
+	PageInfo<MarkItem> findViewMarkItem(Map<String, Object> map);
 
 	PageInfo<MarkItem> findListMarkItem(Map<String, Object> map);
 
-	int appendMarkItem(MarkItem MarkItem);
+	MarkItem appendMarkItem(Project project, User user);
 
 }

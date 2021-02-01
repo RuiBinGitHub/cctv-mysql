@@ -1,26 +1,28 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-	<title>公司管理</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="/cctv/css/common/itemlist.css"/>
-	<link rel="stylesheet" type="text/css" href="/cctv/css/company/showlist.css"/>
-	<script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
-	<script type="text/javascript" src="/cctv/js/company/showlist.js"></script>
-  </head>
-  <body>
-    <div id="tips"></div>
-    <div id="naviMain">
-      <div id="navi">
-        <div style="width:1080px;float:left;"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>公司管理</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/common/itemlist.css"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/company/showlist.css"/>
+    <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/cctv/layui/layui-2.5.6.min.js"></script>
+    <script type="text/javascript" src="/cctv/js/company/showlist.js"></script>
+</head>
+<body>
+<div id="naviMain">
+    <div id="navi">
+        <a href="showlist"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></a>
         <div class="naviItem"><img src="/cctv/img/navi5.png"/><a href="/cctv/userview/leave">退出登录</a></div>
-      </div>
     </div>
-    
-    <div id="main">
-      <div id="mainMenu">
-      	<div id="menuTitle">管理菜单</div>
+</div>
+
+<input type="hidden" name="name" th:value="${param.name}"/>
+<div id="main">
+    <div id="mainMenu">
+        <div id="menuTitle">管理菜单</div>
         <div class="menu1"><a href="showlist">公司管理</a></div>
         <div class="menu2" style="background-color:#3A3F4A"></div>
         <div class="menu2" style="background-color:#3A3F4A"></div>
@@ -28,61 +30,56 @@
         <div class="menu2" style="background-color:#3A3F4A"></div>
         <div class="menu2" style="background-color:#3A3F4A"></div>
         <div class="menu2" style="background-color:#3A3F4A"></div>
-      </div>
-      <div id="mainInfo">
+    </div>
+    <div id="mainInfo">
         <div id="infoTop">公司列表</div>
-        <div id="infoMenu">
-          <span style="margin-left:10px;float:left;">公司名称：</span>
-          <input id="menuBtn1" type="button" value="←"/>
-          <input id="menuText" th:value="${param.name}"/>
-          <input id="menuBtn2"  type="button" value="立即查詢"/>
-          <div style="width:478px;height:100%;float:left;"></div>
-          <input type="button" id="append" value="新建"/>
+        <div id="infoMenu" style="width: 985px">
+            <span>公司名称：</span>
+            <input id="menuBtn1" type="button" value="←"/>
+            <input id="menuText" th:value="${param.name}"/>
+            <input id="menuBtn2" type="button" value="立即查詢"/>
         </div>
-        
-        <table id="tab1">
-	      <thead>
-	        <tr height="40px" style="background-color:#51596b;">
-	          <th width="4%">NO</th>
-	          <th width="24%">公司名稱</th>
-	          <th width="12%">人數(人)</th>
-	          <th width="12%">期限(年)</th>
-	          <th width="12%">注册日期</th>
-	          <th width="12%">使用期限</th>
-	          <th width="12%">使用版本</th>
-	          <th width="12%">操作</th>
-	        </tr>
-	      </thead>
-	      <tbody style="font-family:宋体;">
-	        <tr th:each="company,status:${companies}" th:name="${company.id}">
-	          <td th:text="${status.count+(page-1)*15}"></td>
-	          <td><a th:href=@{findinfo(id=${company.id})} th:text="${company.name}"></a></td>
-	          <td th:text="${company.cont}"></td>
-	          <td th:text="${company.term}"></td>
-	          <td th:text="${company.date}"></td>
-	          <td></td>
-	          <td th:text="${company.level}"></td>
-	          <td>
-	            <input type="button" value="編輯" style="background-color:#2CACF1;"/>
-	            <input type="button" value="刪除" style="background-color:#F34D4D;"/>
-	          </td>
-	        </tr>
-	      </tbody>
-	    </table>
-	    <img th:if="${#lists.isEmpty(companies)}" src="/cctv/img/null.png" style="margin:145px 400px;float:left;">
-        <table id="tab2" th:if="${!#lists.isEmpty(companies)}">
-          <tr height="65px">
-            <td width="45%" align="right"><input type="button" value="<<上壹頁" class="pagebtn"/></td>
-            <td width="10%" align="center"><a id="page1" th:text="${page}"></a> / <a id="page2" th:text="${count}"></a></td>
-            <td width="45%" align="left"><input type="button" value="下壹頁>>" class="pagebtn"/></td>
-          </tr>
+        <div id="append" class="layui-btn layui-btn-sm">新建</div>
+
+        <table id="tab1" class="layui-table">
+            <thead>
+            <tr height="40px" style="background-color:#51596b;">
+                <th width="4%">No</th>
+                <th width="27%">公司名稱</th>
+                <th width="12%">账号前缀</th>
+                <th width="12%">人數(人)</th>
+                <th width="12%">使用版本</th>
+                <th width="12%">注册日期</th>
+                <th width="12%">使用期限</th>
+                <th width="9%">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="company,status:${companies}" th:id="${company.id}">
+                <td th:text="${status.count + (page - 1) * 15}"></td>
+                <td><a th:href="@{findinfo(id=${company.id})}" th:text="${company.name}"></a></td>
+                <td th:text="${company.code}"></td>
+                <td th:text="${company.count}"></td>
+                <td th:text="${company.level}"></td>
+                <td th:text="${company.date}"></td>
+                <td th:text="${company.term}"></td>
+                <td style="padding:0 2px;">
+                    <input type="button" class="layui-btn layui-btn-xs layui-btn-normal" value="编辑"/>
+                    <input type="button" class="layui-btn layui-btn-xs layui-btn-danger" value="刪除"/>
+                </td>
+            </tr>
+            </tbody>
         </table>
-      </div>
+        <img th:if="${#lists.isEmpty(companies)}" src="/cctv/img/null.png" alt="" style="margin:150px 450px;float:left;">
+        <div th:if="${!#lists.isEmpty(companies)}" id="pageMain" class="layui-form-item">
+            <div id="page" th:data-p1="${page}" th:data-p2="${count}"></div>
+        </div>
     </div>
-    
-    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

@@ -1,231 +1,179 @@
-$(document).ready(function() {
+layui.use(["layer", "laypage"], function () {
+    const layer = layui.layer;
+    const laypage = layui.laypage;
 
-	var language = $("#infoTop").text().length == 4 ? "zh" : "en";
-    var tipsText1 = language == "zh" ? "確定要撤回該項目嗎？" : "Are you sure you want to revoke this data?";
-    var tipsText2 = language == "zh" ? "數據撤回成功！" : "Operating successfully!";
-    var tipsText3 = language == "zh" ? "確定要移除該數據嗎？" : "Are you sure you want to remove this data?";
-    var tipsText4 = language == "zh" ? "數據移除成功！" : "Operating successfully!";
+    // 获取当前语言
+    const language = $("#infoTop").text().length === 4 ? "zh" : "en";
+    const tipsText1 = language === "zh" ? "確定要撤回該項目嗎？" : "Are you sure you want to revoke this data?";
+    const tipsText2 = language === "zh" ? "數據撤回成功！" : "Operating successfully!";
+    const tipsText3 = language === "zh" ? "確定要移除該數據嗎？" : "Are you sure you want to remove this data?";
+    const tipsText4 = language === "zh" ? "數據移除成功！" : "Operating successfully!";
+    const btnText1 = language === "zh" ? "编辑" : "Down";
+    const btnText2 = language === "zh" ? "提交" : "Rev";
+    const btnText3 = language === "zh" ? "删除" : "Del";
     /** *************************************************************** */
-    var width = $("#infoMenu span:eq(0)").width();
-    if ($("#infoMenu input[type=button]").length == 4)
-        $("#infoMenu div:eq(0)").css("width", 535 - width);
-    else
-        $("#infoMenu div:eq(0)").css("width", 608 - width);
-    /** *************************************************************** */
-    if ($("#menuText").val() == "") {
+    if ($("#menuText").val().trim() === "") {
         $("#menuBtn1").attr("disabled", true);
     }
-    $("#menuText").keydown(function() {
-        if (event.keyCode == 13)
+    $("#menuText").on("keydown", function (event) {
+        if (event.keyCode === 13)
             $("#menuBtn2").click();
     });
-    $("#menuBtn1").click(function() {
+    $("#menuBtn1").on("click", function () {
         window.location.href = "findlist";
     });
-    $("#menuBtn2").click(function() {
-        var name = $("#menuText").val().trim();
-        if (name.trim() != "")
+    $("#menuBtn2").on("click", function () {
+        const name = $("#menuText").val();
+        if (name.trim() !== "")
             window.location.href = "findlist?name=" + name;
     });
     /** *************************************************************** */
     /** 项目合并 */
-    $("#combin").click(function() {
+    $("#combin").on("click", function () {
         window.open("combineview");
     });
     /** 地图展示 */
-    $("#commap").click(function() {
+    $("#commap").on("click", function () {
         window.open("/cctv/geominfo/showlist");
     });
     /** *************************************************************** */
-    var name = $("input[name=name]").val();
-    var sort = $("input[name=sort]").val();
-    $("#tab1 thead th:eq(1)").click(function() {
-    	if (name == null || name == "")
-    		location.href = "findlist?sort=name1";
-    	else
-    		location.href = "findlist?name=" + name + "&sort=name1";
-    });
-    $("#tab1 thead th:eq(2)").click(function() {
-    	if (name == null || name == "")
-    		location.href = "findlist?sort=client1";
-    	else
-    		location.href = "findlist?name=" + name + "&sort=client1";
-    });
-    $("#tab1 thead th:eq(3)").click(function() {
-    	if (name == null || name == "")
-    		location.href = "findlist?sort=slope1";
-    	else
-    		location.href = "findlist?name=" + name + "&sort=slope1";
-    });
-    $("#tab1 thead th:eq(4)").click(function() {
-    	if (name == null || name == "")
-    		location.href = "findlist?sort=standard1";
-    	else
-    		location.href = "findlist?name=" + name + "&sort=standard1";
-    });
-    $("#tab1 thead th:eq(5)").click(function() {
-    	if (name == null || name == "")
-    		location.href = "findlist?sort=userid1";
-    	else
-    		location.href = "findlist?name=" + name + "&sort=userid1";
-    });
-    $("#tab1 thead th:eq(6)").click(function() {
-    	if (name == null || name == "")
-    		location.href = "findlist?sort=date1";
-    	else
-    		location.href = "findlist?name=" + name + "&sort=date1";
-    });
-    var sort = $("input[name=sort]").val();
-    if (sort === "name") {
-    	$("#tab1 thead th:eq(1)").text($("#tab1 thead th:eq(1)").text() + "↑");
-    } else if (sort === "name1") {
-    	$("#tab1 thead th:eq(1)").text($("#tab1 thead th:eq(1)").text() + "↓");
-    	$("#tab1 thead th:eq(1)").unbind("click");
-    	$("#tab1 thead th:eq(1)").click(function() {
-    		if (name == null || name == "")
-        		location.href = "findlist?sort=name";
-        	else
-        		location.href = "findlist?name=" + name + "&sort=name";
+    const name = $("input[name=name]").val();
+    const sort = $("input[name=sort]").val();
+    $("#tab1 thead th").each(function () {
+        const option = $(this).data("name");
+        if (option === undefined)
+            return true;
+        $(this).on("click", function () {
+            location.href = "findlist?name=" + name + "&sort=" + option + "1";
         });
-    } else if (sort === "client") {
-    	$("#tab1 thead th:eq(2)").text($("#tab1 thead th:eq(2)").text() + "↑");
-    } else if (sort === "client1") {
-    	$("#tab1 thead th:eq(2)").text($("#tab1 thead th:eq(2)").text() + "↓");
-    	$("#tab1 thead th:eq(2)").unbind("click");
-    	$("#tab1 thead th:eq(2)").click(function() {
-        	if (name == null || name == "")
-        		location.href = "findlist?sort=client";
-        	else
-        		location.href = "findlist?name=" + name + "&sort=client";
-        });
-    } else if (sort === "slope") {
-    	$("#tab1 thead th:eq(3)").text($("#tab1 thead th:eq(3)").text() + "↑");
-    } else if (sort === "slope1") {
-    	$("#tab1 thead th:eq(3)").text($("#tab1 thead th:eq(3)").text() + "↓");
-    	$("#tab1 thead th:eq(3)").unbind("click");
-    	$("#tab1 thead th:eq(3)").click(function() {
-    		if (name == null || name == "")
-        		location.href = "findlist?sort=slope";
-        	else
-        		location.href = "findlist?name=" + name + "&sort=slope";
-        });
-    } else if (sort === "standard") {
-    	$("#tab1 thead th:eq(4)").text($("#tab1 thead th:eq(4)").text() + "↑");
-    } else if (sort === "standard1") {
-    	$("#tab1 thead th:eq(4)").text($("#tab1 thead th:eq(4)").text() + "↓");
-    	$("#tab1 thead th:eq(4)").unbind("click");
-    	$("#tab1 thead th:eq(4)").click(function() {
-    		if (name == null || name == "")
-        		location.href = "findlist?sort=standard";
-        	else
-        		location.href = "findlist?name=" + name + "&sort=standard";
-        });
-    } else if (sort === "userid") {
-    	$("#tab1 thead th:eq(5)").text($("#tab1 thead th:eq(5)").text() + "↑");
-    } else if (sort === "userid1") {
-    	$("#tab1 thead th:eq(5)").text($("#tab1 thead th:eq(5)").text() + "↓");
-    	$("#tab1 thead th:eq(5)").unbind("click");
-    	$("#tab1 thead th:eq(5)").click(function() {
-    		if (name == null || name == "")
-        		location.href = "findlist?sort=userid";
-        	else
-        		location.href = "findlist?name=" + name + "&sort=userid";
-        });
-    } else if (sort === "date") {
-    	$("#tab1 thead th:eq(6)").text($("#tab1 thead th:eq(6)").text() + "↑");
-    } else if (sort === "date1") {
-    	$("#tab1 thead th:eq(6)").text($("#tab1 thead th:eq(6)").text() + "↓");
-    	$("#tab1 thead th:eq(6)").unbind("click");
-    	$("#tab1 thead th:eq(6)").click(function() {
-    		if (name == null || name == "")
-        		location.href = "findlist?sort=date";
-        	else
-        		location.href = "findlist?name=" + name + "&sort=date";
-        });
-    }
+        if (sort === option)
+            $(this).text($(this).text() + "↑");
+        if (sort === option + "1") {
+            $(this).text($(this).text() + "↓");
+            $(this).off("click");
+            $(this).on("click", function () {
+                location.href = "findlist?name=" + name + "&sort=" + option;
+            });
+        }
+    });
     /** *************************************************************** */
     /** 初始化表格 */
-    var name = $("#menuText").val();
-    $("#tab1 tbody tr").each(function(i) {
-    	var id = $(this).attr("id");
-        $(this).find("a").attr("target", "_blank");
+    $("#tab1 tbody tr").each(function (n) {
+        const id = $(this).attr("id");
         /** *********************************************************** */
-        if (name.trim() != "") {
-        	var text = $(this).find("td:eq(1) a").text();
-        	var font = "<font color='#f00'>" + name + "</font>";
-            var expr = new RegExp(name,"gm");
-            var cont = text.replace(expr, font);
+        if (name.trim() !== "") {
+            const text = $(this).find("td:eq(1) a").text();
+            const font = "<span>" + name + "</span>";
+            const expr = new RegExp(name, "gm");
+            const cont = text.replace(expr, font);
             $(this).find("td:eq(1) a").html(cont);
         }
         /** *********************************************************** */
-        $(this).find("input[type=button]:eq(0)").click(function() {
-            window.open("/cctv/download?id=" + id);
+        $(this).find("img").click(function () {
+            const text = $(this).prev().text();
+            if ($(this).attr("src") === "/cctv/img/展开.png") {
+                if ($(this).data("name") === undefined) {
+                    $(this).parents("tr").after(getContext(text, id, n));
+                    $(this).data("name", "已完成");
+                } else
+                    $("#tab1 tbody ." + n).show();
+                $(this).attr("src", "/cctv/img/收起.png");
+            } else {
+                $("#tab1 tbody ." + n).hide();
+                $(this).attr("src", "/cctv/img/展开.png");
+            }
         });
-        $(this).find("input[type=button]:eq(1)").click(function() {
-            if (!confirm(tipsText1))
-                return false;
-            $(this).css("background-color", "#ccc");
-            $(this).attr("disabled", true);
+    });
+    /** 下载项目 */
+    $("#tab1 tbody").on("click", "tr td input:nth-child(1)", function () {
+        const id = $(this).parents("tr").attr("id");
+        window.open("/cctv/download?id=" + id);
+    });
+    /** 撤回项目 */
+    $("#tab1 tbody").on("click", "tr td input:nth-child(2)", function () {
+        const id = $(this).parents("tr").attr("id");
+        layer.confirm(tipsText1, {
+            btn: ["确定", "取消"]
+        }, function () {
             if (Ajax("revoke", {id: id}))
-                showTips(tipsText2);
+                layer.msg(tipsText2, {icon: 1});
             setTimeout("location.reload()", 2000);
         });
-        $(this).find("input[type=button]:eq(2)").click(function() {
-            if (!confirm(tipsText3))
-                return false;
-            $(this).css("background-color", "#ccc");
-            $(this).attr("disabled", true);
+    });
+    /** 移除项目 */
+    $("#tab1 tbody").on("click", "tr td input:nth-child(3)", function () {
+        const id = $(this).parents("tr").attr("id");
+        layer.confirm(tipsText3, {
+            btn: ["确定", "取消"]
+        }, function () {
             if (Ajax("remove", {id: id}))
-                showTips(tipsText4);
+                layer.msg(tipsText4, {icon: 1});
             setTimeout("location.reload()", 2000);
         });
-        $(this).click(function() {
-            $("#tab1 tbody tr:even").find("td:eq(0)").css("background-color", "#FAFAFA");
-            $("#tab1 tbody tr:odd").find("td:eq(0)").css("background-color", "#EEEEEE");
-            $(this).find("td:eq(0)").css("background-color", "#FFD58D");
-        });
     });
     /** *************************************************************** */
-    /** 上一页 */
-    $(".pagebtn:eq(0)").click(function() {
-        var page = Number($("#page1").text()) - 1;
-        if (sort == null || sort == "")
-        	window.location.href = "findlist?name=" + name + "&page=" + page;
-        else
-        	window.location.href = "findlist?name=" + name + "&sort=" + sort + "&page=" + page;
+    laypage.render({
+        elem: "page",
+        curr: $("#page").data("p1"),
+        count: $("#page").data("p2"),
+        limit: 15,
     });
-    /** 下一页 */
-    $(".pagebtn:eq(1)").click(function() {
-        var page = Number($("#page1").text()) + 1;
-        if (sort == null || sort == "")
-        	window.location.href = "findlist?name=" + name + "&page=" + page;
-        else
-        	window.location.href = "findlist?name=" + name + "&sort=" + sort + "&page=" + page;
+    $("#page a").on("click", function () {
+        let page = $(this).text();
+        if (page === "上一页")
+            page = Number($("#page").data("p1") - 1);
+        if (page === "下一页")
+            page = Number($("#page").data("p1") + 1);
+        location.href = "findlist?name=" + name + "&sort=" + sort + "&page=" + page;
     });
-    var page1 = $("#page1").text();
-    var page2 = $("#page2").text();
-    if (page1 <= 1) {
-        $(".pagebtn:eq(0)").attr("disabled", true);
-        $(".pagebtn:eq(0)").css("color", "#999");
-    }
-    if (page1 == page2) {
-        $(".pagebtn:eq(1)").attr("disabled", true);
-        $(".pagebtn:eq(1)").css("color", "#999");
+    $(".layui-disabled").off("click");
+
+    /** *************************************************************** */
+    function getContext(name, id, no) {
+        const data = Ajax("viewlist2", {name: name, id: id});
+        let context = "";
+        for (let i = 0; data != null && i < data.length; i++) {
+            context += "<tr id='" + data[i].id + "' class='" + no + "' target='_blank'>";
+            context += "  <td>-</td>";
+            context += "  <td><a href='checkview?id=" + data[i].id + "'>" + data[i].name + "</a></td>";
+            context += "  <td>" + data[i].workorder + "</td>";
+            context += "  <td>" + data[i].client + "</td>";
+            context += "  <td>" + data[i].slope + "</td>";
+            context += "  <td>" + data[i].standard + "</td>";
+            context += "  <td>" + data[i].operator + "</td>";
+            context += "  <td>" + data[i].date + "</td>";
+            context += "  <td style='text-indent: 4px'>";
+            context += "    <input type='button' class='layui-btn layui-btn-xs' value='" + btnText1 + "'/>";
+            context += "    <input type='button' class='layui-btn layui-btn-xs layui-btn-normal' value='" + btnText2 + "'/>";
+            context += "    <input type='button' class='layui-btn layui-btn-xs layui-btn-danger' value='" + btnText3 + "'/>";
+            context += "  </td>";
+            context += "</tr>";
+        }
+        if (data == null || data.length === 0) {
+            context += "<tr class='" + no + "'>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "  <td>-</td>";
+            context += "</tr>";
+        }
+        return context;
     }
     /** *************************************************************** */
-    function showTips(text) {
-        $("#tips").show().delay(1800).hide(200);
-        $("#tips").text(text);
-    }
     function Ajax(url, data) {
-        var result = null;
+        let result = null;
         $.ajax({
             url: url,
             data: data,
             type: "post",
             async: false,
             datatype: "json",
-            success: function(data) {
+            success: function (data) {
                 result = data;
             }
         });

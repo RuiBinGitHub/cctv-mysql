@@ -11,8 +11,6 @@ public interface UserDao {
 
 	void updateUser(User user);
 
-	void deleteUser(User user);
-
 	User findInfoUser(Map<String, Object> map);
 
 	List<User> findListUser(Map<String, Object> map);

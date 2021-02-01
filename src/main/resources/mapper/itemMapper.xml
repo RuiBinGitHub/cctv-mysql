@@ -3,11 +3,11 @@
 
 <mapper namespace="com.springboot.dao.ItemDao">
 
-	<insert id="insertItem" parameterType="Item" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertItem" parameterType="Item" keyProperty="id" useGeneratedKeys="true">
 		insert into item values(null, #{no}, #{video}, #{photo}, #{dist}, #{cont}, #{code}, #{diam}, #{clockAt}, #{clockTo}, #{percent}, #{lengths}, #{remarks}, #{picture}, #{pipe.id})
 	</insert>
 
-	<update id="updateItem" parameterType="Item">
+    <update id="updateItem" parameterType="Item">
 		update item set no = #{no},
 			video = #{video},
 			photo = #{photo},
@@ -25,70 +25,71 @@
 		where id = #{id}
 	</update>
 
-	<delete id="deleteItem" parameterType="Item">
-		delete from item where id=#{id}
+    <delete id="deleteItem" parameterType="Item">
+		delete from item where id = #{id}
 	</delete>
 
-	<select id="findInfoItem" parameterType="Map" resultMap="ItemMap">
-		select i.*, a.no a_no, a.workorder a_work, a.smanholeno a_smh, a.fmanholeno a_fmh, a.videono a_videono, b.id b_id from item i
-			join pipe a on a.id=i.pipeid join project b on b.id=a.projectid
-		<where>
-			<if test="id != null">
-				and i.id = #{id}
-			</if>
-			<if test="user != null">
-				and b.userid = #{user.id}
-			</if>
-		</where>
-	</select>
-	
-	<select id="findListItem" parameterType="Map" resultMap="ItemMap">
-		select i.*, a.no a_no, a.workorder a_work, a.smanholeno a_smh, a.fmanholeno a_fmh, a.videono a_videono, b.id b_id from item i
-			join pipe a on a.id=i.pipeid join project b on b.id=a.projectid
-		<where>
-			<if test="photo != null">
-				and i.photo = #{photo}
-			</if>
-			<if test="picture != null">
-				and i.picture != ''
-			</if>
-			<if test="pipe != null">
-				and a.id = #{pipe.id}
-			</if>
-			<if test="project != null">
-				and b.id = #{project.id}
-			</if>
-		</where>
-		order by a.no,i.no
-		<if test="size != null and size >= 0">
-			limit 30 offset #{size}
-		</if>
-	</select>
-	
-	<resultMap id="ItemMap" type="Item">
-		<id property="id" column="id"/>
-		<result property="no" column="no"/>
-		<result property="video" column="video"/>
-		<result property="photo" column="photo"/>
-		<result property="dist" column="dist"/>
-		<result property="cont" column="cont"/>
-		<result property="code" column="code"/>
-		<result property="diam" column="diam"/>
-		<result property="clockAt" column="clockAt"/>
-		<result property="clockTo" column="clockTo"/>
-		<result property="percent" column="percent"/>
-		<result property="lengths" column="lengths"/>
-		<result property="remarks" column="remarks"/>
-		<result property="picture" column="picture"/>
-		<association property="pipe" javaType="Pipe">
-	 		<id property="id" column="pipeid"/>
-	 		<result property="no" column="a_no"/>
-	 		<result property="workorder" column="a_work"/>
-	 		<result property="smanholeno" column="a_smh"/>
-	 		<result property="fmanholeno" column="a_fmh"/>
-	 		<result property="videono" column="a_videono"/>
-	 		<result property="project.id" column="b_id"/>
-		</association>
-	</resultMap>
+    <select id="findInfoItem" parameterType="Map" resultMap="ItemMap">
+        select i.*, a.no a_no, a.workorder a_work, a.smanholeno a_smh, a.fmanholeno a_fmh, a.videono a_videono, b.id b_id from item i
+        left join pipe a on a.id=i.pipeid left join project b on b.id=a.projectid left join users c on c.id = b.userid
+        <where>
+            <if test="id != null">
+                and i.id = #{id}
+            </if>
+            <if test="user != null">
+                and c.id = #{user.id}
+            </if>
+            <if test="company != null">
+                and c.companyid = #{company.id}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListItem" parameterType="Map" resultMap="ItemMap">
+        select i.*, a.no a_no, a.workorder a_work, a.smanholeno a_smh, a.fmanholeno a_fmh, a.videono a_videono, b.id b_id from item i
+        left join pipe a on a.id=i.pipeid left join project b on b.id=a.projectid left join users c on c.id = b.userid
+        <where>
+            <if test="photo != null">
+                and i.photo = #{photo}
+            </if>
+            <if test="picture != null">
+                and i.picture != ''
+            </if>
+            <if test="pipe != null">
+                and a.id = #{pipe.id}
+            </if>
+            <if test="project != null">
+                and b.id = #{project.id}
+            </if>
+        </where>
+        order by a.no, i.no
+    </select>
+
+    <resultMap id="ItemMap" type="Item">
+        <id property="id" column="id"/>
+        <result property="no" column="no"/>
+        <result property="video" column="video"/>
+        <result property="photo" column="photo"/>
+        <result property="dist" column="dist"/>
+        <result property="cont" column="cont"/>
+        <result property="code" column="code"/>
+        <result property="diam" column="diam"/>
+        <result property="clockAt" column="clockAt"/>
+        <result property="clockTo" column="clockTo"/>
+        <result property="percent" column="percent"/>
+        <result property="lengths" column="lengths"/>
+        <result property="remarks" column="remarks"/>
+        <result property="picture" column="picture"/>
+        <association property="pipe" javaType="Pipe">
+            <id property="id" column="pipeid"/>
+            <result property="no" column="a_no"/>
+            <result property="workorder" column="a_work"/>
+            <result property="smanholeno" column="a_smh"/>
+            <result property="fmanholeno" column="a_fmh"/>
+            <result property="videono" column="a_videono"/>
+            <result property="project.id" column="b_id"/>
+        </association>
+    </resultMap>
+
 </mapper>
  

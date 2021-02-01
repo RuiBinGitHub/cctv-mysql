@@ -1,79 +1,72 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-  	<title>编辑公司</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="/cctv/css/company/update.css"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>编辑公司</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/company/update.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/cctv/layui/layui-2.5.6.min.js"></script>
     <script type="text/javascript" src="/cctv/js/company/update.js"></script>
-  </head>
-  <body>
-    <div id="tips"></div>
-    <div id="naviMain">
-      <div id="navi">
-        <div style="width:880px;float:left;"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></div>
+</head>
+<body>
+<div id="naviMain">
+    <div id="navi">
+        <a href="showlist"><img id="navilogo" src="/cctv/img/msdi.png" title="首页"></a>
         <div class="naviItem"><img src="/cctv/img/navi5.png"/><a href="/cctv/userview/leave">退出登录</a></div>
-      </div>
     </div>
-    
-    <div id="main">
-      <div id="mainInfo">
+</div>
+
+<div id="main">
+    <div id="mainInfo">
         <div id="mainTop">编辑公司</div>
         <form id="form1" action="update" method="post">
-        <fieldset id="field1" class="field">
-          <legend><span style="font-size:18px;font-weight:600">公司信息</span></legend>
-          <input type="hidden" name="id" th:value="${company.id}"/>
-          <input type="hidden" name="date" th:value="${company.date}"/>
-	      <table id="table1">
-	    	<tr>
-	    	  <td width="120px" align="right"><span style="color:#f00">*</span><span class="label">公司名称：</span></td>
-	    	  <td width="360px" align="left"><input type="text" name="name" th:value="${company.name}" class="textbox1"/></td>
-	    	</tr>
-	    	<tr>
-	    	  <td align="right"><span style="color:#f00">*</span><span class="label">账号前缀：</span></td>
-	    	  <td align="left"><input type="text" name="code" th:value="${company.code}" class="textbox1"/></td>
-	    	</tr>
-	    	<tr>
-	    	  <td align="right"><span style="color:#f00">*</span><span class="label">使用人数：</span></td>
-	    	  <td align="left">
-	    	    <input type="button" class="btn1" value="-"/>
-	    	    <input type="text" name="cont" th:value="${company.cont}" class="textbox2"/>
-	    	    <input type="button" class="btn2" value="+"/>
-	    	  </td>
-	    	</tr>
-	    	<tr>
-	       	  <td align="right"><span style="color:#f00">*</span><span class="label">使用期限：</span></td>
-	       	  <td align="left">
-	       	    <input type="button" class="btn1" value="-"/>
-	       	    <input type="text" name="term" th:value="${company.term}" class="textbox2"/>
-	       	    <input type="button" class="btn2" value="+"/>
-	       	  </td>
-	       	</tr>
-	    	<tr>
-	       	  <td align="right"><span style="color:#f00">*</span><span class="label">使用版本：</span></td>
-	       	  <td align="left">
-	       	    <input type="radio" name="level" value="普通" th:checked="${company?.level == '普通'}"/>
-	       	    <span style="font-weight:500;">普通</span>
-	       	    <input type="radio" name="level" value="高级" th:checked="${company?.level == '高级'}"/>
-	       	    <span style="font-weight:500;">高级</span>
-	       	    <input type="radio" name="level" value="试用" th:checked="${company?.level == '试用'}"/>
-	       	    <span style="font-weight:500;">试用</span>
-	       	  </td>
-	       	</tr>
-	    	<tr>
-	       	  <td align="right"></td>
-	       	  <td align="left"><input type="button" value="确定" class="combtn"></td>
-	       	</tr>
-	      </table>
-	    </fieldset>
-  	  	</form>
-      </div>
+            <input type="hidden" name="id" th:value="${company.id}"/>
+            <table id="table1">
+                <colgroup>
+                    <col width="120px"/>
+                    <col width="320px"/>
+                </colgroup>
+                <tr>
+                    <td><span style="color:#f00">*</span><span class="label">公司名称：</span></td>
+                    <td><input type="text" name="name" th:value="${company.name}" class="textbox" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#f00">*</span><span class="label">账号前缀：</span></td>
+                    <td><input type="text" name="code" th:value="${company.code}" class="textbox" readonly="readonly"/></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#f00">*</span><span class="label">使用人数：</span></td>
+                    <td><input type="text" name="count" th:value="${company.count}" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#f00">*</span><span class="label">使用期限：</span></td>
+                    <td><input type="text" name="term" th:value="${company.term}" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td><span style="color:#f00">*</span><span class="label">使用版本：</span></td>
+                    <td>
+                        <input type="radio" name="level" value="普通" th:checked="${company?.level == '普通'}"/>
+                        <span style="font-weight:500;">普通</span>
+                        <input type="radio" name="level" value="高级" th:checked="${company?.level == '高级'}"/>
+                        <span style="font-weight:500;">高级</span>
+                        <input type="radio" name="level" value="试用" th:checked="${company?.level == '试用'}"/>
+                        <span style="font-weight:500;">试用</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="button" value="确定" class="combtn"></td>
+                </tr>
+            </table>
+        </form>
     </div>
-    
-    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

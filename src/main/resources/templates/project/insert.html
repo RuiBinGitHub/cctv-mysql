@@ -1,70 +1,76 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
-  	<title>新建项目</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-	<link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="/cctv/css/project/insert.css"/>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>新建项目</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/project/insert.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/cctv/js/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/cctv/layui/layui-2.5.6.min.js"></script>
     <script type="text/javascript" src="/cctv/js/project/insert.js"></script>
-  </head>
-  <body>
-    <div th:replace="navigation::navigation"></div>
-    <div id="Tip"></div>
-    <div id="main">
-      <div id="mainInfo">
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <div id="mainInfo">
         <div id="infoTop" th:text="#{project.insert.title}"></div>
-        <form id="form1" action="insert" method="post">
-        <table id="tab1">
-          <tr>
-            <td width="180px" align="right"><a>*</a><span th:text="#{project.insert.label1}"></span></td>
-            <td width="300px" ><input type="text" class="textbox" name="name"/></td>
-          </tr>
-          <tr>
-            <td align="right"><a>*</a><span th:text="#{project.insert.label2}"></span></td>
-            <td><input type="text" class="textbox"  name="client" th:value="${session.user.company.name}"/></td>
-          </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{project.insert.label3}"></span></td>
-       	    <td>
-       	      <select name="slope" class="select">
-       	        <option value="N">No</option>
-       	        <option value="Y">Yes</option>
-       	      </select>
-       	    </td>
-       	  </tr>
-          <tr>
-            <td align="right"><a>*</a><span th:text="#{project.insert.label4}"></span></td>
-    	    <td>
-       	      <input type="radio" name="standard" value="HKCCEC 2009"/>HKCCEC 2009
-			  <input type="radio" name="standard" value="MSCC 2004"/>MSCC 2004
-       	    </td>
-       	  </tr>
-          <tr>
-       	    <td align="right"><a>*</a><span th:text="#{project.insert.label5}"></span></td>
-       	    <td>
-       	      <select name="operator" class="select">
-       	        <option th:each="name:${names}" th:value="${name}" th:text="${name}"/>
-       	      </select>
-       	    </td>
-       	  </tr>
-    	  <tr>
-    	    <td align="right"><a>*</a><span th:text="#{project.insert.label6}"></span></td>
-    	    <td><input type="text" class="textbox" name="date"/></td>
-    	  </tr>
-          <tr>
-    	    <td align="left"></td>
-       	    <td><input type="button" class="combtn" th:value="#{project.insert.button}"></td>
-       	  </tr>
-        </table>
+        <form id="form1" action="insert" method="post" class="layui-form">
+            <table id="tab1">
+                <colgroup>
+                    <col width="180px">
+                    <col width="300px">
+                </colgroup>
+                <tr>
+                    <td align="right"><a>*</a><span th:text="#{project.insert.label1}"></span></td>
+                    <td><input type="text" name="name" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td align="right"><a>*</a><span th:text="#{project.insert.label2}"></span></td>
+                    <td><input type="text" name="client" class="textbox" th:value="${session.user.company.name}"/></td>
+                </tr>
+                <tr>
+                    <td align="right"><a>*</a><span th:text="#{project.insert.label3}"></span></td>
+                    <td>
+                        <select name="slope" class="select">
+                            <option value="N">No</option>
+                            <option value="Y">Yes</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><a>*</a><span th:text="#{project.insert.label4}"></span></td>
+                    <td>
+                        <input type="radio" name="standard" value="HKCCEC 2009" title="HKCCEC 2009" checked="checked"/>
+                        <input type="radio" name="standard" value="MSCC 2004" title="MSCC 2004"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><a>*</a><span th:text="#{project.insert.label5}"></span></td>
+                    <td>
+                        <select name="operator" class="select">
+                            <option th:each="operator:${operators}" th:value="${operator.name}" th:text="${operator.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"><a>*</a><span th:text="#{project.insert.label6}"></span></td>
+                    <td><input type="text" name="date" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td align="left"></td>
+                    <td><input type="button" class="combtn" th:value="#{project.insert.button}"></td>
+                </tr>
+            </table>
+            <input type="hidden" name="state" value="未提交"/>
         </form>
-      </div>
     </div>
-    
-    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

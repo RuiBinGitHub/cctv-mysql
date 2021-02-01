@@ -9,16 +9,14 @@ import com.springboot.entity.User;
 
 public interface UserBiz {
 
-	void insertUser(User user);
+    void insertUser(User user);
 
-	void updateUser(User user);
+    void updateUser(User user);
 
-	void deleteUser(User user);
+    User findInfoUser(Map<String, Object> map);
 
-	User findInfoUser(Map<String, Object> map);
+    PageInfo<User> findListUser(Map<String, Object> map);
 
-	PageInfo<User> findListUser(Map<String, Object> map);
-
-	List<User> findListUser(Company company);
+    List<User> findListUser(Company company);
 
 }

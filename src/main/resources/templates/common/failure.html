@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>数据丢失</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/common/failure.css"/>
+</head>
+<body>
+<div id="main">
+    <h1 th:text="#{common.failure.title}"></h1>
+    <div id="page">
+        <div id="h1" th:text="#{common.failure.label1}"></div>
+        <div id="h2" th:text="#{common.failure.label2}"></div>
+        <div id="h3" th:if="${session.user == null}">
+            <a href="/cctv/project/showlist" th:text="#{common.failure.label3}"></a>
+        </div>
+        <div id="h3" th:if="${session.user != null && session.user.role == 'role1'}">
+            <a href="/cctv/company/showlist" th:text="#{common.failure.label3}"></a>
+        </div>
+        <div id="h3" th:if="${session.user != null && session.user.role != 'role1'}">
+            <a href="/cctv/project/showlist" th:text="#{common.failure.label3}"></a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

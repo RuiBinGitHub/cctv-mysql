@@ -1,189 +1,172 @@
-$(document).ready(function() {
-    var code = null;
-    var language = $("#infoTop").text() == "個人中心" ? "zh" : "en";
-    var tipsText1 = language == "zh" ? "用户名称格式不正确！" : "Please check the input Nick Name!";
-    var tipsText2 = language == "zh" ? "用户名称修改成功！" : "Operating successfully!";
-    var tipsText3 = language == "zh" ? "*密碼格式不正確，請重新輸入！" : "*Please check the input password!";
-    var tipsText4 = language == "zh" ? "*兩次密碼不壹致，請重新輸入！" : "*Two inconsistent password input!";
-    var tipsText5 = language == "zh" ? "*旧密码不正确，请重新输入！" : "*The old password is incorrect!";
-    var tipsText6 = language == "zh" ? "登录密碼修改成功！" : "Operating successfully!";
-    var tipsText7 = language == "zh" ? "*郵箱格式不正確，請重新輸入！" : "*Please check the input E-Mail!";
-    var tipsText8 = language == "zh" ? "*電子郵箱已經被使用！" : "*This email already exists!";
-    var tipsText9 = language == "zh" ? "*請輸入正確的驗證碼！" : "*Please check the input code!";
-    var tipsText0 = language == "zh" ? "电子郵箱绑定成功！" : "Operating successfully!";
+layui.use(["layer", "form"], function () {
+    const layer = layui.layer;
+
+    let code = "";
+    const language = $("#infoTop").text().length === 4 ? "zh" : "en";
+    const tipsText1 = language === "zh" ? "用户名称格式不正确！" : "Please check the input Nick Name!";
+    const tipsText2 = language === "zh" ? "用户名称修改成功！" : "Operating successfully!";
+    const tipsText3 = language === "zh" ? "密碼格式不正確，請重新輸入！" : "Please check the input password!";
+    const tipsText4 = language === "zh" ? "兩次密碼不壹致，請重新輸入！" : "Two inconsistent password input!";
+    const tipsText5 = language === "zh" ? "旧密码不正确，请重新输入！" : "The old password is incorrect!";
+    const tipsText6 = language === "zh" ? "登录密碼修改成功！" : "Operating successfully!";
+    const tipsText7 = language === "zh" ? "郵箱格式不正確，請重新輸入！" : "Please check the input E-Mail!";
+    const tipsText8 = language === "zh" ? "電子郵箱已經被使用！" : "This email already exists!";
+    const tipsText9 = language === "zh" ? "請輸入正確的驗證碼！" : "Please check the input code!";
+    const tipsText0 = language === "zh" ? "电子郵箱绑定成功！" : "Operating successfully!";
     /** *************************************************************** */
-    $("#edit").click(function() {
-        var name = $("#name").val();
+    // 修改用户昵称
+    $("#edit").on("click", function () {
+        const name = $("#name").val().trim();
         if (name.length < 2 || name.length > 12) {
-            showTips(tipsText1);
+            layer.msg(tipsText1, {icon: 2});
             return false;
         }
-        if (!confirm("确定要修改用户名称为：" + name))
-        	return false;
+        if (!confirm("确定要修改用户名称为：" + name + " ?"))
+            return false;
         if (Ajax("updatename", {name: name}))
-        	showTips(tipsText2);
+            layer.msg(tipsText2, {icon: 1});
         setTimeout("location.reload()", 2000);
     });
-    //获取使用期限
-    var date = $(".table1 tr:eq(2) td:eq(1)").text();
-    var term = $(".table1 tr:eq(2) td:eq(3)").text();
-    $(".table1 tr:eq(2) td:eq(3)").text(getDate(date, term));
-    function getDate(date, idate) {   // 计算使用期限
-        var date = new Date(date);
-        date.setFullYear(date.getFullYear() + Number(idate));
-        var y = date.getFullYear();
-        var m = (date.getMonth() + 1) < 10 ? "0" + (date.getMonth() + 1) : (date.getMonth() + 1);
-        var d = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return y + "-" + m + "-" + d;
-    }
     /** *************************************************************** */
-    $("#link1").click(function() {
-        $("#page").show();
-        $("#webform1 .textbox").val("");
-        $("#webform1 a:eq(0)").text("");
-        $("#webform1").show();
-        $("#webform2").hide();
+    $("#link1").on("click", function () {
+        layer.open({
+            type: 1,
+            title: "重置密码",
+            area: ["500px", "365px"],
+            content: $("#webform1").html()
+        });
     });
-    $("#link2").click(function() {
-        $("#page").show();
-        $("#webform2 .textbox").val("");
-        $("#webform2 a:eq(0)").text("");
-        $("#webform1").hide();
-        $("#webform2").show();
+    $("#link2").on("click", function () {
+        layer.open({
+            type: 1,
+            title: "重置邮箱",
+            area: ["500px", "365px"],
+            content: $("#webform2").html()
+        });
     });
-    $("#link3").click(function() {
-        showTips("系统维护中...");
+    $("#link3").on("click", function () {
+        layer.msg("功能维护中...");
     });
     // 输入框获取焦点事件
-    $("#webform1 .textbox").focus(function() {
-        $(this).css("border-color", "#ccc");
-        $("#webform1 a:eq(0)").text("");
+    $("body").on("focus", ".textbox", function () {
+        $(this).css("border-color", "#CCC");
     });
-    $("#webform2 .textbox").focus(function() {
-        $(this).css("border-color", "#ccc");
-        $("#webform2 a:eq(0)").text("");
-    });
-    $(".colse").click(function() {
-        $("#webform1 .textbox").css("border-color", "#ccc");
-        $("#webform2 .textbox").css("border-color", "#ccc");
-        $("#page").hide();
-    });
-    /********************************************************************/
+    /** *************************************************************** */
     /** 修改密码 */
-    $("#table1 .btn:eq(0)").click(function() {
-        var name = $("#table1 input:eq(0)").val();
-        var pass1 = $("#table1 input:eq(1)").val();
-        var pass2 = $("#table1 input:eq(2)").val();
-        if (name.length < 6 || name.length > 16) {
-            $("#table1 input:eq(0)").css("border-color", "#f00");
-            $("#table1 a:eq(0)").text(tipsText3);
+    $("body").on("click", ".layui-layer-content #table1 .btn", function () {
+        const oldpass = $(".layui-layer-content .textbox:eq(0)").val();
+        const newpass = $(".layui-layer-content .textbox:eq(1)").val();
+        const conpass = $(".layui-layer-content .textbox:eq(2)").val();
+        if (oldpass.length < 6 || oldpass.length > 16) {
+            $(".layui-layer-content input:eq(0)").css("border-color", "#f00");
+            layer.msg(tipsText3, {icon: 2});
             return false;
         }
-        if (pass1.length < 6 || pass1.length > 16) {
-            $("#table1 input:eq(1)").css("border-color", "#f00");
-            $("#table1 a:eq(0)").text(tipsText3);
+        if (newpass.length < 6 || newpass.length > 16) {
+            $(".layui-layer-content input:eq(1)").css("border-color", "#f00");
+            layer.msg(tipsText3, {icon: 2});
             return false;
         }
-        if (pass1 != pass2) {
-            $("#table1 input:eq(1)").css("border-color", "#f00");
-            $("#table1 input:eq(2)").css("border-color", "#f00");
-            $("#table1 a:eq(0)").text(tipsText4);
+        if (newpass !== conpass) {
+            $(".layui-layer-content input:eq(1)").css("border-color", "#f00");
+            $(".layui-layer-content input:eq(2)").css("border-color", "#f00");
+            layer.msg(tipsText4, {icon: 2});
             return false;
         }
-        $(this).attr("disabled", true);
         $(this).css("background-color", "#CCC");
-        if (!Ajax("updatepass", {name: name, pass: pass1})) {
-        	$("#table1 a:eq(0)").text(tipsText5);
-        	$("#table1 input:eq(0)").css("border-color", "#f00");
+        $(this).attr("disabled", true);
+
+        if (!Ajax("updatepass", {oldpass: oldpass, newpass: newpass})) {
+            $("#table1 input:eq(0)").css("border-color", "#f00");
             $(this).css("background-color", "#51C024");
             $(this).attr("disabled", false);
+            layer.msg(tipsText5, {icon: 2});
         } else {
-        	showTips(tipsText6);
-        	setTimeout("location.reload()", 2000);
+            layer.msg(tipsText6, {icon: 1});
+            setTimeout("location.reload()", 2000);
         }
     });
     /** 修改邮箱 */
-    $(".btn:eq(1)").click(function() {
-    	if (!checkMail() || !checkCode())
+    $("body").on("click", ".layui-layer-content #table2 .btn", function () {
+        if (!checkMail() || !checkCode())
             return false;
-        $(this).attr("disabled", true);
         $(this).css("background-color", "#CCC");
-        var mail = $("#table2 input[type=text]:eq(0)").val();
-        var code = $("#table2 input[type=text]:eq(1)").val();
-        if (Ajax("updatemail", {mail: mail, code: code})) 
-        	showTips(tipsText0);
-       	setTimeout("location.reload()", 2000);
+        $(this).attr("disabled", true);
+        const mail = $(".layui-layer-content #table2 input[type=text]:eq(0)").val();
+        const code = $(".layui-layer-content #table2 input[type=text]:eq(1)").val();
+        if (Ajax("updatemail", {mail: mail, code: code}))
+            layer.msg(tipsText0, {icon: 1});
+        setTimeout("location.reload()", 2000);
     });
-    /********************************************************************/
+
+    /** *************************************************************** */
     function checkMail() {
         /** 检测邮箱 */
-        var mail = $("#table2 input[type=text]:eq(0)").val();
+        const mail = $(".layui-layer-content #table2 input[type=text]:eq(0)").val();
         if (!mail.match(/^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/)) {
-            $("#table2 input[type=text]:eq(0)").css("border-color", "#f00");
-            $("#table2 a:eq(0)").text(tipsText7);
+            $(".layui-layer-content #table2 input[type=text]:eq(0)").css("border-color", "#f00");
+            layer.msg(tipsText7, {icon: 2});
             return false;
         }
         if (Ajax("/cctv/userview/isexistmail", {mail: mail})) {
-            $("#table2 input[type=text]:eq(0)").css("border-color", "#f00");
-            $("#table2 a:eq(0)").text(tipsText8);
+            $(".layui-layer-content #table2 input[type=text]:eq(0)").css("border-color", "#f00");
+            layer.msg(tipsText8, {icon: 2});
             return false;
         }
         return true;
     }
+
     /** 检测验证码 */
     function checkCode() {
-        var temp = $("#table2 input[type=text]:eq(1)").val();
-        if (temp.length == 0 || temp != code) {
-            $("#table2 input[type=text]:eq(1)").css("border-color", "#f00");
-            $("#table2 a:eq(0)").text(tipsText9);
+        const temp = $(".layui-layer-content #table2 input[type=text]:eq(1)").val();
+        if (temp.length === 0 || temp !== code) {
+            $(".layui-layer-content #table2 input[type=text]:eq(1)").css("border-color", "#f00");
+            layer.msg(tipsText9, {icon: 2});
             return false;
         }
         return true;
     }
-    /********************************************************************/
-    var time = 60;
-    $("#getCode").click(function() {
-        /** 获取验证码 */
+
+    /** *************************************************************** */
+    /** 获取验证码 */
+    $("body").on("click", ".layui-layer-content #getCode", function () {
         if (!checkMail())
             return false;
-        var mail = $("#table2 input[type]:eq(0)").val();
-        if ((code = Ajax("/cctv/userview/sendmail", {"mail": mail})) == "") {
-            $("#table2 input[type=text]:eq(0)").css("border-color", "#f00");
-            $("#table2 a:eq(0)").text(tipsText7);
+        const mail = $(".layui-layer-content #table2 input[type]:eq(0)").val();
+        if ((code = Ajax("/cctv/userview/sendmail", {"mail": mail})) === "") {
+            $(".layui-layer-content #table2 input[type=text]:eq(0)").css("border-color", "#f00");
+            layer.msg(tipsText7, {icon: 2});
             return false;
         }
-        time = 60;
         $(this).attr("disabled", true);
-        $(this).css("color", "#ccc");
-        changeTime();
+        $(this).css("color", "#CCC");
+        changeTime(60);
     });
-    var value = $("#getCode").val();
-    function changeTime() {
-        if (--time == 0) {
-            $("#getCode").attr("value", value);
-            $("#getCode").attr("disabled", false);
-            $("#getCode").css("color", "#51C024");
+
+    const value = $("#getCode").val();
+
+    function changeTime(time) {
+        if (--time === 0) {
+            $(".layui-layer-content #getCode").attr("value", value);
+            $(".layui-layer-content #getCode").attr("disabled", false);
+            $(".layui-layer-content #getCode").css("color", "#51C024");
         } else {
-            $("#getCode").attr("value", time + " second");
-            setTimeout(changeTime, 1000);
+            $(".layui-layer-content #getCode").attr("value", time + " second");
+            setTimeout(changeTime, 1000, time);
         }
     }
-    /********************************************************************/
-    /** 显示提示信息 */
-    function showTips(text) {
-        $("#tips").show().delay(1800).hide(200);
-        $("#tips").text(text);
-    }
+
+    /** *************************************************************** */
     /** 执行AJAX操作 */
     function Ajax(url, data) {
-        var result = null;
+        let result = null;
         $.ajax({
             url: url,
             data: data,
             type: "post",
             async: false,
             datatype: "json",
-            success: function(data) {
+            success: function (data) {
                 result = data;
             }
         });

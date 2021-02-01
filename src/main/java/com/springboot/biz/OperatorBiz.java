@@ -15,10 +15,11 @@ public interface OperatorBiz {
 
 	void deleteOperator(Operator operator);
 
+	Operator findInfoOperator(int id, Company company);
+
 	Operator findInfoOperator(Map<String, Object> map);
 
 	PageInfo<Operator> findListOperator(Map<String, Object> map);
 
-	List<String> findListName(Company company);
-
+	List<Operator> findListOperator(Company company);
 }

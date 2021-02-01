@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>操作成功</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/css/common/success.css">
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <div id="mainTop" th:text="#{common.success.title}"></div>
+    <div id="mainCenter">
+        <table>
+            <tr height="120px">
+                <td><img src="/cctv/img/complete.png" alt=""></td>
+            </tr>
+            <tr>
+                <td th:text="#{common.success.label1}"></td>
+            </tr>
+            <tr>
+                <td th:text="#{common.success.label2}"></td>
+            </tr>
+            <tr>
+                <td><input type="button" th:value="#{common.success.button}" onclick="window.close()"/></td>
+            </tr>
+            <tr>
+                <td><a th:text="#{common.success.link}" onclick="window.history.back()"></a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+@CHARSET "UTF-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F1F1F1;
+}
+
+input {
+    padding: 0;
+    outline: none;
+}
+
+#main {
+    width: 1000px;
+    margin: 10px auto;
+}
+
+#mainTop {
+    width: 100%;
+    height: 48px;
+    font: 600 24px simsun;
+    text-indent: 20px;
+    line-height: 48px;
+    background-color: #ffffff;
+    border-bottom: 2px solid #00953E;
+    float: left;
+}
+
+#mainCenter {
+    width: 100%;
+    height: 425px;
+    font: 600 18px simsun;
+    background-color: #ffffff;
+    float: left;
+}
+
+#mainCenter table {
+    width: 100%;
+    margin: 25px auto;
+}
+
+#mainCenter table tr {
+    height: 60px;
+    text-align: center;
+}
+
+#mainCenter table tr td {
+    margin: 0;
+    padding: 0;
+}
+
+#mainCenter table tr td img {
+    width: 120px;
+    height: 120px;
+}
+
+#mainCenter table tr td input {
+    width: 150px;
+    height: 32px;
+    color: #ffffff;
+    font: 600 18px simsun;
+    background-color: #00953E;
+    border-radius: 1px;
+    cursor: pointer;
+    border: none;
+}
+
+#mainCenter input:hover {
+    color: #ff6600;
+}
+
+#mainCenter a {
+    color: #1D82FE;
+    cursor: pointer;
+}
+
+#mainCenter a:hover {
+    text-decoration: underline;
+}

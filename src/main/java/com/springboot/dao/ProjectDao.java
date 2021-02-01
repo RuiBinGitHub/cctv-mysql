@@ -7,16 +7,18 @@ import com.springboot.entity.Project;
 
 public interface ProjectDao {
 
-	void insertProject(Project project);
+    void insertProject(Project project);
 
-	void updateProject(Project project);
+    void updateProject(Project project);
 
-	void deleteProject(Project project);
-	
-	int removeProject(Map<String, Object> map);
+    void deleteProject(Project project);
 
-	Project findInfoProject(Map<String, Object> map);
+    Project findInfoProject(Map<String, Object> map);
 
-	List<Project> findListProject(Map<String, Object> map);
+    List<Project> findListProject(Map<String, Object> map);
+
+    List<Project> findViewProject(Map<String, Object> map);
+
+    List<Project> findRealProject(Map<String, Object> map);
 
 }

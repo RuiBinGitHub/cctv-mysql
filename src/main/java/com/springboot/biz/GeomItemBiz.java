@@ -4,19 +4,16 @@ import java.util.List;
 import java.util.Map;
 
 import com.springboot.entity.GeomItem;
+import com.springboot.entity.Project;
 
 public interface GeomItemBiz {
 
-	void insertGeomItem(GeomItem geomItem);
+    GeomItem findInfoGeomItem(Project project);
 
-	void updateGeomItem(GeomItem geomItem);
+    GeomItem findInfoGeomItem(Map<String, Object> map);
 
-	void deleteGeomItem(GeomItem geomItem);
+    List<GeomItem> findListGeomItem(Map<String, Object> map);
 
-	GeomItem findInfoGeomItem(Map<String, Object> map);
-	
-	List<GeomItem> showListGeomItem(Map<String, Object> map);
-	
-	void appendGeomItem(GeomItem geomItem);
+    void appendGeomItem(Project project);
 
 }

@@ -2,109 +2,107 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.springboot.dao.MarkPipeDao">
-	<insert id="insertMarkPipe" parameterType="MarkPipe" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insertMarkPipe" parameterType="MarkPipe" keyProperty="id" useGeneratedKeys="true">
 		insert into markpipe values(null, #{score1}, #{score2}, #{level1}, #{level2}, #{remark}, #{pipe.id}, #{markItem.id})
 	</insert>
-	
-	<update id="updateMarkPipe" parameterType="MarkPipe">
+
+    <update id="updateMarkPipe" parameterType="MarkPipe">
 		update markpipe set 
 			score1 = #{score1},
 			score2 = #{score2},
 			level1 = #{level1},
 			level2 = #{level2},
-			remark = #{remark},
-			pipeid = #{pipe.id},
-			markid = #{markItem.id}
+			remark = #{remark}
 		where id = #{id}
 	</update>
-	
-	<delete id="deleteMarkPipe" parameterType="MarkPipe">
+
+    <delete id="deleteMarkPipe" parameterType="MarkPipe">
 		delete from markpipe where id = #{id}
 	</delete>
-	
-	<select id="findInfoMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
-		select m1.*, p.* from markpipe m1 left join pipe p on p.id = m1.pipeid left join markitem m2 on m2.id = m1.markid
-		<where>
-			<if test="id != null">
-				and m1.id = #{id}
-			</if>
-			<if test="pipe != null">
-				and m1.pipeid = #{pipe.id}
-			</if>
-			<if test="user != null">
-				and m2.userid = #{user.id}
-			</if>
-		</where>
-	</select>
-	
-	<select id="findListMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
-		select m1.*, p.* from markpipe m1 left join pipe p on p.id = m1.pipeid left join markitem m2 on m2.id = m1.markid
-		<where>
-			<if test="markItem != null">
-				and m1.markid = #{markItem.id}
-			</if>
-			<if test="user != null">
-				and m2.userid = #{user.id}
-			</if>
-		</where>
-		order by p.no
-	</select>
-	
-	<resultMap id="MarkPipeMap" type="MarkPipe">
-		<id property="id" column="id"/>
-		<result property="score1" column="score1"/>
-		<result property="score2" column="score2"/>
-		<result property="level1" column="level1"/>
-		<result property="level2" column="level2"/>
-		<result property="remark" column="remark"/>
-		<result property="markItem.id" column="markid"/>
-		<association property="pipe" javaType="Pipe">
-			<id property="id" column="pipeid"/>
-			<result property="no" column="no"/>
-			<result property="operator" column="operator"/>
-			<result property="workorder" column="workorder"/>
-			<result property="reference" column="reference"/>
-			<result property="purposes" column="purposes"/>
-			<result property="slope" column="slope"/>
-			<result property="sloperef" column="sloperef"/>
-			<result property="yearlaid" column="yearlaid"/>
-			<result property="date" column="date"/>
-			<result property="time" column="time"/>
-			
-			<result property="district1" column="district1"/>
-			<result property="district2" column="district2"/>
-			<result property="district3" column="district3"/>
-			<result property="roadname" column="roadname"/>
-			<result property="housenum" column="housenum"/>
-			<result property="building" column="building"/>
-			<result property="division" column="division"/>
-			<result property="areacode" column="areacode"/>
-			
-			<result property="smanholeno" column="smanholeno"/>
-			<result property="fmanholeno" column="fmanholeno"/>
-			<result property="use" column="use"/>
-			<result property="dir" column="dir"/>
-			<result property="hsize" column="hsize"/>
-			<result property="wsize" column="wsize"/>
-			<result property="shape" column="shape"/>
-			<result property="mater" column="mater"/>
-			<result property="lining" column="lining"/>
-			<result property="pipelength" column="pipelength"/>
-			<result property="testlength" column="testlength"/>
-			
-			<result property="sdepth" column="sdepth"/>
-			<result property="scoverlevel" column="scoverlevel"/>
-			<result property="sinvertlevel" column="sinvertlevel"/>
-			<result property="fdepth" column="fdepth"/>
-			<result property="fcoverlevel" column="fcoverlevel"/>
-			<result property="finvertlevel" column="finvertlevel"/>
-			<result property="category" column="category"/>
-			<result property="cleaned" column="cleaned"/>
-			<result property="weather" column="weather"/>
-			<result property="videono" column="videono"/>
-			<result property="comment" column="comment"/>
-			<result property="project.id" column="projectid"/>
-		</association>
-	</resultMap>
+
+    <select id="findInfoMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
+        select m1.*, p.* from markpipe m1 left join pipe p on p.id = m1.pipeid left join markitem m2 on m2.id = m1.markid
+        <where>
+            <if test="id != null">
+                and m1.id = #{id}
+            </if>
+            <if test="pipe != null">
+                and m1.pipeid = #{pipe.id}
+            </if>
+            <if test="user != null">
+                and m2.userid = #{user.id}
+            </if>
+        </where>
+    </select>
+
+    <select id="findListMarkPipe" parameterType="Map" resultMap="MarkPipeMap">
+        select a.*, b.* from markpipe a right join pipe b on b.id = a.pipeid left join markitem c on c.id = a.markid left join users d on d.id = c.userid
+        <where>
+            <if test="markItem != null">
+                and a.markid = #{markItem.id}
+            </if>
+            <if test="markItem != null">
+                and b.projectid = #{markItem.project.id}
+            </if>
+        </where>
+        order by b.no
+    </select>
+
+    <resultMap id="MarkPipeMap" type="MarkPipe">
+        <id property="id" column="id"/>
+        <result property="score1" column="score1"/>
+        <result property="score2" column="score2"/>
+        <result property="level1" column="level1"/>
+        <result property="level2" column="level2"/>
+        <result property="remark" column="remark"/>
+        <result property="markItem.id" column="markid"/>
+        <association property="pipe" javaType="Pipe">
+            <id property="id" column="pipeid"/>
+            <result property="no" column="no"/>
+            <result property="operator" column="operator"/>
+            <result property="workorder" column="workorder"/>
+            <result property="reference" column="reference"/>
+            <result property="purposes" column="purposes"/>
+            <result property="slope" column="slope"/>
+            <result property="sloperef" column="sloperef"/>
+            <result property="yearlaid" column="yearlaid"/>
+            <result property="date" column="date"/>
+            <result property="time" column="time"/>
+
+            <result property="district1" column="district1"/>
+            <result property="district2" column="district2"/>
+            <result property="district3" column="district3"/>
+            <result property="roadname" column="roadname"/>
+            <result property="housenum" column="housenum"/>
+            <result property="building" column="building"/>
+            <result property="division" column="division"/>
+            <result property="areacode" column="areacode"/>
+
+            <result property="smanholeno" column="smanholeno"/>
+            <result property="fmanholeno" column="fmanholeno"/>
+            <result property="use" column="use"/>
+            <result property="dir" column="dir"/>
+            <result property="hsize" column="hsize"/>
+            <result property="wsize" column="wsize"/>
+            <result property="shape" column="shape"/>
+            <result property="mater" column="mater"/>
+            <result property="lining" column="lining"/>
+            <result property="pipelength" column="pipelength"/>
+            <result property="testlength" column="testlength"/>
+
+            <result property="sdepth" column="sdepth"/>
+            <result property="scoverlevel" column="scoverlevel"/>
+            <result property="sinvertlevel" column="sinvertlevel"/>
+            <result property="fdepth" column="fdepth"/>
+            <result property="fcoverlevel" column="fcoverlevel"/>
+            <result property="finvertlevel" column="finvertlevel"/>
+            <result property="category" column="category"/>
+            <result property="cleaned" column="cleaned"/>
+            <result property="weather" column="weather"/>
+            <result property="videono" column="videono"/>
+            <result property="comment" column="comment"/>
+            <result property="project.id" column="projectid"/>
+        </association>
+    </resultMap>
 </mapper>
  

@@ -1,63 +1,64 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-  <head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <title>信息对比</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="/cctv/css/geominfo/compare.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
     <script type="text/javascript" src="/cctv/js/geominfo/compare.js"></script>
-  </head>
-  <body>
-    <div th:replace="navigation::navigation"></div>
-    <input type="hidden" name="path" th:value="${path}"/>
-    <div id="main">
-      <div id="main1">
-        <div class="title" th:text="#{geominfo.compare.title1}"></div>
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <div id="main1">
+        <div class="title" th:text="#{geominfo.compare.title1}" style="border: none"></div>
         <table id="tab1">
-          <thead>
+            <thead>
             <tr>
-              <th width="4%">No</th>
-              <th width="20%" th:text="#{geominfo.compare.table.label1}"></th>
-              <th width="20%" th:text="#{geominfo.compare.table.label2}"></th>
-              <th width="10%" th:text="#{geominfo.compare.table.label3}"></th>
-              <th width="12%" th:text="#{geominfo.compare.table.label4}"></th>
-              <th width="12%" th:text="#{geominfo.compare.table.label5}"></th>
-              <th width="12%" th:text="#{geominfo.compare.table.label6}"></th>
-              <th width="10%" th:text="#{geominfo.compare.table.label7}"></th>
+                <th width="4%">No</th>
+                <th width="20%" th:text="#{geominfo.compare.table.label1}"></th>
+                <th width="20%" th:text="#{geominfo.compare.table.label2}"></th>
+                <th width="10%" th:text="#{geominfo.compare.table.label3}"></th>
+                <th width="12%" th:text="#{geominfo.compare.table.label4}"></th>
+                <th width="12%" th:text="#{geominfo.compare.table.label5}"></th>
+                <th width="12%" th:text="#{geominfo.compare.table.label6}"></th>
+                <th width="10%" th:text="#{geominfo.compare.table.label7}"></th>
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             <tr th:each="geomPipe,status:${geomPipes}" th:id="${geomPipe.pipe.project.id}">
-              <td th:text="${status.count}"></td>
-              <td><a th:text="${geomPipe.pipe.project.name}"></a></td>
-              <td th:text="${geomPipe.pipe.project.client}"></td>
-              <td th:text="${geomPipe.pipe.project.slope}"></td>
-              <td th:text="${geomPipe.pipe.project.standard}"></td>
-              <td th:text="${geomPipe.pipe.project.operator}"></td>
-              <td th:text="${geomPipe.pipe.project.user.name}"></td>
-              <td th:text="${geomPipe.pipe.project.date}"></td>
+                <td th:text="${status.count}"></td>
+                <td><a th:text="${geomPipe.pipe.project.name}"></a></td>
+                <td th:text="${geomPipe.pipe.project.client}"></td>
+                <td th:text="${geomPipe.pipe.project.slope}"></td>
+                <td th:text="${geomPipe.pipe.project.standard}"></td>
+                <td th:text="${geomPipe.pipe.project.operator}"></td>
+                <td th:text="${geomPipe.pipe.project.user.name}"></td>
+                <td th:text="${geomPipe.pipe.project.date}"></td>
             </tr>
-          </tbody>
+            </tbody>
         </table>
-      </div>
-      
-      <div id="main2">
+    </div>
+
+    <div id="main2">
         <div class="title" th:text="#{geominfo.compare.title2}"></div>
         <div id="showImg"><img style="width:320px;height:240px"></div>
-      </div>
-      
-      <div id="items" style="display:none">
-        <div th:each="geomPipe:${geomPipes}" th:data-size="${geomPipe.pipe.testlength}">
-          <span th:each="item:${geomPipe.pipe.items}">
-            <a th:data-dist="${item.dist}" th:data-code="${item.code}" th:data-picture="${item.picture}"></a>
-          </span>
+    </div>
+
+    <div id="items" style="display:none">
+        <div th:each="geomPipe:${geomPipes}" th:data-uses="${geomPipe.pipe.uses}" th:data-size="${geomPipe.pipe.testlength}">
+            <span th:each="item:${geomPipe.pipe.items}">
+                <a th:data-dist="${item.dist}" th:data-code="${item.code}" th:data-picture="${item.picture}"></a>
+            </span>
         </div>
-      </div>
     </div>
-    <div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
-    </div>
-  </body>
+</div>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
 </html>

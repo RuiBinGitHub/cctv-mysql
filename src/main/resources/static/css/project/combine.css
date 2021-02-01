@@ -1,225 +1,211 @@
 @CHARSET "UTF-8";
 
 body {
-	background-color: #f1f1f1;
-}
-input {
-	padding: 0px;
+    background-color: #f1f1f1;
 }
 
-#tips {
-	top: 40%;
-	left: 45%;
-	padding: 10px 20px;
-	position: fixed;
-	color: #ffffff;
-	font-size: 20px;
-	font-family: 宋体;
-	text-align: center;
-	line-height: 80px;
-	background-color: rgba(60, 60, 60, 0.8);
-	border-radius: 6px;
-	display: none;
-	z-index: 9;
+input {
+    padding: 0;
+    outline: none;
 }
 
 #main {
-	width: 1000px;
-	margin: 0px auto;
+    width: 1020px;
+    margin: 0 auto;
 }
 
 #mainInfo {
-	width: 100%;
-	height: 735px;
-	margin-top: 15px;
-	background-color: #fff;
-	float: left;
+    width: 100%;
+    height: 740px;
+    margin-top: 10px;
+    background-color: #fff;
+    float: left;
 }
 
 #infoTop {
-	width: 100%;
-	height: 48px;
-	font-size: 24px;
-	text-indent: 20px;
-	font-family: 宋体;
-	line-height: 48px;
-	font-weight: 700;
-	border-bottom: 2px solid #3CB44B;
-	float: left;
+    width: 100%;
+    height: 48px;
+    font: 600 24px simsun;
+    text-indent: 20px;
+    line-height: 48px;
+    border-bottom: 2px solid #3CB44B;
+    float: left;
 }
 
 #Menu {
-	width: 978px;
-	height: 40px;
-	margin: 10px 10px;
-	line-height: 38px;
-	text-indent: 5px;
-	background-color: #FAFAFA;
-	border: 1px solid #E2E2E2;
-	float: left;
+    width: 978px;
+    height: 40px;
+    margin: 10px 20px;
+    line-height: 40px;
+    background-color: #FAFAFA;
+    border: 1px solid #E2E2E2;
+    float: left;
 }
 
 #Menu span {
-	font-size: 20px;
-	font-family: 宋体;
-	font-weight: 600;
-	float: left;
+    font: 600 20px simsun;
+    text-indent: 10px;
+    line-height: 40px;
+    float: left;
 }
 
 #menuBtn1 {
-	width: 40px;
-	height: 30px;
-	margin-top: 5px;
-	font-size: 20px;
-	font-family: 宋体;
-	line-height: 28px;
-	background-color: #ffffff;
-	border-radius: 30px 0px 0px 30px;
-	border: 1px solid #3A3F4A;
-	cursor: pointer;
-	outline: none;
-	float: left;
+    width: 40px;
+    height: 30px;
+    margin: 5px 0;
+    font: 20px fangsong;
+    background-color: #ffffff;
+    border: 1px solid #3A3F4A;
+    border-radius: 30px 0 0 30px;
+    cursor: pointer;
+    float: left;
 }
 
 #menuBtn2 {
-	width: 75px;
-	height: 30px;
-	color: #ffffff;
-	font-size: 16px;
-	font-family: 仿宋;
-	background-color: #3A3F4A;
-	border-radius: 0px 30px 30px 0px;
-	margin-top: 5px;
-	outline: none;
-	border: none;
-	float: left;
+    width: 75px;
+    height: 30px;
+    margin: 5px 0;
+    color: #ffffff;
+    font: 16px fangsong;
+    background-color: #3A3F4A;
+    border-radius: 0 30px 30px 0;
+    cursor: pointer;
+    border: none;
+    float: left;
 }
 
 #menuBtn2:hover {
-	background-color: #515868;
-	cursor: pointer;
+    background-color: #515868;
 }
 
 #menuText {
-	width: 180px;
-	height: 28px;
-	margin-top: 5px;
-	font-size: 14px;
-	text-indent: 8px;
-	border: 1px solid #303231;
-	border-right: none;
-	border-left: none;
-	outline: none;
-	float: left;
-}
-
-#title {
-	width: 980px;
-	height: 40px;
-	color: #fff;
-	margin-left: 10px;
-	background-color: #51596B;
-	float: left;
-}
-
-#title div {
-	height: 40px;
-	font-size: 18px;
-	font-family: 宋体;
-	font-weight: 600;
-	text-align: center;
-	line-height: 40px;
-	float: left;
-}
-
-#showlist {
-	width: 980px;
-	max-height: 300px;
-	margin: 0px 10px;
-	overflow-y: scroll;
-	border-bottom: 1px solid #F1F1F1;
-	float: left;
+    width: 180px;
+    height: 28px;
+    margin: 5px 0;
+    font: 16px fangsong;
+    text-indent: 8px;
+    border: 1px solid #3A3F4A;
+    border-right: none;
+    border-left: none;
+    float: left;
 }
 
 #tab1 {
-	width: 100%;
-	font-size: 16px;
-	font-family: fangsong;
-	font-weight: 600;
-	border-collapse: collapse;
-	float: left;
+    width: 980px;
+    margin: 0 20px;
+    border-bottom: 1px solid #F1F1F1;
+    float: left;
 }
 
-#tab1 tr {
-	height: 30px;
-	cursor: pointer;
+#tab1 thead tr,
+#tab1 tbody tr {
+    width: 100%;
+    display: table;
 }
 
-#tab1 tr:nth-child(even) {
-	background-color: #F0F0F0;
+#tab1 thead tr th,
+#tab1 tbody tr td {
+    padding: 0;
 }
 
-#tab1 tr:hover {
-	background-color: #F7E5A2;
+#tab1 thead {
+    color: #ffffff;
+    font: 600 18px simsun;
+    background-color: #252829;
 }
 
-#tab1 tr td a {
-	text-decoration: none;
+#tab1 tbody {
+    max-height: 300px;
+    font: 600 16px fangsong;
+    text-align: center;
+    overflow-y: scroll;
+    display: block;
 }
 
-#tab1 tr td a:hover {
-	text-decoration: underline;
+#tab1 tbody tr{
+    height: 30px;
+}
+#tab1 tbody tr:hover {
+    background-color: #F7E5A2;
+}
+
+#tab1 tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+#tab1 tbody tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+#tab1 tbody tr td a {
+    color: #00e;
+    text-decoration: none;
+}
+
+#tab1 tbody tr td a:hover {
+    text-decoration: underline;
+}
+
+#tab1 tbody tr td a:visited {
+    color: #551A8B;
+}
+
+#tab1 tbody tr td span {
+    color: #f00;
 }
 
 #fieldset {
-	width: 950px;
-	height: 188px;
-	margin: 10px 10px;
-	border: 2px solid #E5E5E5;
-	border-radius: 6px;
-	float: left;
+    width: 940px;
+    height: 188px;
+    padding: 10px 18px;
+    margin: 10px 20px;
+    border: 2px solid #dadada;
+    border-radius: 6px;
+    float: left;
 }
 
-#fieldset span {
-	font-size: 20px;
-	font-family: 宋体;
-	font-weight: 600;
+#fieldset legend {
+    font: 600 20px simsun;
 }
 
 #fieldset div {
-	width: 148px;
-	height: 32px;
-	margin: 5px 20px;
-	color: #ffffff;
-	font-size: 16px;
-	font-family: 宋体;
-	font-weight: 600;
-	text-indent: 25px;
-	line-height: 33px;
-	background-image: url("/cctv/img/label.png");
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	cursor: pointer;
-	float: left;
+    width: 148px;
+    height: 32px;
+    margin: 6px 20px;
+    color: #ffffff;
+    font: 600 16px simsun;
+    text-indent: 25px;
+    line-height: 32px;
+    background-image: url("/cctv/img/label.png");
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+    float: left;
 }
 
 .combtn {
-	width: 130px;
-	height: 32px;
-	margin-left: 12px;
-	color: #ffffff;
-	font-size: 18px;
-	font-family: fangsong;
-	font-weight: 600;
-	background-color: #3CB44B;
-	border-radius: 32px;
-	outline: none;
-	border: none;
-	float: left;
+    width: 180px;
+    height: 32px;
+    margin: 0 25px;
+    color: #ffffff;
+    font: 600 18px simsun;
+    background-color: #3CB44B;
+    border-radius: 32px;
+    cursor: pointer;
+    border: none;
+    float: left;
 }
 
 .combtn:hover {
-	background-color: #48c157;
-	cursor: pointer;
+    color: #ff6600;
+}
+
+#tips {
+    width: 760px;
+    height: 32px;
+    color: #666666;
+    font: 18px simsun;
+    line-height: 32px;
+    float: left;
 }

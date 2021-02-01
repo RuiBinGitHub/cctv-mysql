@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>输入坐标</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/layui/css/layui.css"/>
+    <link type="text/css" rel="stylesheet" href="/cctv/css/geominfo/findinfo.css"/>
+    <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="/cctv/layui/layui-2.5.6.min.js"></script>
+    <script type="text/javascript" src="/cctv/js/geominfo/findinfo.js"></script>
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="main">
+    <div id="main1">
+        <div class="title">
+            <a>--- </a><span th:text="#{geominfo.findinfo.menu1}"></span><a> ---</a>
+            <input id="import" type="button" th:value="#{geominfo.findinfo.button}" style="background-color: #2AB673;"/>
+        </div>
+        <table id="tab1">
+            <thead>
+            <tr height="40px">
+                <th width="30px"></th>
+                <th width="30px">No</th>
+                <th width="108px">Start MH</th>
+                <th width="108px">X</th>
+                <th width="108px">Y</th>
+                <th width="108px">H</th>
+                <th width="108px">Finish MH</th>
+                <th width="108px">X</th>
+                <th width="108px">Y</th>
+                <th width="108px">H</th>
+                <th style="padding-right: 17px" th:text="#{geominfo.findinfo.list.title}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="temp:${geomPipes}" th:id="${temp.id}" th:data-smha="${temp.smhGradeA}" th:data-smhb="${temp.smhGradeB}" th:data-fmha="${temp.fmhGradeA}" th:data-fmhb="${temp.fmhGradeB}">
+                <td width="30px"></td>
+                <td width="30px" th:text="${temp.pipe.no}"></td>
+                <td width="108px" th:text="${temp.pipe.smanholeno}"></td>
+                <td width="108px" th:text="${temp.smhx}"></td>
+                <td width="108px" th:text="${temp.smhy}"></td>
+                <td width="108px" th:text="${temp.smhh}"></td>
+                <td width="108px" th:text="${temp.pipe.fmanholeno}"></td>
+                <td width="108px" th:text="${temp.fmhx}"></td>
+                <td width="108px" th:text="${temp.fmhy}"></td>
+                <td width="108px" th:text="${temp.fmhh}"></td>
+                <td><input type="button" th:id="${temp.pipe.id}" th:value="#{geominfo.findinfo.list.button}"/></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 输入管道坐标 -->
+    <div id="main2">
+        <div class="title">
+            <a>--- </a><span th:text="#{geominfo.findinfo.menu2}"></span><a> ---</a>
+        </div>
+        <form id="form1" method="post">
+            <input type="hidden" name="id" value=""/>
+            <input type="hidden" class="pipeid" name="pipe.id" value=""/>
+            <div class="lable">Start MH：</div>
+            <table class="table">
+                <tr height="72px">
+                    <td width="12%" align="right">X：</td>
+                    <td width="20%"><input type="text" name="smhx"/></td>
+                    <td width="12%" align="right">Y：</td>
+                    <td width="20%"><input type="text" name="smhy"/></td>
+                    <td width="12%" align="right">H：</td>
+                    <td width="20%"><input type="text" name="smhh"/></td>
+                </tr>
+            </table>
+            <div class="lable">Finish MH：</div>
+            <table class="table">
+                <tr height="72px">
+                    <td width="12%" align="right">X：</td>
+                    <td width="20%"><input type="text" name="fmhx"/></td>
+                    <td width="12%" align="right">Y：</td>
+                    <td width="20%"><input type="text" name="fmhy"/></td>
+                    <td width="12%" align="right">H：</td>
+                    <td width="20%"><input type="text" name="fmhh"/></td>
+                </tr>
+            </table>
+        </form>
+        <input id="common" type="button" th:value="#{geominfo.findinfo.info.button}"/>
+    </div>
+
+    <!-- 输入管道编号 -->
+    <div id="main3">
+        <div class="title">
+            <a>--- </a><span th:text="#{geominfo.findinfo.menu3}"></span><a> ---</a>
+        </div>
+        <form id="form2" method="post">
+            <input type="hidden" name="id" value=""/>
+            <input type="hidden" class="pipeid" name="pipe.id" value=""/>
+            <fieldset style="margin: 20px 10px 20px 20px">
+                <legend style="font-weight:600;">Start MH</legend>
+                <table>
+                    <tr height="50px">
+                        <td style="text-indent:10px;">Grade A:</td>
+                        <td><input type="text" name="smhGradeA" value=""/></td>
+                        <td style="text-indent:10px;">Grade B:</td>
+                        <td><input type="text" name="smhGradeB" value=""/></td>
+                    </tr>
+                </table>
+            </fieldset>
+
+            <fieldset style="margin: 20px 20px 20px 10px">
+                <legend style="font-weight:600;">Finish MH</legend>
+                <table>
+                    <tr height="50px">
+                        <td style="text-indent:10px;">Grade A:</td>
+                        <td><input type="text" name="fmhGradeA" value=""/></td>
+                        <td style="text-indent:10px;">Grade B:</td>
+                        <td><input type="text" name="fmhGradeB" value=""/></td>
+                    </tr>
+                </table>
+            </fieldset>
+            <div id="explain">注：修改管道编码可能会使管道坐标发生改变，请仔细核实后再进行修改！</div>
+            <input id="submit" type="button" th:value="#{geominfo.findinfo.page.button}"/>
+        </form>
+    </div>
+</div>
+
+<form id="form3" action="importvalue" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${geomItem.id}"/>
+    <input id="file" type="file" name="file" accept=".xlsx" style="display:none"/>
+</form>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+</body>
+</html>

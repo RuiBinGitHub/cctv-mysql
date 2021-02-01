@@ -1,375 +1,2552 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-  <head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
     <title>项目编辑</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="icon" type="image/x-icon" href="/cctv/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="/cctv/layui/css/layui.css"/>
     <link type="text/css" rel="stylesheet" href="/cctv/css/project/editinfo.css"/>
     <script type="text/javascript" src="/cctv/js/jquery-1.9.1.min.js"></script>
-    <script type="text/javascript" src="/cctv/js/laydate/laydate.js"></script>
+    <script type="text/javascript" src="/cctv/layui/layui-2.5.6.min.js"></script>
     <script type="text/javascript" src="/cctv/js/project/editinfo.js"></script>
-  </head>
-  <body>
-    <div th:replace="navigation::navigation"></div>
-    <div id="tips"></div>
-    
-    <div id="TitleMemu">
-      <div style="width:1200px;height:100%;margin:0 auto;">
-        <a href="/cctv/project/showlist" title="首页"><img src="/cctv/img/msdi.png"></a>
-        <input type="button" th:value="#{project.editinmfo.menu.button1}" style="background-color:#51C83D"/>
-	    <input type="button" th:value="#{project.editinmfo.menu.button2}" style="background-color:#00A3FE"/>
-      </div>
+</head>
+<body>
+<div th:replace="navigation::navigation"></div>
+
+<div id="TitleMemu">
+    <div style="width:1200px;height:100%;margin:0 auto;">
+        <a href="/cctv/project/showlist"><img src="/cctv/img/msdi.png" title="首页" alt=""></a>
+        <input type="button" th:value="#{project.editinfo.menu.button1}" style="background-color:#51C83D"/>
+        <input type="button" th:value="#{project.editinfo.menu.button2}" style="background-color:#00A3FE"/>
     </div>
-    <!-- *************************************************************** -->
-    <input type="hidden" id="path" th:value="${path}"/>
-    <input type="hidden" id="no" th:value="${param.no}"/>
-    <div id="main">
-      <div id="mainTitle">
+</div>
+<!-- *************************************************************** -->
+<input type="hidden" id="no" th:value="${param.no}"/>
+
+<div id="main">
+    <div id="mainTitle">
         <span th:text="${'项目编辑 - ['+project.name+']'}"></span>
-        <input type="button" th:value="#{project.editinmfo.main.button1}" style="background-color:#16B1AC"/>
-        <input type="button" th:value="#{project.editinmfo.main.button2}" style="background-color:#FF5D23"/>
-      </div>
-      <!-- mian1开始 -->
-	  <div id="main1">
-	    <div id="memu1">
-	      <span th:text="#{project.editinmfo.pipe.title}"></span>
-	      <input type="button" th:value="#{project.editinmfo.menu.button1}" style="background-color:#51C83D"/>
-	      <input type="button" th:value="#{project.editinmfo.menu.button2}" style="background-color:#00A3FE"/>
-	    </div>
-	    <div id="head1">
-	      <div style="width:24px"></div>
-          <div style="width:36px">No</div>
-          <div style="width:107px">Start MH</div>
-          <div style="width:119px">Start Depth</div>
-          <div style="width:119px">Cover Level</div>
-          <div style="width:118px">Invert Level</div>
-          <div style="width:106px">Finish MH</div>
-          <div style="width:118px">Finish Depth</div>
-          <div style="width:118px">Cover Level</div>
-          <div style="width:118px">Invert Level</div>
-          <div style="width:106px">Video No</div>
-          <div style="width:94px">Operation</div>
-	    </div>
-	    <!-- 输出管道列表开始 -->
-	    <div id="showpipe"> 
-	    <table id="tab1">
-       	  <tr th:each="pipe:${pipes}" th:id="${pipe.id}">
-            <td width="2%"></td>
-            <td width="3%" th:text="${pipe.no}"></td>
-            <td width="9%" th:text="${pipe.smanholeno}"></td>
-            <td width="10%" th:text="${pipe.sdepth}"></td>
-            <td width="10%" th:text="${pipe.scoverlevel}"></td>
-            <td width="10%" th:text="${pipe.sinvertlevel}"></td>
-            <td width="9%" th:text="${pipe.fmanholeno}"></td>
-            <td width="10%" th:text="${pipe.fdepth}"></td>
-            <td width="10%" th:text="${pipe.fcoverlevel}"></td>
-            <td width="10%" th:text="${pipe.finvertlevel}"></td>
-            <td width="9%" th:text="${pipe.videono}"></td>
-            <td width="8%">
-              <input type="button" th:value="#{project.editinmfo.pipe.list.button1}"/>
-              <input type="button" th:value="#{project.editinmfo.pipe.list.button2}"/>
-            </td>
-          </tr>
-	    </table>
-	    </div>  <!-- 输出管道列表结束 -->
-	  </div>
-	  
-	  <!-- main2开始 -->
-	  <form id="form1" method="post">
-	    <input id="id1" type="hidden" name="id" th:value="${pipe.id}"/>  	<!-- 记录管道ID -->
-        <input id="id2" type="hidden" name="project.id" th:value="${param.id}"/>  	<!-- 记录项目ID -->
-	    <div id="main2">
-	      <div id="title1" style="height:30px;">
-	        <span style="width:102px;">Survey ID</span>
-            <span style="width:102px;">Operator</span>
-            <span style="width:102px;">Work Order No</span>
-            <span style="width:152px;">Pipe Length Reference</span>
-            <span style="width:132px;">Purpose</span>
-            <span style="width:102px;">Slope</span>
-            <span style="width:152px;"><a id="link1">Slope Reference No</a></span>
-            <span style="width:102px;">Year Laid</span>
-            <span style="width:102px;">Date</span>
-            <span style="width:102px;">Time</span>
-	      </div>
-	      <div id="value1" style="height:30px;">
-	        <input type="text" name="no" th:value="${pipe.no}" style="width:100px;"/>
-            <select name="operator" th:field="${pipe.operator}" style="width:102px;">
-               <option th:each="name:${names}" th:value="${name}" th:text="${name}"/>
-            </select>
-            <input type="text" name="workorder" th:value="${pipe.workorder}" style="width:100px;"/>
-            <input type="text" name="reference" th:value="${pipe.reference}" style="width:150px;"/>
-            <input type="text" name="purposes" th:value="${pipe.purposes}" style="width:130px;"/>
-            <select name="slope" th:field=${pipe.slope} style="width:102px;">
-              <option value="Y">Y</option>
-              <option value="N">N</option>
-            </select>
-            <input type="text" name="sloperef" th:value="${pipe.sloperef}" style="width:150px;"/>
-            <input type="text" name="yearlaid" th:value="${pipe.yearlaid}" style="width:100px;"/>
-            <input type="text" name="date" th:value="${pipe.date}" style="width:100px;"/>
-            <input type="text" name="time" th:value="${pipe.time}" style="width:100px;"/>
-	      </div>
-          <div id="title2" style="height:30px;">
-            <span style="width:102px;">District1</span>
-            <span style="width:102px;">District2</span>
-            <span style="width:102px;">District3</span>
-            <span style="width:181px;">Road Name</span>
-            <span style="width:181px;">House Number</span>
-            <span style="width:181px;">Building</span>
-            <span style="width:102px;">Division</span>
-            <span style="width:209px;">Drainage Area Code</span>
-          </div>
-          <div id="value2" style="height:30px;">
-		    <select th:id="${pipe.district1}" name="district1" style="width:102px;"></select>
-		    <select th:id="${pipe.district2}" name="district2" style="width:102px;"></select>
-		    <select th:id="${pipe.district3}" name="district3" style="width:102px;"></select>
-		    <input type="text" name="roadname" th:value="${pipe.roadname}" style="width:179px;" list="sites"/>
-		    <input type="text" name="housenum" th:value="${pipe.housenum}" style="width:179px;"/>
-		    <input type="text" name="building" th:value="${pipe.building}" style="width:179px;"/>
-			<input type="text" name="division" th:value="${pipe.division}" style="width:100px;background-color:#EBEBE4;">
-			<input type="text" name="areacode" th:value="${pipe.areacode}" style="width:207px;background-color:#EBEBE4;">
-	      </div>
-          <div id="title3" style="height:30px;">
-            <span style="width:102px;">Start MH</span>
-            <span style="width:102px;">Finish MH</span>
-            <span style="width:102px;">Use</span>
-            <span style="width:102px;">Direction</span>
-            <span style="width:102px;">Size(Dia)H</span>
-            <span style="width:102px;">Size(Dia)W</span>
-            <span style="width:110px;">Shape</span>
-            <span style="width:110px;">Material</span>
-            <span style="width:109px;">Lining</span>
-            <span style="width:102px;">Pipe Length</span>
-            <span style="width:102px;">Total Length</span>
-          </div>
-          <div id="value3" style="height:30px;">
-		    <input type="text" name="smanholeno" th:value="${pipe.smanholeno}" style="width:100px;">
-		    <input type="text" name="fmanholeno" th:value="${pipe.fmanholeno}" style="width:100px;">
-		    <select name="uses" th:field="${pipe.uses}" style="width:102px;">
-		      <option value="F">Foul</option>       
-			  <option value="S">Surface water</option>
-			  <option value="C">Combined</option>     
-		      <option value="T">Trade effluent</option>
-			  <option value="W">Watercourse</option>  
-			  <option value="O">Others</option>     
-		      <option value="U">Unknown</option>     
-			  <option value="">--</option>          
-		    </select>
-		    <select name="dire" th:field="${pipe.dire}" style="width:102px;">
-		      <option value="D">Downstream</option>       
-			  <option value="U">Upstream</option>
-			  <option value="">--</option>
-		    </select>
-            <input type="text" name="hsize" th:value="${pipe.hsize}" style="width:100px;">
-		    <input type="text" name="wsize" th:value="${pipe.wsize}" style="width:100px;">
-		    <select name="shape" th:field="${pipe.shape}" style="width:110px;">
-		      <option value="A">Arched with Flat Bottom</option>
-              <option value="B">Barrel e.g. Beer Barrel Shape</option>
-              <option value="C">Circular</option>
-              <option value="E">Egg Shape</option>
-              <option value="H">Horseshoe</option>
-              <option value="O">Oval</option>
-              <option value="K">Kerb Block</option>
-              <option value="R">Rectangular</option>
-              <option value="S">Square</option>
-              <option value="T">Trapezoidal</option>
-              <option value="U">U-shaped with Flat Top</option>
-              <option value="Z">Other</option>
-              <option value="">--</option>
-		    </select>
-		    <select name="mater" th:field="${pipe.mater}" style="width:110px;">
-		      <option value="AC">Asbestos Cement</option>
-              <option value="BL">Bitumen Lining</option>
-              <option value="BR">Brick</option>
-              <option value="CI">Cast Iron</option>
-              <option value="CL">Cement Mortar Lining</option>
-              <option value="CO">Concrete</option>
-              <option value="CS">Concrete Segments</option>
-              <option value="DI">Ductile Iron</option>
-              <option value="EP">Epoxy</option>
-              <option value="FC">Fibre Cement</option>
-              <option value="FRP">Fibre Reinforced Plastics</option>
-              <option value="GI">Galvanised Iron</option>
-              <option value="MAC">Masonry in Regular Courses</option>
-              <option value="MAR">Masonry in Randomly Coursed</option>
-              <option value="PVC">Polyvinyl Chloride</option>
-              <option value="PE">Polyethylene</option>
-              <option value="PF">Pitch Fibre</option>
-              <option value="PP">Polypropylene</option>
-              <option value="PS">Polyester</option>
-              <option value="RC">Reinforced Concrete</option>
-              <option value="SPC">Sprayed Concrete</option>
-              <option value="ST">Steel</option>
-              <option value="VC">Vitrified Clay</option>
-              <option value="X">Unidentified Material</option>
-              <option value="XI">Unidentified Type of Iron or Steel</option>
-              <option value="XP">Unidentified Type of Plastics</option>
-              <option value="Z">Other</option>
-              <option value="">--</option>
-		    </select>
-		    <select name="lining" th:field="${pipe.lining}" style="width:109px;">
-		      <option value="CF">Close Fit Lining</option>
-		      <option value="CIP">Cured In Place Lining</option>
-		      <option value="CP">Lining With Continuous Pipes</option>
-		      <option value="DP">Lining With Discrete Pipes</option>
-		      <option value="M">Lining Inserted During Manufacture</option>
-		      <option value="N">No Lining</option>
-		      <option value="SEG">Segmental Linings</option>
-		      <option value="SP">Sprayed Lining</option>
-		      <option value="SW">Spirally Wound Lining</option>
-		      <option value="Z">Other</option>
-		      <option value="">--</option>
-		    </select>
-		    <input type="text" name="pipelength" th:value="${pipe.pipelength}" style="width:100px;">
-		    <input type="text" name="testlength" th:value="${pipe.testlength}" style="width:100px;">
-		  </div>
-		  <div id="title4" style="height:30px;">
-            <span style="width:102px;"><a id="link2">Start Depth</a></span>
-            <span style="width:102px;">Cover Level</span>
-            <span style="width:102px;">Invert Level</span>
-            <span style="width:102px;">Finish Depth</span>
-            <span style="width:102px;">Cover Level</span>
-            <span style="width:102px;">Invert Level</span>
-            <span style="width:110px;">Category</span>
-            <span style="width:110px;">Cleaned</span>
-            <span style="width:109px;">Weather</span>
-            <span style="width:209px;">Video No/File Name</span>
-          </div>
-          <div id="value4" style="height:30px;">
-            <input type="text" name="sdepth" th:value="${pipe.sdepth}" style="width:100px">
-		    <input type="text" name="scoverlevel" th:value="${pipe.scoverlevel}" style="width:100px">
-		    <input type="text" name="sinvertlevel" th:value="${pipe.sinvertlevel}" style="width:100px;background-color:#EBEBE4;">
-		    <input type="text" name="fdepth" th:value="${pipe.fdepth}" style="width:100px">
-		    <input type="text" name="fcoverlevel" th:value="${pipe.fcoverlevel}" style="width:100px">
-		    <input type="text" name="finvertlevel" th:value="${pipe.finvertlevel}" style="width:100px;background-color:#EBEBE4;">
-            <input type="text" name="category" th:value="${pipe.category}" style="width:108px;">
-            <select name="cleaned" th:field="${pipe.cleaned}" style="width:110px;">
-              <option value="Y">Y</option>
-        	  <option value="N">N</option>
-        	  <option value="">--</option>
-            </select>
-            <select name="weather" th:field="${pipe.weather}" style="width:109px;">
-              <option value="1">Dry</option>
-		      <option value="2">Heavy Rain</option>
-		      <option value="3">Light Rain</option>
-		      <option value="4">Showers</option>
-		      <option value="">--</option>
-            </select>
-            <input type="text" name="videono" th:value="${pipe.videono}" style="width:207px;">
-          </div>
-          <div id="value5" style="height:30px;">
-            <span style="width:125px;">Comments General:</span>
-            <input type="text" name="comment" th:value="${pipe.comment}" style="width:1063px;margin-top:4px;" list="commentlist">
-          </div>
-	    </div>
-	    <!-- 画图显示管道开始 -->
-	    <canvas id="showpipeimg" width="208px" height="840px"></canvas>
-	    <!-- 画图显示管道结束 -->
-	    <div id="showvideo">
-	      <div id="showvnp" style="width:100%;padding-bottom:5px;border-bottom:1px solid #ccc;float:left;">
-	        <!-- 输出视频播放器开始 -->
-	        <video id="video" controls="controls" poster="/cctv/img/poster1.png"></video>
-	        <div style="width:320px;margin-left:20px;float:left;">
-	          <div class="videoTitle" style="width:320px;text-align:left;">Preview</div>
-	          <img id="pic1" class="img" style="cursor:pointer;"/>
-	          <div class="videoTitle" style="width:320px;text-align:left;">Picture</div>
-	          <img id="pic2" class="img" style="cursor:pointer;"/>
-	        </div>
-	      </div>
-	      <div id="memu2">
-	        <div class="title" th:text="#{project.editinmfo.item.title}"></div>
-	        <input type="button" th:value="#{project.editinmfo.item.button1}" style="background-color:#51C83D"/>
-	        <input type="button" th:value="#{project.editinmfo.item.button2}" style="background-color:#00A3FE"/>
-	        <input type="button" th:value="#{project.editinmfo.item.button3}" style="background-color:#EF414C"/>
-	        <span style="width:10px;height:100%;line-height:30px;font-weight:600;text-align:center;float:left;">|</span>
-	        <input type="button" th:value="#{project.editinmfo.item.button4}" style="width:105px;background-color:#16B1AC"/>
-	        <input type="button" th:value="#{project.editinmfo.item.button5}" style="width:105px;background-color:#F54545"/>
-	      </div>
-	      <table id="title">
-	        <tr height="24px;" style="background-color: #505984;">
-              <th width="27px" rowspan="2"></th>
-              <th width="95px" rowspan="2">Video Time</th>
-              <th width="95px" rowspan="2">Photo No</th>
-              <th width="95px" rowspan="2">Distance</th>
-              <th width="76px" rowspan="2">Cont<br/>Def</th>
-              <th width="76px" rowspan="2">Code</th>
-              <th width="95px" rowspan="2">Dia./Dim</th>
-              <th width="95px" colspan="2">Clock</th>
-              <th width="95px" colspan="2">Intrusion</th>
-              <th width="" rowspan="2">Remarks</th>
-         	</tr>
-            <tr height="24px;" style="background-color: #505984;">
-              <th width="46px">At</th>
-              <th width="46px">To</th>
-              <th width="46px">%</th>
-              <th width="46px">mm</th>
-            </tr>
-	      </table>
-	      <!-- 输出记录列表开始 -->
-	      <div id="showItem" style="background-color:#dddddd;">
-	      <table id="tab2">
-	        <tr th:each="item:${pipe.items}">
-		      <td width="3%"><input type='hidden' th:value="${item.id}"/><a></a></td>
-			  <td width="10%"><input type='text' th:value="${item.video}"/></td>
-			  <td width="10%"><input type='text' th:value="${item.photo}"/><img/></td>
-			  <td width="10%"><input type='text' th:value="${item.dist}"/></td>
-			  <td width="8%"><input type='text' th:value="${item.cont}"/></td>
-			  <td width="8%"><input type='text' th:value="${item.code}"/></td>
-			  <td width="10%"><input type='text' th:value="${item.diam}"/></td>
-			  <td width="5%"><input type='text' th:value="${item.clockAt}"/></td>
-			  <td width="5%"><input type='text' th:value="${item.clockTo}"/></td>
-			  <td width="5%"><input type='text' th:value="${item.percent}"/></td>
-			  <td width="5%"><input type='text' th:value="${item.lengths}"/></td>
-			  <td><input type='text' th:value="${item.remarks}"/></td>
-			  <td><input type='text' th:value="${item.picture}"/></td>
-		    </tr>
-		  </table>
-		  <div id="datalist" style="display:none"></div>
-	      </div>
-	      <!-- 输出记录列表结束 -->
-	    </div>
-	  </form>
-	</div>
-	<form id="form2" method="post" enctype="multipart/form-data">
-	  <input type="hidden" name="id" th:value="${param.id}"/>
-	  <input type="file" name="xfile" accept=".xlsx" style="display:none"/>
-	</form>
-	<form id="form3" method="post" enctype="multipart/form-data">
-	  <input type="hidden" name="id" th:value="${param.id}"/>
-	  <input type="file" name="files" style="display:none;"/>
-	</form>
-	<input type="file" id="file1" accept="video/*" style="display:none"/>
-	<input type="file" id="file2" accept="image/*" style="display:none"/>
-	<canvas id="canvas1" style="display:none"></canvas>
-	<div id="ishow">－</div>
-	<div id="toTop">△</div>
-	<!-- Code 列表 -->
-	<datalist id="icode"></datalist>
-	<datalist id="codes" th:if="${project.standard=='HKCCEC 2009'}">
-	  <option th:each="code:${codes}" th:value="${code.hkccec}" th:text="${code.explain1}"></option>
-	</datalist>
-	<datalist id="codes" th:if="${project.standard=='MSCC 2004'}">
-	  <option th:each="code:${codes}" th:value="${code.mscc}" th:text="${code.explain1}"></option>
-	</datalist>
-	<datalist id='commentlist'>
-      <option>Counter started reading at 1m.</option>
-      <option>Counter started reading at 1m. S.A.</option>
-      <option>Counter started reading at 1m. Video error Material: CI.</option>
-      <option>GNC is connected to Y18</option>
-      <option>Video error: FH/MH: F1</option>
-      <option>Video error: FH/MH: F1. S.A.</option>
-      <option>Video error: Finish Survey, U-Trap</option>
-      <option>Video error: Material: CI</option>
-      <option>Video error: S.A.</option>
-      <option>Video error: Size: 100</option>
-      <option>Video error. Size: 100. S.A.</option>
-      <option>Video error: ST/MH: S1</option>
-      <option>Video error: ST/MH: S1. S.A.</option>
-      <option>Video error: Survey finished</option>
-    </datalist>
-    
-	<div style="width:100%;margin-top:20px;color:#ccc;text-align:center;font-size:14px;float:left;">
-      <p>香港麦斯迪埃高科技有限责任公司</p>
-      <p>Copyright © 2017 All Rights Reserved</p>	
+        <input type="button" th:value="#{project.editinfo.main.button1}" style="background-color:#16B1AC"/>
+        <input type="button" th:value="#{project.editinfo.main.button2}" style="background-color:#FF5722"/>
     </div>
-  </body>
+    <!-- mian1开始 -->
+    <div id="main1">
+        <div id="memu1">
+            <span th:text="#{project.editinfo.pipe.title}"></span>
+            <input type="button" th:value="#{project.editinfo.menu.button1}" style="background-color:#51C83D"/>
+            <input type="button" th:value="#{project.editinfo.menu.button2}" style="background-color:#00A3FE"/>
+        </div>
+        <table id="tab1">
+            <thead>
+            <tr height="35px">
+                <th width="25px"></th>
+                <th width="35px">No</th>
+                <th width="108px">Start MH</th>
+                <th width="118px">Start Depth</th>
+                <th width="118px">Cover Level</th>
+                <th width="118px">Invert Level</th>
+                <th width="108px">Finish MH</th>
+                <th width="118px">Start Depth</th>
+                <th width="118px">Cover Level</th>
+                <th width="118px">Invert Level</th>
+                <th width="105px">Video No</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pipe:${pipes}" th:id="${pipe.id}">
+                <td width="25px"></td>
+                <td width="35px" th:text="${pipe.no}"></td>
+                <td width="108px" th:text="${pipe.smanholeno}"></td>
+                <td width="118px" th:text="${pipe.sdepth}"></td>
+                <td width="118px" th:text="${pipe.scoverlevel}"></td>
+                <td width="118px" th:text="${pipe.sinvertlevel}"></td>
+                <td width="108px" th:text="${pipe.fmanholeno}"></td>
+                <td width="118px" th:text="${pipe.fdepth}"></td>
+                <td width="118px" th:text="${pipe.fcoverlevel}"></td>
+                <td width="118px" th:text="${pipe.finvertlevel}"></td>
+                <td width="105px" th:text="${pipe.videono}"></td>
+                <td>
+                    <input type="button" th:value="#{project.editinfo.pipe.list.button1}" style="background-color: #ff8000"/>
+                    <input type="button" th:value="#{project.editinfo.pipe.list.button2}" style="background-color: #ee4200"/>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div id="export"><a th:href="@{export(id=${param.id})}" th:text="#{project.editinfo.pipe.list.export}"></a></div>
+    </div>
+
+    <!-- main2开始 -->
+    <form id="form1" method="post">
+        <input id="id1" type="hidden" name="id" th:value="${pipe.id}"/>    <!-- 记录管道ID -->
+        <input id="id2" type="hidden" name="project.id" th:value="${param.id}"/>    <!-- 记录项目ID -->
+        <div id="main2">
+            <div id="title1" style="height:30px;">
+                <span style="width:102px;">Survey ID</span>
+                <span style="width:102px;">Operator</span>
+                <span style="width:102px;">Work Order No</span>
+                <span style="width:152px;">Pipe Length Reference</span>
+                <span style="width:132px;">Purpose</span>
+                <span style="width:102px;">Slope</span>
+                <span style="width:152px;"><a href="http://www.slope.landsd.gov.hk/smris/disclaimer" target="_blank">Slope Reference No</a></span>
+                <span style="width:102px;">Year Laid</span>
+                <span style="width:102px;">Date</span>
+                <span style="width:102px;">Time</span>
+            </div>
+            <div id="value1" style="height:30px;">
+                <input type="text" name="no" th:value="${pipe.no}" style="width:100px;"/>
+                <select name="operator" th:field="${pipe.operator}" style="width:102px;">
+                    <option th:each="operator:${operators}" th:value="${operator.name}" th:text="${operator.name}"></option>
+                </select>
+                <input type="text" name="workorder" th:value="${pipe.workorder}" style="width:100px;"/>
+                <input type="text" name="reference" th:value="${pipe.reference}" style="width:150px;"/>
+                <input type="text" name="purposes" th:value="${pipe.purposes}" style="width:130px;"/>
+                <select name="slope" th:field="${pipe.slope}" style="width:102px;">
+                    <option value="Y">Y</option>
+                    <option value="N">N</option>
+                </select>
+                <input type="text" name="sloperef" th:value="${pipe.sloperef}" style="width:150px;"/>
+                <input type="text" name="yearlaid" th:value="${pipe.yearlaid}" style="width:100px;"/>
+                <input type="text" name="date" th:value="${pipe.date}" style="width:100px;"/>
+                <input type="text" name="time" th:value="${pipe.time}" style="width:100px;"/>
+            </div>
+            <div id="title2" style="height:30px;">
+                <span style="width:102px;">District1</span>
+                <span style="width:102px;">District2</span>
+                <span style="width:102px;">District3</span>
+                <span style="width:181px;">Road Name</span>
+                <span style="width:181px;">House Number</span>
+                <span style="width:181px;">Building</span>
+                <span style="width:102px;">Division</span>
+                <span style="width:209px;">Drainage Area Code</span>
+            </div>
+            <div id="value2" style="height:30px;">
+                <select th:id="${pipe.district1}" name="district1" style="width:102px;"></select>
+                <select th:id="${pipe.district2}" name="district2" style="width:102px;"></select>
+                <select th:id="${pipe.district3}" name="district3" style="width:102px;"></select>
+                <input type="text" name="roadname" th:value="${pipe.roadname}" style="width:179px;"/>
+                <input type="text" name="housenum" th:value="${pipe.housenum}" style="width:179px;"/>
+                <input type="text" name="building" th:value="${pipe.building}" style="width:179px;"/>
+                <input type="text" name="division" th:value="${pipe.division}" style="width:100px;background-color:#EBEBE4;">
+                <input type="text" name="areacode" th:value="${pipe.areacode}" style="width:207px;background-color:#EBEBE4;">
+            </div>
+            <div id="title3" style="height:30px;">
+                <span style="width:102px;">Start MH</span>
+                <span style="width:102px;">Finish MH</span>
+                <span style="width:102px;">Use</span>
+                <span style="width:102px;">Direction</span>
+                <span style="width:102px;">Size(Dia)H</span>
+                <span style="width:102px;">Size(Dia)W</span>
+                <span style="width:110px;">Shape</span>
+                <span style="width:110px;">Material</span>
+                <span style="width:109px;">Lining</span>
+                <span style="width:102px;">Pipe Length</span>
+                <span style="width:102px;">Total Length</span>
+            </div>
+            <div id="value3" style="height:30px;">
+                <input type="text" name="smanholeno" th:value="${pipe.smanholeno}" style="width:100px;">
+                <input type="text" name="fmanholeno" th:value="${pipe.fmanholeno}" style="width:100px;">
+                <select name="uses" th:field="${pipe.uses}" style="width:102px;">
+                    <option value="F">Foul</option>
+                    <option value="S">Surface water</option>
+                    <option value="C">Combined</option>
+                    <option value="T">Trade effluent</option>
+                    <option value="W">Watercourse</option>
+                    <option value="O">Others</option>
+                    <option value="U">Unknown</option>
+                    <option value="">--</option>
+                </select>
+                <select name="dire" th:field="${pipe.dire}" style="width:102px;">
+                    <option value="D">Downstream</option>
+                    <option value="U">Upstream</option>
+                    <option value="">--</option>
+                </select>
+                <input type="text" name="hsize" th:value="${pipe.hsize}" style="width:100px;">
+                <input type="text" name="wsize" th:value="${pipe.wsize}" style="width:100px;">
+                <select name="shape" th:field="${pipe.shape}" style="width:110px;">
+                    <option value="A">Arched with Flat Bottom</option>
+                    <option value="B">Barrel e.g. Beer Barrel Shape</option>
+                    <option value="C">Circular</option>
+                    <option value="E">Egg Shape</option>
+                    <option value="H">Horseshoe</option>
+                    <option value="O">Oval</option>
+                    <option value="K">Kerb Block</option>
+                    <option value="R">Rectangular</option>
+                    <option value="S">Square</option>
+                    <option value="T">Trapezoidal</option>
+                    <option value="U">U-shaped with Flat Top</option>
+                    <option value="Z">Other</option>
+                    <option value="">--</option>
+                </select>
+                <select name="mater" th:field="${pipe.mater}" style="width:110px;">
+                    <option value="AC">Asbestos Cement</option>
+                    <option value="BL">Bitumen Lining</option>
+                    <option value="BR">Brick</option>
+                    <option value="CI">Cast Iron</option>
+                    <option value="CL">Cement Mortar Lining</option>
+                    <option value="CO">Concrete</option>
+                    <option value="CS">Concrete Segments</option>
+                    <option value="DI">Ductile Iron</option>
+                    <option value="EP">Epoxy</option>
+                    <option value="FC">Fibre Cement</option>
+                    <option value="FRP">Fibre Reinforced Plastics</option>
+                    <option value="GI">Galvanised Iron</option>
+                    <option value="MAC">Masonry in Regular Courses</option>
+                    <option value="MAR">Masonry in Randomly Coursed</option>
+                    <option value="PVC">Polyvinyl Chloride</option>
+                    <option value="PE">Polyethylene</option>
+                    <option value="PF">Pitch Fibre</option>
+                    <option value="PP">Polypropylene</option>
+                    <option value="PS">Polyester</option>
+                    <option value="RC">Reinforced Concrete</option>
+                    <option value="SPC">Sprayed Concrete</option>
+                    <option value="ST">Steel</option>
+                    <option value="VC">Vitrified Clay</option>
+                    <option value="X">Unidentified Material</option>
+                    <option value="XI">Unidentified Type of Iron or Steel</option>
+                    <option value="XP">Unidentified Type of Plastics</option>
+                    <option value="Z">Other</option>
+                    <option value="">--</option>
+                </select>
+                <select name="lining" th:field="${pipe.lining}" style="width:109px;">
+                    <option value="CF">Close Fit Lining</option>
+                    <option value="CIP">Cured In Place Lining</option>
+                    <option value="CP">Lining With Continuous Pipes</option>
+                    <option value="DP">Lining With Discrete Pipes</option>
+                    <option value="M">Lining Inserted During Manufacture</option>
+                    <option value="N">No Lining</option>
+                    <option value="SEG">Segmental Linings</option>
+                    <option value="SP">Sprayed Lining</option>
+                    <option value="SW">Spirally Wound Lining</option>
+                    <option value="Z">Other</option>
+                    <option value="">--</option>
+                </select>
+                <input type="text" name="pipelength" th:value="${pipe.pipelength}" style="width:100px;">
+                <input type="text" name="testlength" th:value="${pipe.testlength}" style="width:100px;">
+            </div>
+            <div id="title4" style="height:30px;">
+                <span style="width:102px;"><a>Start Depth</a></span>
+                <span style="width:102px;">Cover Level</span>
+                <span style="width:102px;">Invert Level</span>
+                <span style="width:102px;">Finish Depth</span>
+                <span style="width:102px;">Cover Level</span>
+                <span style="width:102px;">Invert Level</span>
+                <span style="width:110px;">Category</span>
+                <span style="width:110px;">Cleaned</span>
+                <span style="width:109px;">Weather</span>
+                <span style="width:209px;">Video No/File Name</span>
+            </div>
+            <div id="value4" style="height:30px;">
+                <input type="text" name="sdepth" th:value="${pipe.sdepth}" style="width:100px">
+                <input type="text" name="scoverlevel" th:value="${pipe.scoverlevel}" style="width:100px">
+                <input type="text" name="sinvertlevel" th:value="${pipe.sinvertlevel}" style="width:100px;background-color:#EBEBE4;">
+                <input type="text" name="fdepth" th:value="${pipe.fdepth}" style="width:100px">
+                <input type="text" name="fcoverlevel" th:value="${pipe.fcoverlevel}" style="width:100px">
+                <input type="text" name="finvertlevel" th:value="${pipe.finvertlevel}" style="width:100px;background-color:#EBEBE4;">
+                <input type="text" name="category" th:value="${pipe.category}" style="width:108px;">
+                <select name="cleaned" th:field="${pipe.cleaned}" style="width:110px;">
+                    <option value="Y">Y</option>
+                    <option value="N">N</option>
+                    <option value="">--</option>
+                </select>
+                <select name="weather" th:field="${pipe.weather}" style="width:109px;">
+                    <option value="1">Dry</option>
+                    <option value="2">Heavy Rain</option>
+                    <option value="3">Light Rain</option>
+                    <option value="4">Showers</option>
+                    <option value="">--</option>
+                </select>
+                <input type="text" name="videono" th:value="${pipe.videono}" style="width:207px;">
+            </div>
+            <div id="value5" style="height:30px;">
+                <span style="width:125px;">Comments General:</span>
+                <input type="text" name="comment" th:value="${pipe.comment}" style="width:1063px;margin-top:4px;" list="commentlist">
+            </div>
+        </div>
+
+        <!-- 画图显示管道开始 -->
+        <canvas id="showpipeimg" width="210px" height="840px"></canvas>
+
+        <div id="main3">
+            <!-- 输出视频播放器开始 -->
+            <div id="media">
+                <video id="video" controls="controls" poster="/cctv/img/poster1.png"></video>
+                <div class="videoTitle">Preview</div>
+                <img id="image1" class="image"/>
+                <div class="videoTitle">Picture</div>
+                <img id="image2" class="image"/>
+            </div>
+
+            <div id="memu2">
+                <span th:text="#{project.editinfo.item.title}"></span>
+                <input type="button" th:value="#{project.editinfo.item.button1}" style="background-color:#51C83D"/>
+                <input type="button" th:value="#{project.editinfo.item.button2}" style="background-color:#00A3FE"/>
+                <input type="button" th:value="#{project.editinfo.item.button3}" style="background-color:#EF414C"/>
+                <div style="width:10px;height:100%;line-height:30px;font-weight:600;text-align:center;float:left;">|</div>
+                <input type="button" th:value="#{project.editinfo.item.button4}" style="width:105px;background-color:#16B1AC"/>
+                <input type="button" th:value="#{project.editinfo.item.button5}" style="width:105px;background-color:#F54545"/>
+            </div>
+
+            <table id="title" class="layui-table">
+                <tr height="20px" style="background-color: #505984;">
+                    <th width="29px" rowspan="2"></th>
+                    <th width="99px" rowspan="2">Video Time</th>
+                    <th width="99px" rowspan="2">Photo No</th>
+                    <th width="99px" rowspan="2">Distance</th>
+                    <th width="79px" rowspan="2">Cont<br/>Def</th>
+                    <th width="79px" rowspan="2">Code</th>
+                    <th width="99px" rowspan="2">Dia./Dim</th>
+                    <th width="99px" colspan="2">Clock</th>
+                    <th width="99px" colspan="2">Intrusion</th>
+                    <th rowspan="2">Remarks</th>
+                </tr>
+                <tr height="20px" style="background-color: #505984;">
+                    <th width="50%">At</th>
+                    <th width="50%">To</th>
+                    <th width="50%">%</th>
+                    <th width="50%">mm</th>
+                </tr>
+            </table>
+            <!-- 输出记录列表开始 -->
+            <div id="showItem" style="background-color:#dddddd;">
+                <table id="tab2" class="layui-table">
+                    <colgroup>
+                        <col width="3%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="10%">
+                        <col width="8%">
+                        <col width="8%">
+                        <col width="10%">
+                        <col width="5%">
+                        <col width="5%">
+                        <col width="5%">
+                        <col width="5%">
+                        <col>
+                    </colgroup>
+                    <tr th:each="item:${pipe.items}">
+                        <td><input type="hidden" th:value="${item.id}"/><a></a></td>
+                        <td><input type="text" th:value="${item.video}"/></td>
+                        <td><input type="text" th:value="${item.photo}"/><img/></td>
+                        <td><input type="text" th:value="${item.dist}"/></td>
+                        <td><input type="text" th:value="${item.cont}"/></td>
+                        <td><input type="text" th:value="${item.code}"/></td>
+                        <td><input type="text" th:value="${item.diam}"/></td>
+                        <td><input type="text" th:value="${item.clockAt}"/></td>
+                        <td><input type="text" th:value="${item.clockTo}"/></td>
+                        <td><input type="text" th:value="${item.percent}"/></td>
+                        <td><input type="text" th:value="${item.lengths}"/></td>
+                        <td><input type="text" th:value="${item.remarks}"/></td>
+                        <td><input type="hidden" th:value="${item.picture}"/></td>
+                    </tr>
+                </table>
+                <div id="datalist" style="display:none"></div>
+            </div>
+            <!-- 输出记录列表结束 -->
+        </div>
+    </form>
+</div>
+<input type="file" id="file1" accept="video/*" style="display:none"/>
+<input type="file" id="file2" accept="image/*" style="display:none"/>
+<canvas id="canvas1" style="display:none"></canvas>
+
+<form id="form2" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${param.id}"/>
+    <input type="file" name="xfile" accept=".xlsx" style="display:none"/>
+</form>
+<form id="form3" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" th:value="${param.id}"/>
+    <input type="file" name="files" style="display:none;"/>
+</form>
+
+<div class="item" style="bottom: 160px">－</div>
+<div class="item" style="bottom: 110px">△</div>
+
+<datalist id="commentlist">
+    <option>Counter started reading at 1m.</option>
+    <option>Counter started reading at 1m. S.A.</option>
+    <option>Counter started reading at 1m. Video error Material: CI.</option>
+    <option>GNC is connected to Y18</option>
+    <option>Video error: FH/MH: F1</option>
+    <option>Video error: FH/MH: F1. S.A.</option>
+    <option>Video error: Finish Survey, U-Trap</option>
+    <option>Video error: Material: CI</option>
+    <option>Video error: S.A.</option>
+    <option>Video error: Size: 100</option>
+    <option>Video error. Size: 100. S.A.</option>
+    <option>Video error: ST/MH: S1</option>
+    <option>Video error: ST/MH: S1. S.A.</option>
+    <option>Video error: Survey finished</option>
+</datalist>
+
+<!-- Code 列表 -->
+<datalist id="icode"></datalist>
+<datalist id="codes" th:if="${#strings.contains(project.standard, 'H')}">
+    <option th:each="code:${codes}" th:value="${code.code1}" th:text="${code.explain1}" th:data-value="${code.value}"></option>
+</datalist>
+<datalist id="codes" th:if="${#strings.contains(project.standard, 'M')}">
+    <option th:each="code:${codes}" th:value="${code.code2}" th:text="${code.explain1}" th:data-value="${code.value}"></option>
+</datalist>
+
+<datalist id="conts">
+    <option>S1</option>
+    <option>C1</option>
+    <option>F1</option>
+    <option>S2</option>
+    <option>C2</option>
+    <option>F2</option>
+    <option>S3</option>
+    <option>C3</option>
+    <option>F3</option>
+    <option>S4</option>
+    <option>C4</option>
+    <option>F4</option>
+    <option>S5</option>
+    <option>C5</option>
+    <option>F5</option>
+    <option>S6</option>
+    <option>C6</option>
+    <option>F6</option>
+    <option>S7</option>
+    <option>C7</option>
+    <option>F7</option>
+    <option>S8</option>
+    <option>C8</option>
+    <option>F8</option>
+    <option>S9</option>
+    <option>C9</option>
+    <option>F9</option>
+</datalist>
+
+<datalist id="DAF">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DAFJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE F">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DAZ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DAZJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE Z">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DAG">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DAGJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE G">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DEC">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DECJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE C">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DER">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE R">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DES">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DESJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE S">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DEZ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DEZJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="DE X">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="EL">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ELJ">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="DE E-1">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="EM">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="EMJ">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="DE E-2">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="EH">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="EHJ">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="DE E-3">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ESL">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ESM">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ESH">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ID">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="IDJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="I D">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="IG">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="IGJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="I G">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="IR">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="IRJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="I R">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="IS">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="ISJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="I S">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="OBB">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB B">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OBC">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB C">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OBI">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB I">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OBM">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB M">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OBP">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB P">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OBS">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB S">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OBZ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="OB Z">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="PP">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="RF">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="RFJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="R F">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="RM">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="RMJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="R M">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="RT">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="RTJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="R T">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="SC">
+    <option>Arched with Flat Bottom</option>
+    <option>Barrel</option>
+    <option>Circular</option>
+    <option>Egg shaped</option>
+    <option>Horseshoe</option>
+    <option>Oval</option>
+    <option>Rectangular</option>
+    <option>Square</option>
+    <option>Trapezoidal</option>
+    <option>U-shaped with Flat Top</option>
+    <option>Kerb Block</option>
+    <option>Others</option>
+</datalist>
+<datalist id="SC-1">
+    <option>Arched with Flat Bottom</option>
+    <option>Barrel</option>
+    <option>Circular</option>
+    <option>Egg shaped</option>
+    <option>Horseshoe</option>
+    <option>Oval</option>
+    <option>Rectangular</option>
+    <option>Square</option>
+    <option>Trapezoidal</option>
+    <option>U-shaped with Flat Top</option>
+    <option>Kerb Block</option>
+    <option>Others</option>
+</datalist>
+<datalist id="B">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="BJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CC">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CCJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="C C">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CM">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CMJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="C M">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CS">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CSJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="C S">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="DB">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="DH">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="D H">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="DI">
+    <option>RAT</option>
+    <option>SHARP</option>
+    <option>SLIGHT</option>
+    <option>STEEP</option>
+    <option>SYPHON</option>
+</datalist>
+<datalist id="DV">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="D V">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="EX">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="EXJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="FC">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="FIC">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="FWCS">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="FIT">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="FWTF">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="FL">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="FLJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="F L">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="FM">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="FMJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="F M">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="FSJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="F S">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="HA">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="HAJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="H-1">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="HB">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="HBJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="H-2">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="INF">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="ING">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="INGJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="ING G">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="INSJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="ING S">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="INZ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="INZJ">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="ING Z">
+    <option>FROM CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>RAGS</option>
+    <option>STONES ETC…</option>
+    <option>TIMES VARY</option>
+</datalist>
+<datalist id="JDL">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="JD (L)">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="JDM">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="JD (M)">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="MB">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ML">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="ML-1">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="MM">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="MM-2">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="MS">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="MM-3">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="OJL">
+    <option>FROM CONNECTION</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="OJ (L)">
+    <option>FROM CONNECTION</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="OJM">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="OJ (M)">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SRB">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SR B">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SRI">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SR">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SRZ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="S O">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SSL">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SS-1">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SSM">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SS-2">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SSS">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SS3">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SWL">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SW-1">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SWM">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SW-2">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SWS">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SW-3">
+    <option>AT JOINT</option>
+    <option>CONCRETE</option>
+    <option>GROUT</option>
+</datalist>
+<datalist id="SV">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="SVJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="VV">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="VVJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="XB">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="XBJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="X B">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="XP">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="XPJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="X P">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="MC">
+    <option>Asbestos Cement</option>
+    <option>Bitumen Lining</option>
+    <option>Brick</option>
+    <option>Cast Iron</option>
+    <option>Cement Mortar Lining</option>
+    <option>Concrete</option>
+    <option>Concrete Segments</option>
+    <option>Ductile Iron</option>
+    <option>Epoxy</option>
+    <option>Fibre Cement</option>
+    <option>Fibre Reinforced Plastics</option>
+    <option>Galvanised Iron</option>
+    <option>Masonry - in Regular Courses</option>
+    <option>Masonry - in Randomly Coursed</option>
+    <option>Polyvinyl Chloride</option>
+    <option>Polyethylene</option>
+    <option>Pitch Fibre</option>
+    <option>Polypropylene</option>
+    <option>Polyester</option>
+    <option>Reinforced Concrete</option>
+    <option>Sprayed Concrete</option>
+    <option>Steel</option>
+    <option>Vitrified Clay</option>
+    <option>Unidentified Material</option>
+    <option>Unidentified Type of Iron or Steel</option>
+    <option>Unidentified Type of Plastics</option>
+    <option>Other</option>
+</datalist>
+<datalist id="M C">
+    <option>Asbestos Cement</option>
+    <option>Bitumen Lining</option>
+    <option>Brick</option>
+    <option>Cast Iron</option>
+    <option>Cement Mortar Lining</option>
+    <option>Concrete</option>
+    <option>Concrete Segments</option>
+    <option>Ductile Iron</option>
+    <option>Epoxy</option>
+    <option>Fibre Cement</option>
+    <option>Fibre Reinforced Plastics</option>
+    <option>Galvanised Iron</option>
+    <option>Masonry - in Regular Courses</option>
+    <option>Masonry - in Randomly Coursed</option>
+    <option>Polyvinyl Chloride</option>
+    <option>Polyethylene</option>
+    <option>Pitch Fibre</option>
+    <option>Polypropylene</option>
+    <option>Polyester</option>
+    <option>Reinforced Concrete</option>
+    <option>Sprayed Concrete</option>
+    <option>Steel</option>
+    <option>Vitrified Clay</option>
+    <option>Unidentified Material</option>
+    <option>Unidentified Type of Iron or Steel</option>
+    <option>Unidentified Type of Plastics</option>
+    <option>Other</option>
+</datalist>
+<datalist id="SAA">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="SAC">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="SAD">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="SAS">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="SAT">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="SAZ">
+    <option>Due to debris / silt.</option>
+    <option>Due to compacted / hard.</option>
+    <option>Due to scale medium.</option>
+    <option>Due to scale heavy.</option>
+    <option>Due to camera under water.</option>
+    <option>Due to high water level.</option>
+    <option>Due to backdrop.</option>
+    <option>Due to collapse.</option>
+    <option>Due to danger to equipment.</option>
+    <option>Due to debris.</option>
+    <option>Due to debris grease.</option>
+    <option>Due to deformed pipe.</option>
+    <option>Due to diameter change to.</option>
+    <option>Due to displaced joint large.</option>
+    <option>Due to displaced joint medium.</option>
+    <option>Due to encrustation heavy.</option>
+    <option>Due to encrustation medium.</option>
+    <option>Due to hole.</option>
+    <option>Due to intruding connection.</option>
+    <option>Due to line down.</option>
+    <option>Due to line left.</option>
+    <option>Due to line right.</option>
+    <option>Due to line up.</option>
+    <option>Due to loss of traction.</option>
+    <option>Due to main line.</option>
+    <option>Due to manhole in sight.</option>
+    <option>Due to mass roots.</option>
+    <option>Due to obstruction.</option>
+    <option>Due to out of survey area.</option>
+    <option>Due to overlap reached.</option>
+    <option>Due to surface wear large.</option>
+    <option>Due to surface wear medium.</option>
+    <option>Due to syphon.</option>
+    <option>Due to uncharted manhole.</option>
+</datalist>
+<datalist id="#4-1">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="#4-2">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="#4-3">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="#4-4">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="#4-5">
+    <option>DUE TO BACKDROP</option>
+    <option>DUE TO CAMERA UNDER WATER</option>
+    <option>DUE TO COLLAPSE</option>
+    <option>DUE TO DANGER TO EQUIPMENT</option>
+    <option>DUE TO DEBRIS</option>
+    <option>DUE TO DEBRIS GREASE</option>
+    <option>DUE TO DEBRIS SILT</option>
+    <option>DUE TO DEFORMED PIPE</option>
+    <option>DUE TO DIAMETER CHANGE TO</option>
+    <option>DUE TO DISPLACED JOINT LARGE</option>
+    <option>DUE TO DISPLACED JOINT MEDIUM</option>
+    <option>DUE TO ENCRUSTATION HEAVY</option>
+    <option>DUE TO ENCRUSTATION MEDIUM</option>
+    <option>DUE TO HOLE</option>
+    <option>DUE TO INTRUDING CONNECTION</option>
+    <option>DUE TO LINE DOWN</option>
+    <option>DUE TO LINE LEFT</option>
+    <option>DUE TO LINE RIGHT</option>
+    <option>DUE TO LINE UP</option>
+    <option>DUE TO LOSS OF TRACTION</option>
+    <option>DUE TO MAIN LINE</option>
+    <option>DUE TO MANHOLE IN SIGHT</option>
+    <option>DUE TO MASS ROOTS</option>
+    <option>DUE TO OBSTRUCTION</option>
+    <option>DUE TO OUT OF SURVEY AREA</option>
+    <option>DUE TO OVERLAP REACHED</option>
+    <option>DUE TO SURFACE WEAR LARGE</option>
+    <option>DUE TO SURFACE WEAR MEDIUM</option>
+    <option>DUE TO SYPHON</option>
+    <option>DUE TO UNCHARTED MANHOLE</option>
+</datalist>
+<datalist id="CP">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="CPF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="C P">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="GY">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="GYF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="G Y">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="IC">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="ICF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="I C">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="LH">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="LHF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="L H">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="BR">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="BRF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="B R">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="OS">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="OS F">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="O S">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="CZ">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="O C">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="OCF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="OF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="O F">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="OFF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="RE">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="R E">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="REF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="SK">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="SKF">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="S K">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="RXM">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RX M">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RXZ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RX Z">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="WXC">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="WX C">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="WXL">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="WX L">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="WXS">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="WX S">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPH">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RP H">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPI">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RP I">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPL">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RP L">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPP">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPR">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RP R">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPS">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RP S">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RPZ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="RP Z">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CN">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="CNJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="CXB">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXBJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CX B">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXD">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXDJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CX D">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXI">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="CXIJ">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="CX I">
+    <option>UNCHARTED MAJOR BRANCH</option>
+    <option>UNCHARTED CATCHPIT</option>
+    <option>UNCHARTED CHAMBER</option>
+    <option>UNCHARTED GULLY</option>
+    <option>UNCHARTED LAMPHOLE</option>
+    <option>UNCHARTED MANHOLE</option>
+    <option>UNCHARTED OIL SEPARATOR</option>
+    <option>UNCHARTED RODDING EYE</option>
+    <option>UNCHARTED OUTFALL</option>
+    <option>UNCHARTED SOAKAWAY</option>
+    <option>UNCHARTED NODE</option>
+</datalist>
+<datalist id="CXP">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXPJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CX P">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXZ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CXZJ">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="CX Z">
+    <option>DEFECT WANDERS</option>
+    <option>LIVE</option>
+    <option>POORLY FITTED</option>
+    <option>VOID</option>
+</datalist>
+<datalist id="JN">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JNJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXB">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXBJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JX B">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXD">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXDJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JX D">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXP">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXPJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JX P">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXZ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JXZJ">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+<datalist id="JX Z">
+    <option>FROM BEHIND CONNECTION</option>
+    <option>FROM FRACTURE</option>
+    <option>LIVE</option>
+</datalist>
+
+<div style="width:100%;margin:20px 0;color:#ccc;text-align:center;font-size:14px;float:left;">
+    <p style="line-height: 20px;margin: 10px 0;">香港麦斯迪埃高科技有限责任公司</p>
+    <p style="line-height: 20px;margin: 10px 0;">Copyright © 2017 All Rights Reserved</p>
+</div>
+
+</body>
 </html>

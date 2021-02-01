@@ -1,9 +1,9 @@
 package com.springboot.dao;
 
+import com.springboot.entity.Code;
+
 import java.util.List;
 import java.util.Map;
-
-import com.springboot.entity.Code;
 
 public interface CodeDao {
 

@@ -1,166 +1,172 @@
 @CHARSET "UTF-8";
-
 body {
-	background-color: #f1f1f1;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
 }
 
 #naviMain {
-	width: 100%;
-	height: 80px;
-	background-color: #3A3F4A;
+    width: 100%;
+    height: 80px;
+    background-color: #3A3F4A;
 }
 
 #navi {
-	width: 1000px;
-	height: 80px;
-	margin: 0 auto;
+    width: 1000px;
+    height: 80px;
+    margin: 0 auto;
 }
 
 #navilogo {
-	width: 106px;
-	height: 50px;
-	margin: 15px 10px;
-	cursor: pointer;
+    width: 106px;
+    height: 50px;
+    margin: 15px 10px;
+    cursor: pointer;
+    float: left;
 }
 
 .naviItem {
-	width: 120px;
-	height: 100%;
-	font-size: 18px;
-	font-family: simsun;
-	text-align: center;
-	line-height: 80px;
-	float: left;
+    width: 120px;
+    height: 100%;
+    font: 18px simsun;
+    text-align: center;
+    line-height: 80px;
+    float: right;
 }
 
 .naviItem img {
-	width: 24px;
-	height: 24px;
-	margin-top: 28px;
-	float: left;
+    width: 24px;
+    height: 24px;
+    margin: 28px 0;
+    float: left;
 }
 
 .naviItem a {
-	color: #BABABA;
-	margin-left: 6px;
-	text-decoration: none;
-	cursor: pointer;
-	float: left;
+    color: #BABABA;
+    margin-left: 6px;
+    text-decoration: none;
+    cursor: pointer;
+    float: left;
 }
 
 .naviItem a:hover {
-	color: #0082DF;
+    color: #0082DF;
 }
-/** ********************************************************* */
+
+/** **************************************************** */
 #main {
-	width: 1000px;
-	margin: 0px auto;
+    width: 1000px;
+    margin: 0 auto;
 }
 
 #mainInfo {
-	width: 100%;
-	height: 700px;
-	margin-top: 10px;
-	background-color: #fff;
-	float: left;
+    width: 100%;
+    height: 700px;
+    margin-top: 10px;
+    background-color: #fff;
+    float: left;
 }
 
 #mainTop {
-	width: 100%;
-	height: 48px;
-	font-size: 20px;
-	font-family: simsun;
-	font-weight: 700;
-	text-indent: 20px;
-	line-height: 48px;
-	border-bottom: 2px solid #5EA500;
-	float: left;
+    width: 100%;
+    height: 48px;
+    font: 600 20px simsun;
+    text-indent: 20px;
+    line-height: 48px;
+    border-bottom: 2px solid #5EA500;
+    float: left;
 }
 
 .field {
-	width: 760px;
-	margin-top: 25px;
-	margin-left: 105px;
-	border-radius: 4px;
-	float: left;
-}
-
-#table1 tr {
-	height: 45px;
-	font-size: 18px;
-	font-family: simsun;
-	font-weight: 600;
-}
-
-#infoTitle {
-	width: 785px;
-	height: 40px;
-	font-size: 20px;
-	font-weight: 600;
-	line-height: 40px;
-	margin: 30px 105px 5px 105px;
-	border-bottom: 2px solid #999;
-	float: left;
-}
-
-#mainlist {
-	width: 785px;
-	max-height: 320px;
-	font-size: 16px;
-	font-family: 仿宋;
-	font-weight: 600;
-	margin: 0px 105px 20px 105px;
-	border: 1px solid #ccc;
-	float: left;
-}
-
-#infoTop {
-	width: 100%;
-	height: 40px;
-	background-color: #252829;
-	float: left;
-}
-
-#infoTop div {
-	height: 100%;
-	color: #fff;
-	font-size: 18px;
-	text-align: center;
-	line-height: 40px;
-	float: left;
+    width: 760px;
+    padding: 10px;
+    margin: 30px 108px;
+    border-radius: 6px;
+    float: left;
 }
 
 #tab1 {
-	width: 100%;
-	border-collapse: collapse;
-	table-layout: fixed;
+    margin: 0 10px;
 }
 
 #tab1 tr {
-	height: 24px;
-	font-size: 16px;
-	text-align: center;
-	background-color: #ffffff;
-}
-
-#tab1 tr:nth-child(even) {
-	background-color: #f0f0f0;
-}
-
-#tab1 tr:hover {
-	background-color: #FFD58D;
+    height: 45px;
+    font: 600 18px simsun;
 }
 
 #tab1 tr td {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+#listTitle {
+    width: 784px;
+    height: 40px;
+    margin: 5px 108px;
+    font: 600 20px simsun;
+    text-indent: 10px;
+    line-height: 40px;
+    border-bottom: 2px solid #252829;
+    float: left;
+}
+
+#tab2 {
+    width: 784px;
+    margin: 0 108px;
+    border-bottom: 1px solid #F1F1F1;
+    float: left;
+}
+
+#tab2 thead tr,
+#tab2 tbody tr {
+    width: 100%;
+    display: table;
+}
+
+#tab2 thead tr th,
+#tab2 tbody tr td {
+    padding: 0;
+}
+
+#tab2 thead {
+    color: #ffffff;
+    font: 600 18px simsun;
+    background-color: #252829;
+}
+
+#tab2 tbody {
+    max-height: 240px;
+    font: 600 16px fangsong;
+    text-align: center;
+    overflow-y: scroll;
+    display: block;
+}
+
+#tab2 tbody tr {
+    height: 24px;
+    cursor: pointer;
+}
+
+#tab2 tbody tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+#tab2 tbody tr:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+#tab2 tbody tr:hover {
+    background-color: #FFD58D;
 }
 
 #link {
-	text-decoration: none;
+    font: 600 16px fangsong;
+    text-decoration: none;
+    float: right;
 }
 
 #link:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
